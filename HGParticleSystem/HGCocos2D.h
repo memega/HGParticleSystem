@@ -10,6 +10,9 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <GLKit/GLKit.h>
 
+#if defined(__has_include)
+#if !__has_include("cocos2d.h")
+
 #ifndef CCLOG
 #define CCLOG NSLog
 #endif
@@ -108,3 +111,6 @@ static inline void CCRenderBufferSetTriangle(CCRenderBuffer buffer, int index, G
 +(NSValue *)valueWithGLKVector2:(GLKVector2)vector;
 
 @end
+
+#endif // __has_include
+#endif // __has_include

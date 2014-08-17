@@ -8,6 +8,9 @@
 
 #import "HGCocos2D.h"
 
+#if defined(__has_include)
+#if !__has_include("cocos2d.h")
+
 const NSString *CCBlendFuncSrcColor = @"CCBlendFuncSrcColor";
 const NSString *CCBlendFuncDstColor = @"CCBlendFuncDstColor";
 
@@ -57,3 +60,6 @@ const NSString *CCBlendFuncDstColor = @"CCBlendFuncDstColor";
 +(NSValue *)valueWithGLKVector2:(GLKVector2)vector { return nil; }
 
 @end
+
+#endif // __has_include
+#endif // __has_include
