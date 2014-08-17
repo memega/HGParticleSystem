@@ -93,11 +93,7 @@ typedef struct
     GLKVector2 _gravity;
     
     BOOL _emissionModule;
-    CGFloat _emissionRate;
-    
-    BOOL _rotationOverLifetimeModule;
-    HGPropertyRef _rotationAngularVelocity; // constant, gradient
-    BOOL _rotationRandomDirection;
+    HGPropertyRef _emissionRate; // constant, curve
     
     BOOL _shapeModule;
     HGParticleSystemEmitterShape _emitterShape;
@@ -117,6 +113,13 @@ typedef struct
     
     BOOL _colorOverLifetimeModule;
     HGPropertyRef _colorOverLifetime; // gradient
+    
+    BOOL _rotationOverLifetimeModule;
+    HGPropertyRef _rotationAngularVelocity; // constant, gradient
+    BOOL _rotationRandomDirection;
+    
+    BOOL _spinningOverLifetimeModule;
+    BOOL _spinningOverLifetime;
     
     BOOL _blendModule;
     GLuint _blendingSrc;
@@ -173,6 +176,7 @@ typedef struct
                                  HGStartSpeedPropertyKey,
                                  HGStartRotationPropertyKey,
                                  HGStartColorPropertyKey,
+                                 HGEmissionRatePropertyKey,
                                  HGRotationAngularVelocityPropertyKey,
                                  HGSizeOverLifetimePropertyKey,
                                  HGSpeedOverLifetimePropertyKey,
@@ -189,8 +193,41 @@ typedef struct
                                  HGDurationPropertyKey,
                                  HGLoopingPropertyKey,
                                  HGLifetimePropertyKey,
-                                 HGStartSizePropertyKey, HGStartSpeedPropertyKey, HGStartRotationPropertyKey, HGStartColorPropertyKey, HGGravityPropertyKey, HGEmissionModulePropertyKey, HGEmissionRatePropertyKey, HGRotationOverLifetimeModulePropertyKey, HGRotationAngularVelocityPropertyKey, HGRotationRandomDirectionPropertyKey, HGSpeedOverLifetimeModulePropertyKey, HGSpeedOverLifetimeModePropertyKey, HGSpeedOverLifetimePropertyKey, HGSpeedOverLifetimeRadialAccelerationPropertyKey, HGSpeedOverLifetimeTangentialAccelerationPropertyKey, HGSizeOverLifetimeModulePropertyKey, HGSizeOverLifetimePropertyKey, HGEmitterShapeModulePropertyKey, HGEmitterShapePropertyKey, HGEmitterShapeRadiusPropertyKey, HGEmitterShapeAnglePropertyKey, HGEmitterShapeDirectionPropertyKey, HGEmitterShapeBoundaryPropertyKey, HGColorOverLifetimeModulePropertyKey, HGColorOverLifetimePropertyKey,
+                                 HGStartSizePropertyKey,
+                                 HGStartSpeedPropertyKey,
+                                 HGStartRotationPropertyKey,
+                                 HGStartColorPropertyKey,
+                                 HGGravityPropertyKey,
+                                 
+                                 HGEmissionModulePropertyKey,
+                                 HGEmissionRatePropertyKey,
+                                 
+                                 HGRotationOverLifetimeModulePropertyKey,
+                                 HGRotationAngularVelocityPropertyKey,
+                                 HGRotationRandomDirectionPropertyKey,
+                                 
+                                 HGSpeedOverLifetimeModulePropertyKey,
+                                 HGSpeedOverLifetimeModePropertyKey,
+                                 HGSpeedOverLifetimePropertyKey,
+                                 HGSpeedOverLifetimeRadialAccelerationPropertyKey,
+                                 HGSpeedOverLifetimeTangentialAccelerationPropertyKey,
+                                 
+                                 HGSizeOverLifetimeModulePropertyKey,
+                                 HGSizeOverLifetimePropertyKey,
+                                 
+                                 HGEmitterShapeModulePropertyKey,
+                                 HGEmitterShapePropertyKey,
+                                 HGEmitterShapeRadiusPropertyKey,
+                                 HGEmitterShapeAnglePropertyKey,
+                                 HGEmitterShapeDirectionPropertyKey,
+                                 HGEmitterShapeBoundaryPropertyKey,
+                                 
+                                 HGColorOverLifetimeModulePropertyKey,
+                                 HGColorOverLifetimePropertyKey,
+                                 
                                  HGBlendModulePropertyKey, HGBlendingSrcPropertyKey, HGBlendingDstPropertyKey,
+                                 
+                                 HGSpinningOverLifetimeModulePropertyKey, HGSpinningOverLifetimePropertyKey,
                                  ]];
 }
 
@@ -332,6 +369,7 @@ typedef struct
     if (_startSpeed) HGPropertyRelease(_startSpeed);
     if (_startRotation) HGPropertyRelease(_startRotation);
     if (_startColor) HGPropertyRelease(_startColor);
+    if (_emissionRate) HGPropertyRelease(_emissionRate);
     if (_rotationAngularVelocity) HGPropertyRelease(_rotationAngularVelocity);
     if (_sizeOverLifetime) HGPropertyRelease(_sizeOverLifetime);
     if (_speedOverLifetime) HGPropertyRelease(_speedOverLifetime);
@@ -592,9 +630,15 @@ typedef struct
 {
     HG_PROFILING_BEGIN(@"HGParticleSystem::Update");
     
-	if( _active && _emissionRate )
+    HGFloat emissionRate = 0.0;
+    if (_emissionModule)
     {
-		HGFloat rate = 1.0 / _emissionRate;
+        HGFloat t = _elapsed / _duration;
+        emissionRate = HGPropertyGetFloatValue(_emissionRate, t);
+    }
+	if( _active && emissionRate )
+    {
+		HGFloat rate = 1.0 / emissionRate;
 		
 		//issue #1201, prevent bursts of particles, due to too high emitCounter
 		if (_particleCount < _maxParticles)
@@ -623,7 +667,6 @@ typedef struct
     
     if (_visible)
     {
-        
         for (NSUInteger i = 0; i < _particleCount;)
         {
             HGParticle *p = &_particles[i];
