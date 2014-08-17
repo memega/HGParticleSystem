@@ -37,7 +37,7 @@
 		DE61A493199FB90D00F78F8E /* _HGGradientItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */; };
 		DE61A496199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */; };
 		DE61A497199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */; };
-		DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */; };
+		DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A49B199FBCC500F78F8E /* HGColor+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */; };
 		DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */; };
@@ -279,8 +279,8 @@
 				DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */,
 				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
 				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
-				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
 				DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */,
+				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
 				DE61A48E199FB90D00F78F8E /* _HGGradientBlendedValue.h in Headers */,
 				DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */,
 				DE61A490199FB90D00F78F8E /* _HGGradientItem.h in Headers */,

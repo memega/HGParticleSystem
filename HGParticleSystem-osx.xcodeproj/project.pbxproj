@@ -24,7 +24,7 @@
 		DEFA991119A0A4FE00CF4E9C /* HGAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98F119A0A4FE00CF4E9C /* HGAssert.h */; };
 		DEFA991219A0A4FE00CF4E9C /* HGColor+HGGradientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98F219A0A4FE00CF4E9C /* HGColor+HGGradientAdditions.h */; };
 		DEFA991319A0A4FE00CF4E9C /* HGColor+HGGradientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA98F319A0A4FE00CF4E9C /* HGColor+HGGradientAdditions.m */; };
-		DEFA991419A0A4FE00CF4E9C /* HGColor+Serialization.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98F419A0A4FE00CF4E9C /* HGColor+Serialization.h */; };
+		DEFA991419A0A4FE00CF4E9C /* HGColor+Serialization.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98F419A0A4FE00CF4E9C /* HGColor+Serialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEFA991519A0A4FE00CF4E9C /* HGColor+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA98F519A0A4FE00CF4E9C /* HGColor+Serialization.m */; };
 		DEFA991619A0A4FE00CF4E9C /* HGCurve.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98F619A0A4FE00CF4E9C /* HGCurve.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEFA991719A0A4FE00CF4E9C /* HGCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA98F719A0A4FE00CF4E9C /* HGCurve.m */; };
@@ -249,11 +249,11 @@
 				DEFA990F19A0A4FE00CF4E9C /* CGGeometryAdditions.h in Headers */,
 				DEFA992319A0A4FE00CF4E9C /* HGParticleSystemProperty.h in Headers */,
 				DEFA991A19A0A4FE00CF4E9C /* HGLookupTable.h in Headers */,
+				DEFA991419A0A4FE00CF4E9C /* HGColor+Serialization.h in Headers */,
 				DEFA991219A0A4FE00CF4E9C /* HGColor+HGGradientAdditions.h in Headers */,
 				DEFA992519A0A4FE00CF4E9C /* HGTypes.h in Headers */,
 				DEFA990919A0A4FE00CF4E9C /* _HGGradientItem.h in Headers */,
 				DEFA990B19A0A4FE00CF4E9C /* _HGGradientItemList.h in Headers */,
-				DEFA991419A0A4FE00CF4E9C /* HGColor+Serialization.h in Headers */,
 				DEFA991119A0A4FE00CF4E9C /* HGAssert.h in Headers */,
 				DEFA993419A0B28E00CF4E9C /* HGCocos2D.h in Headers */,
 				DEFA990719A0A4FE00CF4E9C /* _HGGradientBlendedValue.h in Headers */,
