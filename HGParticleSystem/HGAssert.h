@@ -9,12 +9,11 @@
 #ifndef HGParticleSystem_HGAssert_h
 #define HGParticleSystem_HGAssert_h
 
-#if DEBUG
+#if NS_BLOCK_ASSERTIONS
 #define HGAssert(expression, ...) \
     do { \
         if(!(expression)) { \
             NSLog(@"Assertion failure: %s in %s on line %s:%d. %@", #expression, __func__, __FILE__, __LINE__, [NSString stringWithFormat: @"" __VA_ARGS__]); \
-            abort(); \
         } \
     } while(0)
 #else
@@ -22,6 +21,7 @@
     do { \
         if(!(expression)) { \
             NSLog(@"Assertion failure: %s in %s on line %s:%d. %@", #expression, __func__, __FILE__, __LINE__, [NSString stringWithFormat: @"" __VA_ARGS__]); \
+            abort(); \
         } \
     } while(0)
 #endif
