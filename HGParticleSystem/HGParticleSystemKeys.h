@@ -48,7 +48,7 @@ FOUNDATION_EXPORT NSString * const HGRotationAngularVelocityPropertyKey;
 FOUNDATION_EXPORT NSString * const HGRotationRandomDirectionPropertyKey;
 
 FOUNDATION_EXPORT NSString * const HGSpinningOverLifetimeModulePropertyKey;
-FOUNDATION_EXPORT NSString * const HGSpinningOverLifetimePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpinningOverLifetimeAngularVelocityPropertyKey;
 
 FOUNDATION_EXPORT NSString * const HGColorOverLifetimeModulePropertyKey;
 FOUNDATION_EXPORT NSString * const HGColorOverLifetimePropertyKey;

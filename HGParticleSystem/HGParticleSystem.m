@@ -69,6 +69,10 @@ typedef struct
     HGFloat radialAcceleration;
     HGFloat tangentialAcceleration;
     
+    GLKVector3 spinningAxis;
+    HGFloat spinningAngle;
+    HGFloat spinningVelocity;
+    
 } HGParticle;
 
 #pragma mark - Particle System
@@ -119,7 +123,7 @@ typedef struct
     BOOL _rotationRandomDirection;
     
     BOOL _spinningOverLifetimeModule;
-    BOOL _spinningOverLifetime;
+    HGPropertyRef _spinningOverLifetimeAngularVelocity;
     
     BOOL _blendModule;
     GLuint _blendingSrc;
@@ -178,6 +182,7 @@ typedef struct
                                  HGStartColorPropertyKey,
                                  HGEmissionRatePropertyKey,
                                  HGRotationAngularVelocityPropertyKey,
+                                 HGSpinningOverLifetimeAngularVelocityPropertyKey,
                                  HGSizeOverLifetimePropertyKey,
                                  HGSpeedOverLifetimePropertyKey,
                                  HGSpeedOverLifetimeRadialAccelerationPropertyKey,
@@ -227,7 +232,8 @@ typedef struct
                                  
                                  HGBlendModulePropertyKey, HGBlendingSrcPropertyKey, HGBlendingDstPropertyKey,
                                  
-                                 HGSpinningOverLifetimeModulePropertyKey, HGSpinningOverLifetimePropertyKey,
+                                 HGSpinningOverLifetimeModulePropertyKey,
+                                 HGSpinningOverLifetimeAngularVelocityPropertyKey,
                                  ]];
 }
 
@@ -371,6 +377,7 @@ typedef struct
     if (_startColor) HGPropertyRelease(_startColor);
     if (_emissionRate) HGPropertyRelease(_emissionRate);
     if (_rotationAngularVelocity) HGPropertyRelease(_rotationAngularVelocity);
+    if (_spinningOverLifetimeAngularVelocity) HGPropertyRelease(_spinningOverLifetimeAngularVelocity);
     if (_sizeOverLifetime) HGPropertyRelease(_sizeOverLifetime);
     if (_speedOverLifetime) HGPropertyRelease(_speedOverLifetime);
     if (_speedOverLifetimeRadialAcceleration) HGPropertyRelease(_speedOverLifetimeRadialAcceleration);
@@ -570,6 +577,14 @@ typedef struct
 		CGPoint p = self.position;
 		particle->startPosition = GLKVector2Make(p.x, p.y);
 	}
+    
+    // spinning
+    if (_spinningOverLifetimeModule)
+    {
+        particle->spinningAngle = 0.;
+        particle->spinningVelocity = HGPropertyGetFloatValue(_spinningOverLifetimeAngularVelocity, 0);
+        particle->spinningAxis = GLKVector3Normalize(GLKVector3Make(CCRANDOM_MINUS1_1(), CCRANDOM_MINUS1_1(), CCRANDOM_MINUS1_1()));
+    }
 }
 
 
@@ -737,6 +752,18 @@ typedef struct
                     p->color.a *= color.a;
                 }
                 
+                if (_spinningOverLifetimeModule)
+                {
+                    if ( HGPropertyGetOption(_spinningOverLifetimeAngularVelocity) == HGParticleSystemPropertyOptionCurve)
+                    {
+                        p->spinningVelocity = HGPropertyGetFloatValue(_spinningOverLifetimeAngularVelocity, t);
+                    }
+                    if (p->spinningVelocity)
+                    {
+                        p->spinningAngle += p->spinningVelocity * delta;
+                    }
+                }
+                
                 i++;
             }
             else
@@ -836,8 +863,27 @@ static inline void OutputParticle(CCRenderBuffer buffer, NSUInteger index, HGPar
     //#warning TODO Can pass the particle life and maybe another param using TexCoord2?
     
 	float hs = 0.5f*p->size;
-    
-	if( p->rotation ) {
+
+    if (p->spinningAngle)
+    {
+        float r = -CC_DEGREES_TO_RADIANS(p->spinningAngle);
+        
+        GLKVector4 v[4] = { {-hs, -hs, 0, 1}, {+hs, -hs, 0, 1}, {+hs, +hs, 0, 1}, {-hs, +hs, 0, 1} };
+        
+        GLKMatrix4 m = *transform;
+        m = GLKMatrix4Translate(m, pos.x, pos.y, 0.0);
+        m = GLKMatrix4RotateWithVector3(m, r, p->spinningAxis);
+        
+        GLKMatrix4MultiplyVector4Array(m, v, 4);
+        
+        CCRenderBufferSetVertex(buffer, 4*i + 0, (CCVertex){v[0], texCoord1[0], zero, color});
+		CCRenderBufferSetVertex(buffer, 4*i + 1, (CCVertex){v[1], texCoord1[1], zero, color});
+		CCRenderBufferSetVertex(buffer, 4*i + 2, (CCVertex){v[2], texCoord1[2], zero, color});
+		CCRenderBufferSetVertex(buffer, 4*i + 3, (CCVertex){v[3], texCoord1[3], zero, color});
+
+    }
+	else if( p->rotation )
+    {
 		float r = -CC_DEGREES_TO_RADIANS(p->rotation);
 		float hscr = hs * cosf(r);
 		float hssr = hs * sinf(r);

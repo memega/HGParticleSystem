@@ -45,7 +45,7 @@ NSString * const HGRotationAngularVelocityPropertyKey = @"rotationAngularVelocit
 NSString * const HGRotationRandomDirectionPropertyKey = @"rotationRandomDirection";
 
 NSString * const HGSpinningOverLifetimeModulePropertyKey = @"spinningOverLifetimeModule";
-NSString * const HGSpinningOverLifetimePropertyKey = @"spinningOverLifetime";
+NSString * const HGSpinningOverLifetimeAngularVelocityPropertyKey = @"spinningOverLifetimeAngularVelocity";
 
 NSString * const HGColorOverLifetimeModulePropertyKey = @"colorOverLifetimeModule";
 NSString * const HGColorOverLifetimePropertyKey = @"colorOverLifetime";
