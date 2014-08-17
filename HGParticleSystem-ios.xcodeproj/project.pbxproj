@@ -1,0 +1,585 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DE61A438199FB01800F78F8E /* HGParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A437199FB01800F78F8E /* HGParticleSystem.m */; };
+		DE61A43F199FB01800F78F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A43E199FB01800F78F8E /* XCTest.framework */; };
+		DE61A440199FB01800F78F8E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A42D199FB01800F78F8E /* Cocoa.framework */; };
+		DE61A443199FB01800F78F8E /* libHGParticleSystem-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */; };
+		DE61A449199FB01800F78F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE61A447199FB01800F78F8E /* InfoPlist.strings */; };
+		DE61A44B199FB01800F78F8E /* HGParticleSystemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */; };
+		DE61A466199FB12F00F78F8E /* HGParticleCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A45F199FB12F00F78F8E /* HGParticleCache.m */; };
+		DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A460199FB12F00F78F8E /* HGParticleCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A461199FB12F00F78F8E /* HGLookupTable.m */; };
+		DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A462199FB12F00F78F8E /* HGLookupTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */; };
+		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; };
+		DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A471199FB2D500F78F8E /* HGTypes.h */; };
+		DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A472199FB2D500F78F8E /* HGTypes.m */; };
+		DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A476199FB65000F78F8E /* HGCurve.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A47B199FB65000F78F8E /* HGCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A477199FB65000F78F8E /* HGCurve.m */; };
+		DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A478199FB65000F78F8E /* HGGradient.h */; };
+		DE61A47D199FB65000F78F8E /* HGGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A479199FB65000F78F8E /* HGGradient.m */; };
+		DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A481199FB7BF00F78F8E /* CGGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */; };
+		DE61A485199FB7ED00F78F8E /* CGFloatAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A483199FB7ED00F78F8E /* CGFloatAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A486199FB7ED00F78F8E /* CGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A484199FB7ED00F78F8E /* CGFloatAdditions.m */; };
+		DE61A48E199FB90D00F78F8E /* _HGGradientBlendedValue.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A488199FB90D00F78F8E /* _HGGradientBlendedValue.h */; };
+		DE61A48F199FB90D00F78F8E /* _HGGradientBlendedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A489199FB90D00F78F8E /* _HGGradientBlendedValue.m */; };
+		DE61A490199FB90D00F78F8E /* _HGGradientItem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A48A199FB90D00F78F8E /* _HGGradientItem.h */; };
+		DE61A491199FB90D00F78F8E /* _HGGradientItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A48B199FB90D00F78F8E /* _HGGradientItem.m */; };
+		DE61A492199FB90D00F78F8E /* _HGGradientItemList.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A48C199FB90D00F78F8E /* _HGGradientItemList.h */; };
+		DE61A493199FB90D00F78F8E /* _HGGradientItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */; };
+		DE61A496199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */; };
+		DE61A497199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */; };
+		DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */; };
+		DE61A49B199FBCC500F78F8E /* HGColor+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */; };
+		DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */; };
+		DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A436199FB01800F78F8E /* HGParticleSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE6C99BD19A098000075B6A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BC19A098000075B6A4 /* Foundation.framework */; };
+		DE6C99BF19A0980B0075B6A4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BE19A0980B0075B6A4 /* GLKit.framework */; };
+		DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */; };
+		DEFA992A19A0A57F00CF4E9C /* HGCocos2D.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DE61A441199FB01800F78F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE61A422199FB01800F78F8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE61A429199FB01800F78F8E;
+			remoteInfo = HGParticleSystem;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libHGParticleSystem-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE61A42D199FB01800F78F8E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		DE61A430199FB01800F78F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DE61A431199FB01800F78F8E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DE61A432199FB01800F78F8E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		DE61A435199FB01800F78F8E /* HGParticleSystem-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HGParticleSystem-ios-Prefix.pch"; sourceTree = "<group>"; };
+		DE61A436199FB01800F78F8E /* HGParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGParticleSystem.h; sourceTree = "<group>"; };
+		DE61A437199FB01800F78F8E /* HGParticleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystem.m; sourceTree = "<group>"; };
+		DE61A43D199FB01800F78F8E /* HGParticleSystem-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HGParticleSystem-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE61A43E199FB01800F78F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DE61A446199FB01800F78F8E /* HGParticleSystem-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HGParticleSystem-iosTests-Info.plist"; sourceTree = "<group>"; };
+		DE61A448199FB01800F78F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemTests.m; sourceTree = "<group>"; };
+		DE61A45F199FB12F00F78F8E /* HGParticleCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleCache.m; sourceTree = "<group>"; };
+		DE61A460199FB12F00F78F8E /* HGParticleCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleCache.h; sourceTree = "<group>"; };
+		DE61A461199FB12F00F78F8E /* HGLookupTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGLookupTable.m; sourceTree = "<group>"; };
+		DE61A462199FB12F00F78F8E /* HGLookupTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGLookupTable.h; sourceTree = "<group>"; };
+		DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemProperty.m; sourceTree = "<group>"; };
+		DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemProperty.h; sourceTree = "<group>"; };
+		DE61A471199FB2D500F78F8E /* HGTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGTypes.h; sourceTree = "<group>"; };
+		DE61A472199FB2D500F78F8E /* HGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGTypes.m; sourceTree = "<group>"; };
+		DE61A475199FB3CA00F78F8E /* HGAssert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGAssert.h; sourceTree = "<group>"; };
+		DE61A476199FB65000F78F8E /* HGCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGCurve.h; sourceTree = "<group>"; };
+		DE61A477199FB65000F78F8E /* HGCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGCurve.m; sourceTree = "<group>"; };
+		DE61A478199FB65000F78F8E /* HGGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGGradient.h; sourceTree = "<group>"; };
+		DE61A479199FB65000F78F8E /* HGGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGGradient.m; sourceTree = "<group>"; };
+		DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometryAdditions.h; sourceTree = "<group>"; };
+		DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGGeometryAdditions.m; sourceTree = "<group>"; };
+		DE61A483199FB7ED00F78F8E /* CGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGFloatAdditions.h; sourceTree = "<group>"; };
+		DE61A484199FB7ED00F78F8E /* CGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGFloatAdditions.m; sourceTree = "<group>"; };
+		DE61A488199FB90D00F78F8E /* _HGGradientBlendedValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _HGGradientBlendedValue.h; sourceTree = "<group>"; };
+		DE61A489199FB90D00F78F8E /* _HGGradientBlendedValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HGGradientBlendedValue.m; sourceTree = "<group>"; };
+		DE61A48A199FB90D00F78F8E /* _HGGradientItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _HGGradientItem.h; sourceTree = "<group>"; };
+		DE61A48B199FB90D00F78F8E /* _HGGradientItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HGGradientItem.m; sourceTree = "<group>"; };
+		DE61A48C199FB90D00F78F8E /* _HGGradientItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _HGGradientItemList.h; sourceTree = "<group>"; };
+		DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HGGradientItemList.m; sourceTree = "<group>"; };
+		DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HGColor+HGGradientAdditions.h"; sourceTree = "<group>"; };
+		DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HGColor+HGGradientAdditions.m"; sourceTree = "<group>"; };
+		DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HGColor+Serialization.h"; sourceTree = "<group>"; };
+		DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HGColor+Serialization.m"; sourceTree = "<group>"; };
+		DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemKeys.h; sourceTree = "<group>"; };
+		DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemKeys.m; sourceTree = "<group>"; };
+		DE6C99BC19A098000075B6A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		DE6C99BE19A0980B0075B6A4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGCocos2D.h; sourceTree = "<group>"; };
+		DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGCocos2D.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE61A427199FB01800F78F8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE6C99BF19A0980B0075B6A4 /* GLKit.framework in Frameworks */,
+				DE6C99BD19A098000075B6A4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE61A43A199FB01800F78F8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE61A440199FB01800F78F8E /* Cocoa.framework in Frameworks */,
+				DE61A443199FB01800F78F8E /* libHGParticleSystem-ios.a in Frameworks */,
+				DE61A43F199FB01800F78F8E /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DE61A421199FB01800F78F8E = {
+			isa = PBXGroup;
+			children = (
+				DE61A433199FB01800F78F8E /* HGParticleSystem */,
+				DE61A444199FB01800F78F8E /* HGParticleSystemTests */,
+				DE61A42C199FB01800F78F8E /* Frameworks */,
+				DE61A42B199FB01800F78F8E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DE61A42B199FB01800F78F8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */,
+				DE61A43D199FB01800F78F8E /* HGParticleSystem-iosTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE61A42C199FB01800F78F8E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE6C99BE19A0980B0075B6A4 /* GLKit.framework */,
+				DE6C99BC19A098000075B6A4 /* Foundation.framework */,
+				DE61A42D199FB01800F78F8E /* Cocoa.framework */,
+				DE61A43E199FB01800F78F8E /* XCTest.framework */,
+				DE61A42F199FB01800F78F8E /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE61A42F199FB01800F78F8E /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A430199FB01800F78F8E /* Foundation.framework */,
+				DE61A431199FB01800F78F8E /* CoreData.framework */,
+				DE61A432199FB01800F78F8E /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		DE61A433199FB01800F78F8E /* HGParticleSystem */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */,
+				DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */,
+				DE61A436199FB01800F78F8E /* HGParticleSystem.h */,
+				DE61A437199FB01800F78F8E /* HGParticleSystem.m */,
+				DE61A471199FB2D500F78F8E /* HGTypes.h */,
+				DE61A472199FB2D500F78F8E /* HGTypes.m */,
+				DE61A460199FB12F00F78F8E /* HGParticleCache.h */,
+				DE61A45F199FB12F00F78F8E /* HGParticleCache.m */,
+				DE61A462199FB12F00F78F8E /* HGLookupTable.h */,
+				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
+				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
+				DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */,
+				DE61A49C199FC02F00F78F8E /* Curve */,
+				DE61A487199FB90800F78F8E /* Gradient */,
+				DE61A482199FB7C900F78F8E /* Helpers */,
+				DE61A434199FB01800F78F8E /* Supporting Files */,
+			);
+			path = HGParticleSystem;
+			sourceTree = "<group>";
+		};
+		DE61A434199FB01800F78F8E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A435199FB01800F78F8E /* HGParticleSystem-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE61A444199FB01800F78F8E /* HGParticleSystemTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */,
+				DE61A445199FB01800F78F8E /* Supporting Files */,
+			);
+			path = HGParticleSystemTests;
+			sourceTree = "<group>";
+		};
+		DE61A445199FB01800F78F8E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A446199FB01800F78F8E /* HGParticleSystem-iosTests-Info.plist */,
+				DE61A447199FB01800F78F8E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE61A482199FB7C900F78F8E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */,
+				DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */,
+				DE61A475199FB3CA00F78F8E /* HGAssert.h */,
+				DE61A483199FB7ED00F78F8E /* CGFloatAdditions.h */,
+				DE61A484199FB7ED00F78F8E /* CGFloatAdditions.m */,
+				DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */,
+				DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */,
+				DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */,
+				DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		DE61A487199FB90800F78F8E /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A478199FB65000F78F8E /* HGGradient.h */,
+				DE61A479199FB65000F78F8E /* HGGradient.m */,
+				DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */,
+				DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */,
+				DE61A488199FB90D00F78F8E /* _HGGradientBlendedValue.h */,
+				DE61A489199FB90D00F78F8E /* _HGGradientBlendedValue.m */,
+				DE61A48A199FB90D00F78F8E /* _HGGradientItem.h */,
+				DE61A48B199FB90D00F78F8E /* _HGGradientItem.m */,
+				DE61A48C199FB90D00F78F8E /* _HGGradientItemList.h */,
+				DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */,
+			);
+			name = Gradient;
+			sourceTree = "<group>";
+		};
+		DE61A49C199FC02F00F78F8E /* Curve */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A476199FB65000F78F8E /* HGCurve.h */,
+				DE61A477199FB65000F78F8E /* HGCurve.m */,
+			);
+			name = Curve;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DE61A428199FB01800F78F8E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE61A485199FB7ED00F78F8E /* CGFloatAdditions.h in Headers */,
+				DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */,
+				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
+				DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */,
+				DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */,
+				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
+				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
+				DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */,
+				DE61A48E199FB90D00F78F8E /* _HGGradientBlendedValue.h in Headers */,
+				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
+				DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */,
+				DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */,
+				DE61A490199FB90D00F78F8E /* _HGGradientItem.h in Headers */,
+				DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */,
+				DE61A492199FB90D00F78F8E /* _HGGradientItemList.h in Headers */,
+				DE61A496199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DE61A429199FB01800F78F8E /* HGParticleSystem-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE61A44E199FB01800F78F8E /* Build configuration list for PBXNativeTarget "HGParticleSystem-ios" */;
+			buildPhases = (
+				DE61A426199FB01800F78F8E /* Sources */,
+				DE61A427199FB01800F78F8E /* Frameworks */,
+				DE61A428199FB01800F78F8E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HGParticleSystem-ios";
+			productName = HGParticleSystem;
+			productReference = DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DE61A43C199FB01800F78F8E /* HGParticleSystem-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE61A451199FB01800F78F8E /* Build configuration list for PBXNativeTarget "HGParticleSystem-iosTests" */;
+			buildPhases = (
+				DE61A439199FB01800F78F8E /* Sources */,
+				DE61A43A199FB01800F78F8E /* Frameworks */,
+				DE61A43B199FB01800F78F8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE61A442199FB01800F78F8E /* PBXTargetDependency */,
+			);
+			name = "HGParticleSystem-iosTests";
+			productName = HGParticleSystemTests;
+			productReference = DE61A43D199FB01800F78F8E /* HGParticleSystem-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE61A422199FB01800F78F8E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Yuriy Panfyorov";
+			};
+			buildConfigurationList = DE61A425199FB01800F78F8E /* Build configuration list for PBXProject "HGParticleSystem-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DE61A421199FB01800F78F8E;
+			productRefGroup = DE61A42B199FB01800F78F8E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE61A429199FB01800F78F8E /* HGParticleSystem-ios */,
+				DE61A43C199FB01800F78F8E /* HGParticleSystem-iosTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE61A43B199FB01800F78F8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE61A449199FB01800F78F8E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE61A426199FB01800F78F8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */,
+				DE61A47B199FB65000F78F8E /* HGCurve.m in Sources */,
+				DEFA992A19A0A57F00CF4E9C /* HGCocos2D.m in Sources */,
+				DE61A481199FB7BF00F78F8E /* CGGeometryAdditions.m in Sources */,
+				DE61A491199FB90D00F78F8E /* _HGGradientItem.m in Sources */,
+				DE61A493199FB90D00F78F8E /* _HGGradientItemList.m in Sources */,
+				DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */,
+				DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */,
+				DE61A48F199FB90D00F78F8E /* _HGGradientBlendedValue.m in Sources */,
+				DE61A47D199FB65000F78F8E /* HGGradient.m in Sources */,
+				DE61A486199FB7ED00F78F8E /* CGFloatAdditions.m in Sources */,
+				DE61A438199FB01800F78F8E /* HGParticleSystem.m in Sources */,
+				DE61A497199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m in Sources */,
+				DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */,
+				DE61A49B199FBCC500F78F8E /* HGColor+Serialization.m in Sources */,
+				DE61A466199FB12F00F78F8E /* HGParticleCache.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE61A439199FB01800F78F8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE61A44B199FB01800F78F8E /* HGParticleSystemTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DE61A442199FB01800F78F8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE61A429199FB01800F78F8E /* HGParticleSystem-ios */;
+			targetProxy = DE61A441199FB01800F78F8E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DE61A447199FB01800F78F8E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE61A448199FB01800F78F8E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DE61A44C199FB01800F78F8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DE61A44D199FB01800F78F8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		DE61A44F199FB01800F78F8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"../testHGParticles/Libraries/**",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "HGParticleSystem-ios";
+			};
+			name = Debug;
+		};
+		DE61A450199FB01800F78F8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"../testHGParticles/Libraries/**",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "HGParticleSystem-ios";
+			};
+			name = Release;
+		};
+		DE61A452199FB01800F78F8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "HGParticleSystemTests/HGParticleSystem-iosTests-Info.plist";
+				PRODUCT_NAME = "HGParticleSystem-iosTests";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		DE61A453199FB01800F78F8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-Prefix.pch";
+				INFOPLIST_FILE = "HGParticleSystemTests/HGParticleSystem-iosTests-Info.plist";
+				PRODUCT_NAME = "HGParticleSystem-iosTests";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE61A425199FB01800F78F8E /* Build configuration list for PBXProject "HGParticleSystem-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE61A44C199FB01800F78F8E /* Debug */,
+				DE61A44D199FB01800F78F8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE61A44E199FB01800F78F8E /* Build configuration list for PBXNativeTarget "HGParticleSystem-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE61A44F199FB01800F78F8E /* Debug */,
+				DE61A450199FB01800F78F8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE61A451199FB01800F78F8E /* Build configuration list for PBXNativeTarget "HGParticleSystem-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE61A452199FB01800F78F8E /* Debug */,
+				DE61A453199FB01800F78F8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE61A422199FB01800F78F8E /* Project object */;
+}

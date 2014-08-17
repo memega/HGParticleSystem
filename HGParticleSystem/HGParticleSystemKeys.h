@@ -1,0 +1,140 @@
+//
+//  HGParticleSystemKeys.h
+//  HGParticleSystem
+//
+//  Created by Yuriy Panfyorov on 16/08/14.
+//  Copyright (c) 2014 Yuriy Panfyorov. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
+
+#pragma mark - Property keys
+
+FOUNDATION_EXPORT NSString * const HGDurationPropertyKey;
+FOUNDATION_EXPORT NSString * const HGLoopingPropertyKey;
+FOUNDATION_EXPORT NSString * const HGLifetimePropertyKey;
+FOUNDATION_EXPORT NSString * const HGStartSizePropertyKey;
+FOUNDATION_EXPORT NSString * const HGStartSpeedPropertyKey;
+FOUNDATION_EXPORT NSString * const HGGravityPropertyKey;
+FOUNDATION_EXPORT NSString * const HGStartRotationPropertyKey;
+FOUNDATION_EXPORT NSString * const HGStartColorPropertyKey;
+FOUNDATION_EXPORT NSString * const HGMaxParticlesPropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmissionModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmissionRatePropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGEmitterShapeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmitterShapePropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmitterShapeRadiusPropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmitterShapeAnglePropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmitterShapeDirectionPropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmitterShapeBoundaryPropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeModePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimePropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeModePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeRadialAccelerationPropertyKey;
+FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeTangentialAccelerationPropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGSizeOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGSizeOverLifetimePropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGRotationOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGRotationAngularVelocityPropertyKey;
+FOUNDATION_EXPORT NSString * const HGRotationRandomDirectionPropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGColorOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGColorOverLifetimePropertyKey;
+FOUNDATION_EXPORT NSString * const HGBlendModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGBlendingSrcPropertyKey;
+FOUNDATION_EXPORT NSString * const HGBlendingDstPropertyKey;
+FOUNDATION_EXPORT NSString * const HGTexturePropertyKey;
+
+#pragma mark - Dynamic options
+
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionConstant;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionCurve;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomConstants;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomCurve;
+
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionColor;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionColorRandomRGB;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionColorRandomHSV;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionGradient;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomColors;
+FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomGradients;
+
+#pragma mark - Shape options
+
+FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeSectorValue;
+FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeCircleValue;
+
+#pragma mark - Speed acceleration options
+
+FOUNDATION_EXPORT NSString * const HGParticleSystemSpeedCurve;
+FOUNDATION_EXPORT NSString * const HGParticleSystemSpeedAcceleration;
+
+#pragma mark - GL Blending Modes
+
+FOUNDATION_EXPORT NSString * const HGBlendModeGlZero;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOne;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlSrcColor;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOneMinusSrcColor;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlDstColor;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOneMinusDstColor;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlSrcAlpha;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOneMinusSrcAlpha;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlDstAlpha;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOneMinusDstAlpha;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlConstantColor;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOneMinusConstantColor;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlConstantAlpha;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlOneMinusConstantAlpha;
+FOUNDATION_EXPORT NSString * const HGBlendModeGlSrcAlphaSaturate;
+
+#pragma mark - Value Options
+
+FOUNDATION_EXPORT GLuint HGBlendingModeFromString (NSString *string);
+
+typedef NS_ENUM(NSInteger, HGParticleSystemPropertyOption)
+{
+    HGParticleSystemPropertyOptionConstant,
+    HGParticleSystemPropertyOptionCurve,
+    HGParticleSystemPropertyOptionRandomConstants,
+    //    HGParticleSystemPropertyOptionRandomCurve,
+    HGParticleSystemPropertyOptionColor,
+    HGParticleSystemPropertyOptionColorRandomRGB,
+    HGParticleSystemPropertyOptionColorRandomHSV,
+    HGParticleSystemPropertyOptionGradient,
+    HGParticleSystemPropertyOptionRandomColors,
+    //    HGParticleSystemPropertyOptionRandomGradients,
+    
+    HGParticleSystemPropertyOptionUndefined = NSNotFound
+};
+
+#pragma mark - Emitter shapes
+
+typedef NS_ENUM(NSInteger, HGParticleSystemEmitterShape)
+{
+    HGParticleSystemEmitterShapeCircle = 0,
+    HGParticleSystemEmitterShapeSector = 1,
+    
+    HGParticleSystemEmitterShapeUndefined = NSNotFound
+};
+
+FOUNDATION_EXPORT HGParticleSystemEmitterShape HGParticleSystemEmitterShapeFromString (NSString *string);
+
+#pragma mark - Speed modes
+
+typedef NS_ENUM(NSInteger, HGParticleSystemSpeedMode) {
+    HGParticleSystemSpeedModeCurve = 0,
+    HGParticleSystemSpeedModeAcceleration = 1,
+    
+    HGParticleSystemSpeedModeUndefined = NSNotFound,
+};
+
+FOUNDATION_EXPORT HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string);
