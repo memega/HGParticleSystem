@@ -18,12 +18,12 @@
 		DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A461199FB12F00F78F8E /* HGLookupTable.m */; };
 		DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A462199FB12F00F78F8E /* HGLookupTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */; };
-		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; };
+		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A471199FB2D500F78F8E /* HGTypes.h */; };
 		DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A472199FB2D500F78F8E /* HGTypes.m */; };
 		DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A476199FB65000F78F8E /* HGCurve.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A47B199FB65000F78F8E /* HGCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A477199FB65000F78F8E /* HGCurve.m */; };
-		DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A478199FB65000F78F8E /* HGGradient.h */; };
+		DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A478199FB65000F78F8E /* HGGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A47D199FB65000F78F8E /* HGGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A479199FB65000F78F8E /* HGGradient.m */; };
 		DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A481199FB7BF00F78F8E /* CGGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */; };
@@ -46,6 +46,7 @@
 		DE6C99BF19A0980B0075B6A4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BE19A0980B0075B6A4 /* GLKit.framework */; };
 		DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */; };
 		DEFA992A19A0A57F00CF4E9C /* HGCocos2D.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */; };
+		DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A475199FB3CA00F78F8E /* HGAssert.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -269,17 +270,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE61A485199FB7ED00F78F8E /* CGFloatAdditions.h in Headers */,
-				DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */,
-				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
-				DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */,
-				DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */,
 				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
 				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
+				DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */,
+				DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */,
+				DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */,
+				DE61A485199FB7ED00F78F8E /* CGFloatAdditions.h in Headers */,
+				DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */,
+				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
+				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
+				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
 				DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */,
 				DE61A48E199FB90D00F78F8E /* _HGGradientBlendedValue.h in Headers */,
-				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
-				DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */,
 				DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */,
 				DE61A490199FB90D00F78F8E /* _HGGradientItem.h in Headers */,
 				DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */,
