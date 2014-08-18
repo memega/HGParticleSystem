@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>25C773F8-8E81-4A61-AE1A-AB3F8D939F41</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HGParticleSystem</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AEC9FDF3-A534-48F1-B861-600D6916AB4C</key>
+		<string>ssh://neobia.com/srv/git/HGParticleSystem.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HGParticleSystem.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AEC9FDF3-A534-48F1-B861-600D6916AB4C</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://neobia.com/srv/git/HGParticleSystem.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AEC9FDF3-A534-48F1-B861-600D6916AB4C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AEC9FDF3-A534-48F1-B861-600D6916AB4C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HGParticleSystem</string>
+		</dict>
+	</array>
+</dict>
+</plist>
