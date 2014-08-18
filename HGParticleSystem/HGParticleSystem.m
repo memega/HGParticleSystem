@@ -29,10 +29,8 @@
 // helpers
 #import "HGAssert.h"
 #import "HGTypes.h"
-#import "CGFloatAdditions.h"
-#import "CGGeometryAdditions.h"
 
-#if HG_DEBUG_PROFILING && __has_include("CCProfiling.h")
+#if HG_DEBUG_PROFILING && defined(__has_include) && __has_include("CCProfiling.h")
 #import "CCProfiling.h"
 #define HG_PROFILING_BEGIN(string) CCProfilingBeginTimingBlock((string))
 #define HG_PROFILING_END(string) CCProfilingEndTimingBlock((string))
@@ -482,7 +480,7 @@ typedef struct
             angle = CC_DEGREES_TO_RADIANS(_emitterShapeDirection + CCRANDOM_MINUS1_1() * _emitterShapeAngle * .5);
         }
     }
-    GLKVector2 direction = GLKVector2Make(hg_cosCGFloat(angle), hg_sinCGFloat(angle));
+    GLKVector2 direction = GLKVector2Make(cos(angle), sin(angle)); // float versions
     
     // speed
     CGFloat startSpeed = HGPropertyGetFloatValue(_startSpeed, t);

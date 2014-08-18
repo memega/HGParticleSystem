@@ -8,8 +8,6 @@
 
 #import "HGParticleSystemKeys.h"
 
-#import <GLKit/GLKit.h>
-
 #pragma mark - Property Keys
 
 NSString * const HGDurationPropertyKey = @"duration";

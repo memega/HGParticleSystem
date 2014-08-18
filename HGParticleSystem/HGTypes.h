@@ -12,9 +12,9 @@
 #ifndef HGParticleEditor_HGFloat_h
 #define HGParticleEditor_HGFloat_h
 
-#define USE_LOOKUP_CGFLOAT 0
+#define HG_USE_CGFLOAT 0
 
-#if USE_LOOKUP_CGFLOAT
+#if HG_USE_CGFLOAT
 #define HGFloat CGFloat
 #else
 #define HGFloat GLfloat
@@ -41,7 +41,7 @@
 #define HGEdgeInsets NSEdgeInsets
 #endif
 
-static inline HGFloat HGFloatLerp(HGFloat a, HGFloat b, HGFloat ratio)
+FOUNDATION_STATIC_INLINE HGFloat HGFloatLerp(HGFloat a, HGFloat b, HGFloat ratio)
 {
     return (b - a) * ratio + a;
 }
