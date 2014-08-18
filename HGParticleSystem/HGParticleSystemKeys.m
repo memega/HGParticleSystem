@@ -70,6 +70,7 @@ NSString * const HGPropertyValueOptionRandomGradients = @"HGPropertyValueOptionR
 
 NSString * const HGParticleSystemEmitterShapeCircleValue = @"HGParticleSystemEmitterShapeCircleValue";
 NSString * const HGParticleSystemEmitterShapeSectorValue = @"HGParticleSystemEmitterShapeSectorValue";
+NSString * const HGParticleSystemEmitterShapeRectValue = @"HGParticleSystemEmitterShapeRectValue";
 
 #pragma mark - Speed acceleration options
 
@@ -105,6 +106,7 @@ HGParticleSystemEmitterShape HGParticleSystemEmitterShapeFromString (NSString *s
         propertiesDictionary = @{
                                  HGParticleSystemEmitterShapeCircleValue: @(HGParticleSystemEmitterShapeCircle),
                                  HGParticleSystemEmitterShapeSectorValue: @(HGParticleSystemEmitterShapeSector),
+                                 HGParticleSystemEmitterShapeRectValue: @(HGParticleSystemEmitterShapeRect),
                                  };
     });
     return [propertiesDictionary[string] integerValue];

@@ -75,6 +75,7 @@ FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomGradients;
 
 FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeSectorValue;
 FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeCircleValue;
+FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeRectValue;
 
 #pragma mark - Speed acceleration options
 
@@ -125,6 +126,7 @@ typedef NS_ENUM(NSInteger, HGParticleSystemEmitterShape)
 {
     HGParticleSystemEmitterShapeCircle = 0,
     HGParticleSystemEmitterShapeSector = 1,
+    HGParticleSystemEmitterShapeRect = 2,
     
     HGParticleSystemEmitterShapeUndefined = NSNotFound
 };
