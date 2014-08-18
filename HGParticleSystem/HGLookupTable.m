@@ -190,7 +190,12 @@ CFDictionaryRef HGLookupTableCreateDictionaryRepresentation(HGLookupTableRef lut
         for (NSUInteger i = 0; i<lut->_size; i++)
         {
             GLKVector4 scalarValue = scalarValues[i];
-            [values addObject:[NSValue valueWithBytes:&scalarValue objCType:@encode(GLKVector4)]];
+            [values addObject:@{
+                                @"X": @(scalarValue.x),
+                                @"Y": @(scalarValue.y),
+                                @"Y": @(scalarValue.z),
+                                @"W": @(scalarValue.w),
+                                }];
         }
         dictionary[@"_values"] = values;
     }
@@ -250,12 +255,13 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
             return NULL;
         }
         
-        GLKVector4 scalarValue;
         for(NSUInteger i = 0; i<array.count; i++)
         {
-            value = array[i];
-            [value getValue:&scalarValue];
-            scalarValues[i] = scalarValue;
+            NSDictionary *dictionaryRepresentation = array[i];
+            scalarValues[i] = GLKVector4Make([dictionaryRepresentation[@"X"] floatValue],
+                                             [dictionaryRepresentation[@"Y"] floatValue],
+                                             [dictionaryRepresentation[@"Z"] floatValue],
+                                             [dictionaryRepresentation[@"W"] floatValue]);
         }
         ref->_values = scalarValues;
         
