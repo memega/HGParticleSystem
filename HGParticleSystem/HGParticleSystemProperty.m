@@ -24,9 +24,6 @@
 #define HG_PROPERTY_GRADIENT_LUT_PRECISION 32
 #endif
 
-#define RANDOM_CGFLOAT_IN_RANGE(min,max) ((CGFloat)arc4random()/UINT32_MAX) * ((max) - (min)) + (min)
-#define RANDOM_FLOAT_IN_RANGE(min,max) ((float)arc4random()/UINT32_MAX) * ((max) - (min)) + (min)
-
 #pragma mark - Helpers
 
 static HGColor *HGColorMakeWithDictionary(NSDictionary *dictionary)

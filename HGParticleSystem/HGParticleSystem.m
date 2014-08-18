@@ -30,6 +30,38 @@
 #import "HGAssert.h"
 #import "HGTypes.h"
 
+static inline CGPoint HGPointOnRect(const CGPoint normalizedVectorFromCenter, const CGRect rect)
+{
+    if (CGRectGetWidth(rect) == 0. || CGRectGetHeight(rect) == 0.)
+        return CGPointZero;
+    
+    CGFloat t = INFINITY, tmp;
+    if (normalizedVectorFromCenter.x)
+    {
+        // left edge
+        tmp = CGRectGetMinX(rect) / normalizedVectorFromCenter.x;
+        if (tmp > 0.f) t = MIN(t, tmp);
+        
+        // right edge
+        tmp = CGRectGetMaxX(rect) / normalizedVectorFromCenter.x;
+        if (tmp > 0.f) t = MIN(t, tmp);
+    }
+    if (normalizedVectorFromCenter.y)
+    {
+        // top edge
+        tmp = CGRectGetMaxY(rect) / normalizedVectorFromCenter.y;
+        if (tmp > 0.f) t = MIN(t, tmp);
+        
+        // bottom edge
+        tmp = CGRectGetMinY(rect) / normalizedVectorFromCenter.y;
+        if (tmp > 0.f) t = MIN(t, tmp);
+    }
+    
+    if (t == INFINITY) return CGPointZero; // should never happen actually
+
+    return ccpMult(normalizedVectorFromCenter, t);
+}
+
 #if HG_DEBUG_PROFILING && defined(__has_include) && __has_include("CCProfiling.h")
 #import "CCProfiling.h"
 #define HG_PROFILING_BEGIN(string) CCProfilingBeginTimingBlock((string))
@@ -99,9 +131,13 @@ typedef struct
     
     BOOL _shapeModule;
     HGParticleSystemEmitterShape _emitterShape;
-    CGFloat _emitterShapeRadius;
-    CGFloat _emitterShapeAngle;
-    CGFloat _emitterShapeDirection;
+    HGFloat _emitterShapeRadius;
+    HGFloat _emitterShapeAngle;
+    HGFloat _emitterShapeDirection;
+    HGFloat _emitterShapeWidth;
+    HGFloat _emitterShapeHeight;
+    CGRect _emitterRect; // small optimization, pre-calculated
+    
     BOOL _emitterShapeBoundary;
     
     BOOL _sizeOverLifetimeModule;
@@ -224,6 +260,8 @@ typedef struct
                                  HGEmitterShapeAnglePropertyKey,
                                  HGEmitterShapeDirectionPropertyKey,
                                  HGEmitterShapeBoundaryPropertyKey,
+                                 HGEmitterShapeWidthPropertyKey,
+                                 HGEmitterShapeHeightPropertyKey,
                                  
                                  HGColorOverLifetimeModulePropertyKey,
                                  HGColorOverLifetimePropertyKey,
@@ -283,6 +321,13 @@ typedef struct
             
             [self setValue:value forKey:propertyKey];
         }];
+        
+        // tiny optimization
+        if (_emitterShape == HGParticleSystemEmitterShapeRect)
+        {
+            _emitterRect = CGRectMake(- _emitterShapeWidth * .5f, - _emitterShapeHeight * .5f,
+                                      _emitterShapeWidth, _emitterShapeHeight);
+        }
         
         // allocate
         _totalParticles = _maxParticles;
@@ -479,6 +524,10 @@ typedef struct
         {
             angle = CC_DEGREES_TO_RADIANS(_emitterShapeDirection + CCRANDOM_MINUS1_1() * _emitterShapeAngle * .5);
         }
+        else if (_emitterShape == HGParticleSystemEmitterShapeRect)
+        {
+            angle = CCRANDOM_0_1() * M_PI * 2.0;
+        }
     }
     GLKVector2 direction = GLKVector2Make(cos(angle), sin(angle)); // float versions
     
@@ -525,6 +574,20 @@ typedef struct
                 {
                     position = GLKVector2MultiplyScalar(direction, CCRANDOM_0_1() * _emitterShapeRadius);
                 }
+            }
+        }
+        else if (_emitterShape == HGParticleSystemEmitterShapeRect)
+        {
+            // find the intersection!
+            CGPoint p = HGPointOnRect(ccp(direction.x, direction.y), _emitterRect);
+            
+            if (_emitterShapeBoundary)
+            {
+                position = GLKVector2Make(p.x, p.y);
+            }
+            else
+            {
+                position = GLKVector2Make( CCRANDOM_0_1() * p.x, CCRANDOM_0_1() * p.y);
             }
         }
     }

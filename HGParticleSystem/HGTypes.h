@@ -53,4 +53,12 @@ FOUNDATION_EXPORT GLKVector2 const HGGLKVector2Zero;
 
 FOUNDATION_EXPORT GLKVector4 HGGLKVector4MakeWithColor(HGColor *color);
 
+#ifndef RANDOM_CGFLOAT_IN_RANGE
+#define RANDOM_CGFLOAT_IN_RANGE(min,max) ((CGFloat)arc4random()/UINT32_MAX) * ((max) - (min)) + (min)
+#endif
+
+#ifndef RANDOM_FLOAT_IN_RANGE
+#define RANDOM_FLOAT_IN_RANGE(min,max) ((float)arc4random()/UINT32_MAX) * ((max) - (min)) + (min)
+#endif
+
 #endif
