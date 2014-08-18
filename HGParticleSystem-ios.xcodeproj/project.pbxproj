@@ -21,24 +21,6 @@
 		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A471199FB2D500F78F8E /* HGTypes.h */; };
 		DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A472199FB2D500F78F8E /* HGTypes.m */; };
-		DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A476199FB65000F78F8E /* HGCurve.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE61A47B199FB65000F78F8E /* HGCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A477199FB65000F78F8E /* HGCurve.m */; };
-		DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A478199FB65000F78F8E /* HGGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE61A47D199FB65000F78F8E /* HGGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A479199FB65000F78F8E /* HGGradient.m */; };
-		DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE61A481199FB7BF00F78F8E /* CGGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */; };
-		DE61A485199FB7ED00F78F8E /* CGFloatAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A483199FB7ED00F78F8E /* CGFloatAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE61A486199FB7ED00F78F8E /* CGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A484199FB7ED00F78F8E /* CGFloatAdditions.m */; };
-		DE61A48E199FB90D00F78F8E /* _HGGradientBlendedValue.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A488199FB90D00F78F8E /* _HGGradientBlendedValue.h */; };
-		DE61A48F199FB90D00F78F8E /* _HGGradientBlendedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A489199FB90D00F78F8E /* _HGGradientBlendedValue.m */; };
-		DE61A490199FB90D00F78F8E /* _HGGradientItem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A48A199FB90D00F78F8E /* _HGGradientItem.h */; };
-		DE61A491199FB90D00F78F8E /* _HGGradientItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A48B199FB90D00F78F8E /* _HGGradientItem.m */; };
-		DE61A492199FB90D00F78F8E /* _HGGradientItemList.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A48C199FB90D00F78F8E /* _HGGradientItemList.h */; };
-		DE61A493199FB90D00F78F8E /* _HGGradientItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */; };
-		DE61A496199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */; };
-		DE61A497199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */; };
-		DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE61A49B199FBCC500F78F8E /* HGColor+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */; };
 		DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */; };
 		DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A436199FB01800F78F8E /* HGParticleSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,24 +64,6 @@
 		DE61A471199FB2D500F78F8E /* HGTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGTypes.h; sourceTree = "<group>"; };
 		DE61A472199FB2D500F78F8E /* HGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGTypes.m; sourceTree = "<group>"; };
 		DE61A475199FB3CA00F78F8E /* HGAssert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGAssert.h; sourceTree = "<group>"; };
-		DE61A476199FB65000F78F8E /* HGCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGCurve.h; sourceTree = "<group>"; };
-		DE61A477199FB65000F78F8E /* HGCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGCurve.m; sourceTree = "<group>"; };
-		DE61A478199FB65000F78F8E /* HGGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGGradient.h; sourceTree = "<group>"; };
-		DE61A479199FB65000F78F8E /* HGGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGGradient.m; sourceTree = "<group>"; };
-		DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometryAdditions.h; sourceTree = "<group>"; };
-		DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGGeometryAdditions.m; sourceTree = "<group>"; };
-		DE61A483199FB7ED00F78F8E /* CGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGFloatAdditions.h; sourceTree = "<group>"; };
-		DE61A484199FB7ED00F78F8E /* CGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGFloatAdditions.m; sourceTree = "<group>"; };
-		DE61A488199FB90D00F78F8E /* _HGGradientBlendedValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _HGGradientBlendedValue.h; sourceTree = "<group>"; };
-		DE61A489199FB90D00F78F8E /* _HGGradientBlendedValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HGGradientBlendedValue.m; sourceTree = "<group>"; };
-		DE61A48A199FB90D00F78F8E /* _HGGradientItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _HGGradientItem.h; sourceTree = "<group>"; };
-		DE61A48B199FB90D00F78F8E /* _HGGradientItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HGGradientItem.m; sourceTree = "<group>"; };
-		DE61A48C199FB90D00F78F8E /* _HGGradientItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _HGGradientItemList.h; sourceTree = "<group>"; };
-		DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _HGGradientItemList.m; sourceTree = "<group>"; };
-		DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HGColor+HGGradientAdditions.h"; sourceTree = "<group>"; };
-		DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HGColor+HGGradientAdditions.m"; sourceTree = "<group>"; };
-		DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HGColor+Serialization.h"; sourceTree = "<group>"; };
-		DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HGColor+Serialization.m"; sourceTree = "<group>"; };
 		DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemKeys.h; sourceTree = "<group>"; };
 		DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemKeys.m; sourceTree = "<group>"; };
 		DE6C99BC19A098000075B6A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -187,8 +151,6 @@
 				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
 				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
 				DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */,
-				DE61A49C199FC02F00F78F8E /* Curve */,
-				DE61A487199FB90800F78F8E /* Gradient */,
 				DE61A482199FB7C900F78F8E /* Helpers */,
 				DE61A434199FB01800F78F8E /* Supporting Files */,
 			);
@@ -227,40 +189,8 @@
 				DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */,
 				DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */,
 				DE61A475199FB3CA00F78F8E /* HGAssert.h */,
-				DE61A483199FB7ED00F78F8E /* CGFloatAdditions.h */,
-				DE61A484199FB7ED00F78F8E /* CGFloatAdditions.m */,
-				DE61A47E199FB7BF00F78F8E /* CGGeometryAdditions.h */,
-				DE61A47F199FB7BF00F78F8E /* CGGeometryAdditions.m */,
-				DE61A498199FBCC500F78F8E /* HGColor+Serialization.h */,
-				DE61A499199FBCC500F78F8E /* HGColor+Serialization.m */,
 			);
 			name = Helpers;
-			sourceTree = "<group>";
-		};
-		DE61A487199FB90800F78F8E /* Gradient */ = {
-			isa = PBXGroup;
-			children = (
-				DE61A478199FB65000F78F8E /* HGGradient.h */,
-				DE61A479199FB65000F78F8E /* HGGradient.m */,
-				DE61A494199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h */,
-				DE61A495199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m */,
-				DE61A488199FB90D00F78F8E /* _HGGradientBlendedValue.h */,
-				DE61A489199FB90D00F78F8E /* _HGGradientBlendedValue.m */,
-				DE61A48A199FB90D00F78F8E /* _HGGradientItem.h */,
-				DE61A48B199FB90D00F78F8E /* _HGGradientItem.m */,
-				DE61A48C199FB90D00F78F8E /* _HGGradientItemList.h */,
-				DE61A48D199FB90D00F78F8E /* _HGGradientItemList.m */,
-			);
-			name = Gradient;
-			sourceTree = "<group>";
-		};
-		DE61A49C199FC02F00F78F8E /* Curve */ = {
-			isa = PBXGroup;
-			children = (
-				DE61A476199FB65000F78F8E /* HGCurve.h */,
-				DE61A477199FB65000F78F8E /* HGCurve.m */,
-			);
-			name = Curve;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,20 +203,11 @@
 				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
 				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
 				DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */,
-				DE61A47A199FB65000F78F8E /* HGCurve.h in Headers */,
-				DE61A47C199FB65000F78F8E /* HGGradient.h in Headers */,
-				DE61A485199FB7ED00F78F8E /* CGFloatAdditions.h in Headers */,
-				DE61A480199FB7BF00F78F8E /* CGGeometryAdditions.h in Headers */,
 				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
 				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
-				DE61A49A199FBCC500F78F8E /* HGColor+Serialization.h in Headers */,
 				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
-				DE61A48E199FB90D00F78F8E /* _HGGradientBlendedValue.h in Headers */,
 				DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */,
-				DE61A490199FB90D00F78F8E /* _HGGradientItem.h in Headers */,
 				DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */,
-				DE61A492199FB90D00F78F8E /* _HGGradientItemList.h in Headers */,
-				DE61A496199FBA8D00F78F8E /* HGColor+HGGradientAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,20 +293,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */,
-				DE61A47B199FB65000F78F8E /* HGCurve.m in Sources */,
 				DEFA992A19A0A57F00CF4E9C /* HGCocos2D.m in Sources */,
-				DE61A481199FB7BF00F78F8E /* CGGeometryAdditions.m in Sources */,
-				DE61A491199FB90D00F78F8E /* _HGGradientItem.m in Sources */,
-				DE61A493199FB90D00F78F8E /* _HGGradientItemList.m in Sources */,
 				DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */,
 				DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */,
-				DE61A48F199FB90D00F78F8E /* _HGGradientBlendedValue.m in Sources */,
-				DE61A47D199FB65000F78F8E /* HGGradient.m in Sources */,
-				DE61A486199FB7ED00F78F8E /* CGFloatAdditions.m in Sources */,
 				DE61A438199FB01800F78F8E /* HGParticleSystem.m in Sources */,
-				DE61A497199FBA8D00F78F8E /* HGColor+HGGradientAdditions.m in Sources */,
 				DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */,
-				DE61A49B199FBCC500F78F8E /* HGColor+Serialization.m in Sources */,
 				DE61A466199FB12F00F78F8E /* HGParticleCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
