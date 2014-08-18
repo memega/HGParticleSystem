@@ -137,8 +137,8 @@ typedef struct
     HGFloat _emitterShapeWidth;
     HGFloat _emitterShapeHeight;
     CGRect _emitterRect; // small optimization, pre-calculated
-    
     BOOL _emitterShapeBoundary;
+    BOOL _emitterShapeRandomDirection;
     
     BOOL _sizeOverLifetimeModule;
     HGPropertyRef _sizeOverLifetime; // curve, random
@@ -262,6 +262,7 @@ typedef struct
                                  HGEmitterShapeBoundaryPropertyKey,
                                  HGEmitterShapeWidthPropertyKey,
                                  HGEmitterShapeHeightPropertyKey,
+                                 HGEmitterShapeRandomDirectionPropertyKey,
                                  
                                  HGColorOverLifetimeModulePropertyKey,
                                  HGColorOverLifetimePropertyKey,
@@ -526,7 +527,14 @@ typedef struct
         }
         else if (_emitterShape == HGParticleSystemEmitterShapeRect)
         {
-            angle = CCRANDOM_0_1() * M_PI * 2.0;
+            if (_emitterShapeRandomDirection)
+            {
+                angle = CCRANDOM_0_1() * M_PI * 2.0;
+            }
+            else
+            {
+                angle = CC_DEGREES_TO_RADIANS(_emitterShapeDirection);
+            }
         }
     }
     GLKVector2 direction = GLKVector2Make(cos(angle), sin(angle)); // float versions
@@ -578,9 +586,18 @@ typedef struct
         }
         else if (_emitterShape == HGParticleSystemEmitterShapeRect)
         {
+            CGPoint directionVector;
+            if (_emitterShapeRandomDirection)
+            {
+                directionVector = ccp(direction.x, direction.y);
+            }
+            else
+            {
+                directionVector = ccpForAngle(CCRANDOM_0_1() * M_PI * 2.0);
+            }
+
             // find the intersection!
-            CGPoint p = HGPointOnRect(ccp(direction.x, direction.y), _emitterRect);
-            
+            CGPoint p = HGPointOnRect(directionVector, _emitterRect);
             if (_emitterShapeBoundary)
             {
                 position = GLKVector2Make(p.x, p.y);

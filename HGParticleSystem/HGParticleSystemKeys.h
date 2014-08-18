@@ -31,6 +31,7 @@ FOUNDATION_EXPORT NSString * const HGEmitterShapeDirectionPropertyKey;
 FOUNDATION_EXPORT NSString * const HGEmitterShapeBoundaryPropertyKey;
 FOUNDATION_EXPORT NSString * const HGEmitterShapeWidthPropertyKey;
 FOUNDATION_EXPORT NSString * const HGEmitterShapeHeightPropertyKey;
+FOUNDATION_EXPORT NSString * const HGEmitterShapeRandomDirectionPropertyKey;
 
 FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeModulePropertyKey;
 FOUNDATION_EXPORT NSString * const HGSpeedOverLifetimeModePropertyKey;
