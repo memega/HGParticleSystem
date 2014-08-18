@@ -383,11 +383,11 @@ HGPropertyRef HGPropertyMakeWithDictionaryRepresentation(const CFDictionaryRef d
     v  = dictionary[@"_color2Vector"];
     [v getValue:&ref->_color2Vector];
     
-    v = dictionary[@"_curveLUT"];
-    if (v) ref->_curveLUT = HGLookupTableMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(v));
+    NSDictionary *d = dictionary[@"_curveLUT"];
+    if (d) ref->_curveLUT = HGLookupTableMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(d));
 
-    v = dictionary[@"_gradientLUT"];
-    if (v) ref->_gradientLUT = HGLookupTableMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(v));
+    d = dictionary[@"_gradientLUT"];
+    if (d) ref->_gradientLUT = HGLookupTableMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(d));
 
     return ref;
 }
