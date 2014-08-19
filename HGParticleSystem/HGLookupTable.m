@@ -62,17 +62,17 @@ HGLookupTableRef HGLookupTableMakeWithFloat(const HGFloat *values, const size_t 
 HGLookupTableRef HGLookupTableMakeWithGLKVector4(const GLKVector4 *values, const size_t size)
 {
     struct _HGLookupTableRef *ref = calloc(1, sizeof(struct _HGLookupTableRef));
-    if (ref == NULL)
-    {
-        return NULL;
-    }
+    if (ref == NULL) return NULL;
     
     NSCAssert(size > 0, @"HGLookupTableRef initializer: zero size.");
     NSCAssert(values, @"HGLookupTableRef initializer: NULL array.");
     
     ref->_values = calloc(size, sizeof(GLKVector4));
     if (ref->_values == NULL)
-        return nil;
+    {
+        free(ref);
+        return NULL;
+    }
     
     memcpy(ref->_values, values, size * sizeof(GLKVector4));
     

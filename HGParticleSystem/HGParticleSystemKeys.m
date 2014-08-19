@@ -128,9 +128,9 @@ HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string)
     return [propertiesDictionary[string] integerValue];
 }
 
-GLuint HGBlendingModeFromString (NSString *string)
+static NSDictionary *blendModeByKey = nil;
+void HGInitializeBlendingModesDictionary()
 {
-    static NSDictionary *blendModeByKey = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         blendModeByKey = @{
@@ -151,6 +151,23 @@ GLuint HGBlendingModeFromString (NSString *string)
                            HGBlendModeGlSrcAlphaSaturate: @(GL_SRC_ALPHA_SATURATE),
                            };
     });
+}
+
+GLuint HGBlendingModeFromString (NSString *string)
+{
+    HGInitializeBlendingModesDictionary();
+    
     return [blendModeByKey[string] unsignedIntValue];
+}
+
+NSString *HGStringFromBlendingMode (GLuint blendingMode)
+{
+    HGInitializeBlendingModesDictionary();
+    
+    NSArray *allKeys = [blendModeByKey allKeysForObject:@(blendingMode)];
+    if (allKeys.count > 0)
+        return allKeys.firstObject;
+
+    return nil;
 }
 

@@ -105,6 +105,7 @@ FOUNDATION_EXPORT NSString * const HGBlendModeGlSrcAlphaSaturate;
 
 #pragma mark - Value Options
 
+FOUNDATION_EXPORT NSString *HGStringFromBlendingMode (GLuint blendingMode);
 FOUNDATION_EXPORT GLuint HGBlendingModeFromString (NSString *string);
 
 typedef NS_ENUM(NSInteger, HGParticleSystemPropertyOption)
