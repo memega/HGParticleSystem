@@ -613,17 +613,22 @@ typedef struct
     
 	// Color
 	particle->startColor = HGPropertyGetGLKVector4Value(_startColor, t);
+    particle->color = particle->startColor;
     if (_colorOverLifetimeModule)
     {
         if (HGPropertyGetOption(_colorOverLifetime) == HGParticleSystemPropertyOptionColorRandomRGB)
         {
             GLKVector4 endColor = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
-            particle->colorVelocity = GLKVector4Subtract(endColor, particle->startColor);
+            particle->colorVelocity = GLKVector4MultiplyScalar(
+                                                               GLKVector4Subtract(endColor, particle->startColor),
+                                                               1.f/particle->lifetime);
         }
         else if (HGPropertyGetOption(_colorOverLifetime) == HGParticleSystemPropertyOptionColorRandomHSV)
         {
             GLKVector4 endColor = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
-            particle->colorVelocity = GLKVector4Subtract(endColor, particle->startColor);
+            particle->colorVelocity = GLKVector4MultiplyScalar(
+                                                               GLKVector4Subtract(endColor, particle->startColor),
+                                                               1.f/particle->lifetime);
         }
         else
         {
@@ -850,17 +855,17 @@ typedef struct
                 }
                 p->size += p->sizeVelocity * delta;
                 
-                p->color = p->startColor;
                 if (_colorOverLifetimeModule)
                 {
                     HGParticleSystemPropertyOption option = HGPropertyGetOption(_colorOverLifetime);
                     if (option == HGParticleSystemPropertyOptionGradient)
                     {
                         GLKVector4 color = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
-                        p->color.r += color.r;
-                        p->color.g += color.g;
-                        p->color.b += color.b;
-                        p->color.a *= color.a;
+
+                        p->color.r = p->startColor.r + color.r;
+                        p->color.g = p->startColor.g + color.g;
+                        p->color.b = p->startColor.b + color.b;
+                        p->color.a = p->startColor.a * color.a;
                     }
                     else if (option == HGParticleSystemPropertyOptionColorRandomHSV)
                     {
