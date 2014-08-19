@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Yuriy Panfyorov. All rights reserved.
 //
 
-#import "HGParticleCache.h"
+#import "HGParticleSystemCache.h"
 
 #import "HGParticleSystem.h"
 
@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 #pragma mark - HGParticlePoolItem
 
+
 @interface HGParticlePoolItem : NSObject
 
 @property (nonatomic) HGParticlePoolItemState state;
@@ -31,12 +32,16 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 #pragma mark - HGParticlePool
 
-@interface HGParticlePool ()
+@interface HGParticlePool : NSObject
 {
     NSMutableSet *_pool;
     NSUInteger _availableSystems;
     NSUInteger _capacity;
 }
+
+- (instancetype)initWithFile:(NSString*)path capacity:(NSUInteger)capacity;
+- (NSUInteger)availableSystems;
+- (HGParticleSystem *)particleSystem;
 
 @end
 
@@ -46,10 +51,12 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 - (instancetype)initWithFile:(NSString*)path capacity:(NSUInteger)capacity {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _capacity = capacity;
         _pool = [NSMutableSet setWithCapacity:_capacity];
-        for ( NSInteger count = 0; count < _capacity; count ++ ) {
+        for ( NSInteger count = 0; count < _capacity; count ++ )
+        {
             HGParticlePoolItem *item = [HGParticlePoolItem new];
             item.state = HGParticlePoolItemStateIdle;
             item.particleSystem = [[HGParticleSystem alloc] initWithFile:path];
@@ -81,6 +88,9 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 - (HGParticleSystem*)particleSystem
 {
+    if (_availableSystems == 0)
+        return nil;
+    
     __block HGParticlePoolItem *item = nil;
     [_pool enumerateObjectsUsingBlock:^(HGParticlePoolItem *poolItem, BOOL *stop) {
         if (poolItem.state == HGParticlePoolItemStateIdle) {
@@ -89,8 +99,8 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
             *stop = YES;
         }
     }];
-    if (item) {
-        
+    if (item)
+    {
         _availableSystems--;
         
         item.state = HGParticlePoolItemStateActive;
@@ -129,9 +139,9 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 @end
 
-#pragma mark HGParticleCache
+#pragma mark HGParticleSystemCache
 
-@interface HGParticleCache ()
+@interface HGParticleSystemCache ()
 {
     NSMutableDictionary *_pools;
     
@@ -140,13 +150,12 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 @end
 
-@implementation HGParticleCache
+@implementation HGParticleSystemCache
 
-+ (HGParticleCache*)sharedParticleCache
++ (instancetype)sharedCache
 {
-    static HGParticleCache *sharedInstance;
+    static HGParticleSystemCache *sharedInstance = nil;
     static dispatch_once_t predicate;
-    
     dispatch_once(&predicate, ^{
         sharedInstance = [self new];
     });
@@ -161,7 +170,6 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
         
 		_dictQueue = dispatch_queue_create("com.neobia.particlecachedict", NULL);
     }
-    
     return self;
 }
 
@@ -184,13 +192,16 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
     _dictQueue = nil;
 }
 
-- (HGParticlePool *)addParticleSystemPoolFromFile:(NSString*)path {
-    return [self addParticleSystemPoolFromFile:path capacity:HG_DEFAULT_POOL_SIZE];
+#pragma mark - Particle systems
+
+- (HGParticleSystem *)addParticleSystemFromFile:(NSString *)name
+{
+    return [self addParticleSystemFromFile:name capacity:HG_DEFAULT_POOL_SIZE];
 }
 
-- (HGParticlePool *)addParticleSystemPoolFromFile:(NSString*)path capacity:(NSUInteger)capacity {
-    
-    path = [path stringByStandardizingPath];
+- (HGParticleSystem *)addParticleSystemFromFile:(NSString *)name capacity:(NSUInteger)capacity
+{
+    NSString *path = [name stringByStandardizingPath];
     
     __block HGParticlePool *pool = nil;
     
@@ -213,26 +224,24 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
                 [_pools setObject: pool forKey:path];
             });
         }else{
-            NSLog(@"HungryGirls: Couldn't add particles:%@ in MSParticleCache", path);
+            NSLog(@"HGParticleCache: Couldn't add particles: %@", path);
         }
     }
     
-    return pool;
-    
+    return pool.particleSystem;
 }
 
--(void) removeParticleSystemPoolForKey:(NSString*)name
+- (void)removeParticleSystemForKey:(NSString *)key
 {
-	if( ! name )
+	if( ! key )
 		return;
     
 	dispatch_sync(_dictQueue, ^{
-		[_pools removeObjectForKey:name];
+		[_pools removeObjectForKey:key];
 	});
 }
 
-#pragma mark ParticleSystemCache - Get
-- (HGParticlePool *)particleSystemPoolForKey:(NSString *)key
+- (HGParticleSystem *)particleSystemForKey:(NSString *)key
 {
 	__block HGParticlePool *pool = nil;
     
@@ -240,8 +249,7 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 		pool = [_pools objectForKey:key];
 	});
     
-	return pool;
+    return pool.particleSystem;
 }
-
 
 @end

@@ -13,8 +13,8 @@
 		DE61A443199FB01800F78F8E /* libHGParticleSystem-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */; };
 		DE61A449199FB01800F78F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE61A447199FB01800F78F8E /* InfoPlist.strings */; };
 		DE61A44B199FB01800F78F8E /* HGParticleSystemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */; };
-		DE61A466199FB12F00F78F8E /* HGParticleCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A45F199FB12F00F78F8E /* HGParticleCache.m */; };
-		DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A460199FB12F00F78F8E /* HGParticleCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A466199FB12F00F78F8E /* HGParticleSystemCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */; };
+		DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A461199FB12F00F78F8E /* HGLookupTable.m */; };
 		DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A462199FB12F00F78F8E /* HGLookupTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */; };
@@ -55,8 +55,8 @@
 		DE61A446199FB01800F78F8E /* HGParticleSystem-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HGParticleSystem-iosTests-Info.plist"; sourceTree = "<group>"; };
 		DE61A448199FB01800F78F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemTests.m; sourceTree = "<group>"; };
-		DE61A45F199FB12F00F78F8E /* HGParticleCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleCache.m; sourceTree = "<group>"; };
-		DE61A460199FB12F00F78F8E /* HGParticleCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleCache.h; sourceTree = "<group>"; };
+		DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemCache.m; sourceTree = "<group>"; };
+		DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemCache.h; sourceTree = "<group>"; };
 		DE61A461199FB12F00F78F8E /* HGLookupTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGLookupTable.m; sourceTree = "<group>"; };
 		DE61A462199FB12F00F78F8E /* HGLookupTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGLookupTable.h; sourceTree = "<group>"; };
 		DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemProperty.m; sourceTree = "<group>"; };
@@ -145,8 +145,8 @@
 				DE61A437199FB01800F78F8E /* HGParticleSystem.m */,
 				DE61A471199FB2D500F78F8E /* HGTypes.h */,
 				DE61A472199FB2D500F78F8E /* HGTypes.m */,
-				DE61A460199FB12F00F78F8E /* HGParticleCache.h */,
-				DE61A45F199FB12F00F78F8E /* HGParticleCache.m */,
+				DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */,
+				DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */,
 				DE61A462199FB12F00F78F8E /* HGLookupTable.h */,
 				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
 				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
@@ -202,7 +202,7 @@
 			files = (
 				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
 				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
-				DE61A467199FB12F00F78F8E /* HGParticleCache.h in Headers */,
+				DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */,
 				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
 				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
 				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
@@ -298,7 +298,7 @@
 				DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */,
 				DE61A438199FB01800F78F8E /* HGParticleSystem.m in Sources */,
 				DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */,
-				DE61A466199FB12F00F78F8E /* HGParticleCache.m in Sources */,
+				DE61A466199FB12F00F78F8E /* HGParticleSystemCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +407,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-ios-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"../testHGParticles/Libraries/**",
+					"../Cocos2D/**",
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "HGParticleSystem-ios";
@@ -420,7 +420,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-ios-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"../testHGParticles/Libraries/**",
+					"../Cocos2D/**",
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "HGParticleSystem-ios";
