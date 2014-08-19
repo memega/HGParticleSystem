@@ -85,6 +85,7 @@ typedef struct
     
     GLKVector4 color;
     GLKVector4 startColor;
+    GLKVector4 colorVelocity;
     
     HGFloat size;
     HGFloat startSize;
@@ -612,6 +613,27 @@ typedef struct
     
 	// Color
 	particle->startColor = HGPropertyGetGLKVector4Value(_startColor, t);
+    if (_colorOverLifetimeModule)
+    {
+        if (HGPropertyGetOption(_colorOverLifetime) == HGParticleSystemPropertyOptionColorRandomRGB)
+        {
+            GLKVector4 endColor = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
+            particle->colorVelocity = GLKVector4Subtract(endColor, particle->startColor);
+        }
+        else if (HGPropertyGetOption(_colorOverLifetime) == HGParticleSystemPropertyOptionColorRandomHSV)
+        {
+            GLKVector4 endColor = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
+            particle->colorVelocity = GLKVector4Subtract(endColor, particle->startColor);
+        }
+        else
+        {
+            particle->colorVelocity = HGGLKVector4Zero;
+        }
+    }
+    else
+    {
+        particle->colorVelocity = HGGLKVector4Zero;
+    }
     
 	// size
     particle->startSize = HGPropertyGetFloatValue(_startSize, t);
@@ -621,6 +643,14 @@ typedef struct
         {
             particle->sizeVelocity = (HGPropertyGetFloatValue(_sizeOverLifetime, t) - particle->startSize) / particle->lifetime;
         }
+        else
+        {
+            particle->sizeVelocity = 0.f;
+        }
+    }
+    else
+    {
+        particle->sizeVelocity = 0.f;
     }
     particle->size = particle->startSize;
     
@@ -823,11 +853,25 @@ typedef struct
                 p->color = p->startColor;
                 if (_colorOverLifetimeModule)
                 {
-                    GLKVector4 color = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
-                    p->color.r += color.r;
-                    p->color.g += color.g;
-                    p->color.b += color.b;
-                    p->color.a *= color.a;
+                    HGParticleSystemPropertyOption option = HGPropertyGetOption(_colorOverLifetime);
+                    if (option == HGParticleSystemPropertyOptionGradient)
+                    {
+                        GLKVector4 color = HGPropertyGetGLKVector4Value(_colorOverLifetime, t);
+                        p->color.r += color.r;
+                        p->color.g += color.g;
+                        p->color.b += color.b;
+                        p->color.a *= color.a;
+                    }
+                    else if (option == HGParticleSystemPropertyOptionColorRandomHSV)
+                    {
+                        p->color = GLKVector4Add(p->color,
+                                                 GLKVector4MultiplyScalar(p->colorVelocity, delta));
+                    }
+                    else if (option == HGParticleSystemPropertyOptionColorRandomRGB)
+                    {
+                        p->color = GLKVector4Add(p->color,
+                                                 GLKVector4MultiplyScalar(p->colorVelocity, delta));
+                    }
                 }
                 
                 if (_spinningOverLifetimeModule)
