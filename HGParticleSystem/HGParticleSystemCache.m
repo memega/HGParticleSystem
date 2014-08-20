@@ -194,12 +194,12 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
 
 #pragma mark - Particle systems
 
-- (HGParticleSystem *)addParticleSystemFromFile:(NSString *)name
+- (void)addParticleSystemFromFile:(NSString *)name
 {
-    return [self addParticleSystemFromFile:name capacity:HG_DEFAULT_POOL_SIZE];
+    [self addParticleSystemFromFile:name capacity:HG_DEFAULT_POOL_SIZE];
 }
 
-- (HGParticleSystem *)addParticleSystemFromFile:(NSString *)name capacity:(NSUInteger)capacity
+- (void)addParticleSystemFromFile:(NSString *)name capacity:(NSUInteger)capacity
 {
     NSString *path = [name stringByStandardizingPath];
     
@@ -227,8 +227,6 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
             NSLog(@"HGParticleCache: Couldn't add particles: %@", path);
         }
     }
-    
-    return pool.particleSystem;
 }
 
 - (void)removeParticleSystemForKey:(NSString *)key

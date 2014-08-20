@@ -16,14 +16,14 @@
 #import "cocos2d.h"
 #endif
 
-@class HGParticleSystem;
+#import "HGParticleSystem.h"
 
 @interface HGParticleSystemCache : NSObject
 
 + (instancetype)sharedCache;
 
-- (HGParticleSystem *)addParticleSystemFromFile:(NSString*)name;
-- (HGParticleSystem *)addParticleSystemFromFile:(NSString*)name capacity:(NSUInteger)capacity;
+- (void)addParticleSystemFromFile:(NSString*)name;
+- (void)addParticleSystemFromFile:(NSString*)name capacity:(NSUInteger)capacity;
 
 - (HGParticleSystem *)particleSystemForKey:(NSString *)key;
 - (void)removeParticleSystemForKey:(NSString *)key;
