@@ -408,7 +408,7 @@ typedef struct
                 NSString *textureFile = [dictionary valueForKey:HGTextureFilePropertyKey];
                 if (textureFile)
                 {
-                    CCTexture *texture = [[CCTextureCache sharedTextureCache] addImage:textureFile.lastPathComponent];
+                    CCTexture *texture = [[CCTextureCache sharedTextureCache] addImage:textureFile];
                     
                     if (texture)
                     {
