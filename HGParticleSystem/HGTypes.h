@@ -47,11 +47,14 @@ FOUNDATION_STATIC_INLINE HGFloat HGFloatLerp(HGFloat a, HGFloat b, HGFloat ratio
 }
 
 FOUNDATION_EXPORT GLKVector4 const HGGLKVector4None;
+FOUNDATION_EXPORT GLKVector3 const HGGLKVector3None;
 FOUNDATION_EXPORT GLKVector2 const HGGLKVector2None;
 FOUNDATION_EXPORT GLKVector4 const HGGLKVector4Zero;
+FOUNDATION_EXPORT GLKVector3 const HGGLKVector3Zero;
 FOUNDATION_EXPORT GLKVector2 const HGGLKVector2Zero;
 
 FOUNDATION_EXPORT GLKVector4 HGGLKVector4MakeWithColor(HGColor *color);
+FOUNDATION_EXPORT GLKVector3 HGGLKVector3MakeWithColor(HGColor *color);
 
 #ifndef RANDOM_CGFLOAT_IN_RANGE
 #define RANDOM_CGFLOAT_IN_RANGE(min,max) ((CGFloat)arc4random()/UINT32_MAX) * ((max) - (min)) + (min)

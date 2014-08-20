@@ -128,6 +128,12 @@ HGFloat HGLookupTableGetCGFloatValue(HGLookupTableRef lut, HGFloat t)
     return HGFloatLerp(lut->_min, lut->_max, HGFloatLerp(v1, v2, t * lut->_size - index));
 }
 
+GLKVector3 HGLookupTableGetGLKVector3Value(HGLookupTableRef lut, const HGFloat t)
+{
+    GLKVector4 value = HGLookupTableGetGLKVector4Value(lut, t);
+    return GLKVector3Make(value.x, value.y, value.z);
+}
+
 GLKVector4 HGLookupTableGetGLKVector4Value(HGLookupTableRef lut, HGFloat t)
 {
     NSCAssert(lut, @"HGLookupTableRef: NULL LUT");

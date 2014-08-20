@@ -105,13 +105,11 @@ struct _HGPropertyRef
     HGFloat _constant4;
     HGFloat _constant5;
     HGFloat _constant6;
-    HGFloat _constant7;
-    HGFloat _constant8;
     
     HGLookupTableRef _curveLUT;
     
-    GLKVector4 _color1Vector;
-    GLKVector4 _color2Vector;
+    GLKVector3 _color1Vector;
+    GLKVector3 _color2Vector;
     
     HGLookupTableRef _gradientLUT;
 };
@@ -184,35 +182,31 @@ HGPropertyRef HGPropertyMakeWithDictionary(const CFDictionaryRef dictionary)
         case HGParticleSystemPropertyOptionColor:
             // expecting an NSColor as a dictionary
             color = HGColorMakeWithDictionary(value);
-            ref->_color1Vector = HGGLKVector4MakeWithColor(color);
+            ref->_color1Vector = HGGLKVector3MakeWithColor(color);
             break;
         case HGParticleSystemPropertyOptionColorRandomRGB:
             // expecting an array with two NSNumbers
             HGAssert([value isKindOfClass:NSArray.class], @"HGParticleSystemProperty: wrong value class for HGParticleSystemPropertyOptionColorRandomRGB");
             constants = value;
-            HGAssert(constants.count == 8, @"HGParticleSystemProperty: wrong value count for HGParticleSystemPropertyOptionColorRandomRGB");
+            HGAssert(constants.count == 6, @"HGParticleSystemProperty: wrong value count for HGParticleSystemPropertyOptionColorRandomRGB");
             ref->_constant1 = HGFloatFromId(constants[0]);
             ref->_constant2 = HGFloatFromId(constants[1]);
             ref->_constant3 = HGFloatFromId(constants[2]);
             ref->_constant4 = HGFloatFromId(constants[3]);
             ref->_constant5 = HGFloatFromId(constants[4]);
             ref->_constant6 = HGFloatFromId(constants[5]);
-            ref->_constant7 = HGFloatFromId(constants[6]);
-            ref->_constant8 = HGFloatFromId(constants[7]);
             break;
         case HGParticleSystemPropertyOptionColorRandomHSV:
             // expecting an array with two NSNumbers
             HGAssert([value isKindOfClass:NSArray.class], @"HGParticleSystemProperty: wrong value class for HGParticleSystemPropertyOptionColorRandomHSV");
             constants = value;
-            HGAssert(constants.count == 8, @"HGParticleSystemProperty: wrong value count for HGParticleSystemPropertyOptionColorRandomHSV");
+            HGAssert(constants.count == 6, @"HGParticleSystemProperty: wrong value count for HGParticleSystemPropertyOptionColorRandomHSV");
             ref->_constant1 = HGFloatFromId(constants[0]);
             ref->_constant2 = HGFloatFromId(constants[1]);
             ref->_constant3 = HGFloatFromId(constants[2]);
             ref->_constant4 = HGFloatFromId(constants[3]);
             ref->_constant5 = HGFloatFromId(constants[4]);
             ref->_constant6 = HGFloatFromId(constants[5]);
-            ref->_constant7 = HGFloatFromId(constants[6]);
-            ref->_constant8 = HGFloatFromId(constants[7]);
             break;
         case HGParticleSystemPropertyOptionGradient:
             // expecting a HGGradient as a dictionary
@@ -228,10 +222,10 @@ HGPropertyRef HGPropertyMakeWithDictionary(const CFDictionaryRef dictionary)
             constants = value;
             HGAssert(constants.count == 2, @"HGParticleSystemProperty: wrong value count for HGParticleSystemPropertyOptionRandomConstants");
             color = HGColorMakeWithDictionary(constants[0]);
-            ref->_color1Vector = HGGLKVector4MakeWithColor(color);
+            ref->_color1Vector = HGGLKVector3MakeWithColor(color);
             
             color = HGColorMakeWithDictionary(constants[1]);
-            ref->_color2Vector = HGGLKVector4MakeWithColor(color);
+            ref->_color2Vector = HGGLKVector3MakeWithColor(color);
             break;
             
         default: // Unsupported (yet) options go here
@@ -280,7 +274,7 @@ HGFloat HGPropertyGetFloatValue(HGPropertyRef property, const HGFloat t)
     return NAN;
 }
 
-GLKVector4 HGPropertyGetGLKVector4Value(HGPropertyRef property, const HGFloat t)
+GLKVector3 HGPropertyGetGLKVector3Value(HGPropertyRef property, const HGFloat t)
 {
     NSCAssert(property, @"HGPropertyGetGLKVector4Value: NULL property.");
     HGColor *color;
@@ -289,31 +283,29 @@ GLKVector4 HGPropertyGetGLKVector4Value(HGPropertyRef property, const HGFloat t)
             return property->_color1Vector;
             break;
         case HGParticleSystemPropertyOptionColorRandomRGB:
-            return GLKVector4Make(RANDOM_FLOAT_IN_RANGE(property->_constant1, property->_constant2),
+            return GLKVector3Make(RANDOM_FLOAT_IN_RANGE(property->_constant1, property->_constant2),
                                   RANDOM_FLOAT_IN_RANGE(property->_constant3, property->_constant4),
-                                  RANDOM_FLOAT_IN_RANGE(property->_constant5, property->_constant6),
-                                  RANDOM_FLOAT_IN_RANGE(property->_constant7, property->_constant8));
+                                  RANDOM_FLOAT_IN_RANGE(property->_constant5, property->_constant6));
             break;
         case HGParticleSystemPropertyOptionColorRandomHSV:
             color = [HGColor colorWithHue:RANDOM_CGFLOAT_IN_RANGE(property->_constant1, property->_constant2)
                                saturation:RANDOM_CGFLOAT_IN_RANGE(property->_constant3, property->_constant4)
                                brightness:RANDOM_CGFLOAT_IN_RANGE(property->_constant5, property->_constant6)
-                                    alpha:RANDOM_CGFLOAT_IN_RANGE(property->_constant7, property->_constant8)];
-            return HGGLKVector4MakeWithColor(color);
+                                    alpha:1.f];
+            return HGGLKVector3MakeWithColor(color);
             break;
         case HGParticleSystemPropertyOptionGradient:
-            return HGLookupTableGetGLKVector4Value(property->_gradientLUT, t);
+            return HGLookupTableGetGLKVector3Value(property->_gradientLUT, t);
             break;
         case HGParticleSystemPropertyOptionRandomColors:
-            return GLKVector4Make(RANDOM_FLOAT_IN_RANGE(property->_color1Vector.r, property->_color2Vector.r),
+            return GLKVector3Make(RANDOM_FLOAT_IN_RANGE(property->_color1Vector.r, property->_color2Vector.r),
                                   RANDOM_FLOAT_IN_RANGE(property->_color1Vector.g, property->_color2Vector.g),
-                                  RANDOM_FLOAT_IN_RANGE(property->_color1Vector.b, property->_color2Vector.b),
-                                  RANDOM_FLOAT_IN_RANGE(property->_color1Vector.a, property->_color2Vector.a));
+                                  RANDOM_FLOAT_IN_RANGE(property->_color1Vector.b, property->_color2Vector.b));
             break;
         default:
             break;
     }
-    return HGGLKVector4None;
+    return HGGLKVector3Zero;
 }
 
 CFDictionaryRef HGPropertyCreateDictionaryRepresentation(HGPropertyRef property)
@@ -327,8 +319,6 @@ CFDictionaryRef HGPropertyCreateDictionaryRepresentation(HGPropertyRef property)
     dictionary[@"_constant4"] = @(property->_constant4);
     dictionary[@"_constant5"] = @(property->_constant5);
     dictionary[@"_constant6"] = @(property->_constant6);
-    dictionary[@"_constant7"] = @(property->_constant7);
-    dictionary[@"_constant8"] = @(property->_constant8);
     
     dictionary[@"_color1Vector"] = [NSValue valueWithBytes:&property->_color1Vector objCType:@encode(GLKVector4)];
     dictionary[@"_color2Vector"] = [NSValue valueWithBytes:&property->_color2Vector objCType:@encode(GLKVector4)];
@@ -370,10 +360,6 @@ HGPropertyRef HGPropertyMakeWithDictionaryRepresentation(const CFDictionaryRef d
     [v getValue:&ref->_constant5];
     v  = dictionary[@"_constant6"];
     [v getValue:&ref->_constant6];
-    v  = dictionary[@"_constant7"];
-    [v getValue:&ref->_constant7];
-    v  = dictionary[@"_constant8"];
-    [v getValue:&ref->_constant8];
     
     v  = dictionary[@"_color1Vector"];
     [v getValue:&ref->_color1Vector];

@@ -18,6 +18,7 @@ NSString * const HGStartSpeedPropertyKey = @"startSpeed";
 NSString * const HGGravityPropertyKey = @"gravity";
 NSString * const HGStartRotationPropertyKey = @"startRotation";
 NSString * const HGStartColorPropertyKey = @"startColor";
+NSString * const HGStartOpacityPropertyKey = @"startOpacity";
 NSString * const HGMaxParticlesPropertyKey = @"maxParticles";
 NSString * const HGEmissionModulePropertyKey = @"emissionModule";
 NSString * const HGEmissionRatePropertyKey = @"emissionRate";
@@ -50,10 +51,20 @@ NSString * const HGSpinningOverLifetimeAngularVelocityPropertyKey = @"spinningOv
 
 NSString * const HGColorOverLifetimeModulePropertyKey = @"colorOverLifetimeModule";
 NSString * const HGColorOverLifetimePropertyKey = @"colorOverLifetime";
+
+NSString * const HGOpacityOverLifetimeModulePropertyKey = @"opacityOverLifetimeModule";
+NSString * const HGOpacityOverLifetimePropertyKey = @"opacityOverLifetime";
+
 NSString * const HGBlendModulePropertyKey = @"blendModule";
 NSString * const HGBlendingSrcPropertyKey = @"blendingSrc";
 NSString * const HGBlendingDstPropertyKey = @"blendingDst";
+
 NSString * const HGTexturePropertyKey = @"texture";
+NSString * const HGTextureModulePropertyKey = @"textureModule";
+NSString * const HGTextureModePropertyKey = @"textureMode";
+NSString * const HGTextureFilePropertyKey = @"textureFile";
+NSString * const HGTextureSpriteFrameSourcePropertyKey = @"textureSpriteFrameSource";
+NSString * const HGTextureSpriteFramePropertyKey = @"textureSpriteFrame";
 
 #pragma mark - Options
 
@@ -79,6 +90,12 @@ NSString * const HGParticleSystemEmitterShapeRectValue = @"HGParticleSystemEmitt
 
 NSString * const HGParticleSystemSpeedCurve = @"HGParticleSystemSpeedCurve";
 NSString * const HGParticleSystemSpeedAcceleration = @"HGParticleSystemSpeedAcceleration";
+
+#pragma mark - Texture Mode options
+
+NSString * const HGTextureModeEmbedded = @"HGTextureModeEmbedded";
+NSString * const HGTextureModeFile = @"HGTextureModeFile";
+NSString * const HGTextureModeSpriteFrame = @"HGTextureModeSpriteFrame";
 
 #pragma mark - GL Blending Modes
 
@@ -126,6 +143,20 @@ HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string)
                                  };
     });
     return [propertiesDictionary[string] integerValue];
+}
+
+HGParticleSystemTextureMode HGParticleSystemTextureModeFromString (NSString *string)
+{
+    static NSDictionary *textureModes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        textureModes = @{
+                         HGTextureModeEmbedded: @(HGParticleSystemTextureModeEmbedded),
+                         HGTextureModeFile: @(HGParticleSystemTextureModeFile),
+                         HGTextureModeSpriteFrame: @(HGParticleSystemTextureModeSpriteFrame),
+                         };
+    });
+    return [textureModes[string] integerValue];
 }
 
 static NSDictionary *blendModeByKey = nil;

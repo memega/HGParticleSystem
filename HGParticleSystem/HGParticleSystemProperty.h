@@ -19,7 +19,7 @@ typedef const struct _HGPropertyRef * HGPropertyRef;
 FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithDictionary(const CFDictionaryRef dictionary);
 FOUNDATION_EXPORT void HGPropertyRelease(HGPropertyRef property);
 FOUNDATION_EXPORT HGFloat HGPropertyGetFloatValue(HGPropertyRef property, const HGFloat t);
-FOUNDATION_EXPORT GLKVector4 HGPropertyGetGLKVector4Value(HGPropertyRef property, const HGFloat t);
+FOUNDATION_EXPORT GLKVector3 HGPropertyGetGLKVector3Value(HGPropertyRef property, const HGFloat t);
 FOUNDATION_EXPORT HGParticleSystemPropertyOption HGPropertyGetOption(HGPropertyRef property);
     
 FOUNDATION_EXPORT CFDictionaryRef HGPropertyCreateDictionaryRepresentation(HGPropertyRef property);

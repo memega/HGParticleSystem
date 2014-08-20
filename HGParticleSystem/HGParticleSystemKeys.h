@@ -11,6 +11,7 @@
 
 #pragma mark - Property keys
 
+FOUNDATION_EXPORT NSString * const HGMaxParticlesPropertyKey;
 FOUNDATION_EXPORT NSString * const HGDurationPropertyKey;
 FOUNDATION_EXPORT NSString * const HGLoopingPropertyKey;
 FOUNDATION_EXPORT NSString * const HGLifetimePropertyKey;
@@ -19,7 +20,8 @@ FOUNDATION_EXPORT NSString * const HGStartSpeedPropertyKey;
 FOUNDATION_EXPORT NSString * const HGGravityPropertyKey;
 FOUNDATION_EXPORT NSString * const HGStartRotationPropertyKey;
 FOUNDATION_EXPORT NSString * const HGStartColorPropertyKey;
-FOUNDATION_EXPORT NSString * const HGMaxParticlesPropertyKey;
+FOUNDATION_EXPORT NSString * const HGStartOpacityPropertyKey;
+
 FOUNDATION_EXPORT NSString * const HGEmissionModulePropertyKey;
 FOUNDATION_EXPORT NSString * const HGEmissionRatePropertyKey;
 
@@ -55,9 +57,19 @@ FOUNDATION_EXPORT NSString * const HGSpinningOverLifetimeAngularVelocityProperty
 
 FOUNDATION_EXPORT NSString * const HGColorOverLifetimeModulePropertyKey;
 FOUNDATION_EXPORT NSString * const HGColorOverLifetimePropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGOpacityOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGOpacityOverLifetimePropertyKey;
+
 FOUNDATION_EXPORT NSString * const HGBlendModulePropertyKey;
 FOUNDATION_EXPORT NSString * const HGBlendingSrcPropertyKey;
 FOUNDATION_EXPORT NSString * const HGBlendingDstPropertyKey;
+
+FOUNDATION_EXPORT NSString * const HGTextureModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGTextureModePropertyKey;
+FOUNDATION_EXPORT NSString * const HGTextureFilePropertyKey;
+FOUNDATION_EXPORT NSString * const HGTextureSpriteFrameSourcePropertyKey;
+FOUNDATION_EXPORT NSString * const HGTextureSpriteFramePropertyKey;
 FOUNDATION_EXPORT NSString * const HGTexturePropertyKey;
 
 #pragma mark - Dynamic options
@@ -84,6 +96,12 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeRectValue;
 
 FOUNDATION_EXPORT NSString * const HGParticleSystemSpeedCurve;
 FOUNDATION_EXPORT NSString * const HGParticleSystemSpeedAcceleration;
+
+#pragma mark - Texture Mode options
+
+FOUNDATION_EXPORT NSString * const HGTextureModeEmbedded;
+FOUNDATION_EXPORT NSString * const HGTextureModeFile;
+FOUNDATION_EXPORT NSString * const HGTextureModeSpriteFrame;
 
 #pragma mark - GL Blending Modes
 
@@ -147,3 +165,16 @@ typedef NS_ENUM(NSInteger, HGParticleSystemSpeedMode) {
 };
 
 FOUNDATION_EXPORT HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string);
+
+#pragma mark - Texture modes
+
+typedef NS_ENUM(NSInteger, HGParticleSystemTextureMode)
+{
+    HGParticleSystemTextureModeEmbedded = 0,
+    HGParticleSystemTextureModeFile = 1,
+    HGParticleSystemTextureModeSpriteFrame = 2,
+    
+    HGParticleSystemTextureModeUndefined = NSNotFound,
+};
+
+FOUNDATION_EXPORT HGParticleSystemTextureMode HGParticleSystemTextureModeFromString (NSString *string);
