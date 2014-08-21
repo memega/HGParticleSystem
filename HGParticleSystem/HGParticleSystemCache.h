@@ -23,7 +23,6 @@
 + (instancetype)sharedCache;
 
 - (void)addParticleSystemFromFile:(NSString*)name;
-- (void)addParticleSystemFromFile:(NSString*)name capacity:(NSUInteger)capacity;
 
 - (HGParticleSystem *)particleSystemForKey:(NSString *)key;
 - (void)removeParticleSystemForKey:(NSString *)key;

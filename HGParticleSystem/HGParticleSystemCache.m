@@ -10,7 +10,7 @@
 
 #import "HGParticleSystem.h"
 
-#define HG_DEFAULT_POOL_SIZE 16
+#define HG_DEFAULT_POOL_SIZE 2
 
 typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
     HGParticlePoolItemStateIdle,
@@ -18,29 +18,17 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
     HGParticlePoolItemStateDying,
 };
 
-#pragma mark - HGParticlePoolItem
-
-
-@interface HGParticlePoolItem : NSObject
-
-@property (nonatomic) HGParticlePoolItemState state;
-@property (nonatomic) HGParticleSystem* particleSystem;
-
-@end
-@implementation HGParticlePoolItem
-@end
-
 #pragma mark - HGParticlePool
 
 @interface HGParticlePool : NSObject
 {
-    NSMutableSet *_pool;
-    NSUInteger _availableSystems;
+    NSString *_path;
+    NSMutableSet *_busySystems;
+    NSMutableSet *_availableSystems;
     NSUInteger _capacity;
 }
 
 - (instancetype)initWithFile:(NSString*)path capacity:(NSUInteger)capacity;
-- (NSUInteger)availableSystems;
 - (HGParticleSystem *)particleSystem;
 
 @end
@@ -53,87 +41,61 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
     self = [super init];
     if (self)
     {
+        _path = path;
         _capacity = capacity;
-        _pool = [NSMutableSet setWithCapacity:_capacity];
+        _availableSystems = [NSMutableSet setWithCapacity:_capacity];
+        _busySystems = [NSMutableSet setWithCapacity:_capacity];
         for ( NSInteger count = 0; count < _capacity; count ++ )
         {
-            HGParticlePoolItem *item = [HGParticlePoolItem new];
-            item.state = HGParticlePoolItemStateIdle;
-            item.particleSystem = [[HGParticleSystem alloc] initWithFile:path];
-            [item.particleSystem stopSystem];
-            [_pool addObject:item];
-
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(particleSystemDidFinish:)
-                                                         name:HGParticleSystemDidFinishNotification
-                                                       object:item.particleSystem];
+            [self addParticleSystemWithFile:path];
         }
-        _availableSystems = _capacity;
     }
     return self;
+}
+
+- (void)addParticleSystemWithFile:(NSString *)path
+{
+    HGParticleSystem *item = [[HGParticleSystem alloc] initWithFile:path];
+    [item stopSystem];
+    [_availableSystems addObject:item];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(particleSystemDidFinish:)
+                                                 name:HGParticleSystemDidFinishNotification
+                                               object:item];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     //FIXME: release all PS
-    [_pool removeAllObjects];
+    [_availableSystems removeAllObjects];
+    [_busySystems removeAllObjects];
 }
 
 #pragma mark MSParticlePool - Getting particles
 
-- (NSUInteger)availableSystems {
-    return _availableSystems;
-}
-
 - (HGParticleSystem*)particleSystem
 {
-    if (_availableSystems == 0)
-        return nil;
-    
-    __block HGParticlePoolItem *item = nil;
-    [_pool enumerateObjectsUsingBlock:^(HGParticlePoolItem *poolItem, BOOL *stop) {
-        if (poolItem.state == HGParticlePoolItemStateIdle) {
-            item = poolItem;
-            
-            *stop = YES;
-        }
-    }];
-    if (item)
+    if (_availableSystems.count == 0)
     {
-        _availableSystems--;
-        
-        item.state = HGParticlePoolItemStateActive;
-        [item.particleSystem resetSystem];
-        return item.particleSystem;
+        [self addParticleSystemWithFile:_path];
     }
-    return nil;
+    
+    id system = [_availableSystems anyObject];
+    [_availableSystems removeObject:system];
+    [_busySystems addObject:system];
+    return system;
 }
 
 - (void)particleSystemDidFinish:(NSNotification *)notification
 {
-    NSSet *items = [_pool objectsPassingTest:^BOOL(HGParticlePoolItem *item, BOOL *stop) {
-        if (item.particleSystem == notification.object)
-        {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-    if (items && items.count == 1)
+    id system = notification.object;
+    if ([_busySystems containsObject:system])
     {
-        [self disposePoolItem:items.anyObject];
+        [_busySystems removeObject:system];
+        [_availableSystems addObject:system];
     }
-}
-
-- (void)disposePoolItem:(HGParticlePoolItem *)poolItem
-{
-    poolItem.state = HGParticlePoolItemStateIdle;
-    
-    [poolItem.particleSystem stopSystem];
-    [poolItem.particleSystem removeFromParent];
-    
-    _availableSystems++;
 }
 
 @end
