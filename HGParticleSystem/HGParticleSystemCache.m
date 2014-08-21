@@ -51,12 +51,13 @@
 {
     HGParticleSystem *item = [[HGParticleSystem alloc] initWithFile:path];
     [item stopSystem];
-    [_availableSystems addObject:item];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(particleSystemDidFinish:)
                                                  name:HGParticleSystemDidFinishNotification
                                                object:item];
+
+    [_availableSystems addObject:item];
 }
 
 - (void)dealloc {
@@ -79,6 +80,7 @@
     id system = [_availableSystems anyObject];
     [_availableSystems removeObject:system];
     [_busySystems addObject:system];
+    [system resetSystem];
     return system;
 }
 
