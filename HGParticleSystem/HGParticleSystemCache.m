@@ -12,12 +12,6 @@
 
 #define HG_DEFAULT_POOL_SIZE 2
 
-typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
-    HGParticlePoolItemStateIdle,
-    HGParticlePoolItemStateActive,
-    HGParticlePoolItemStateDying,
-};
-
 #pragma mark - HGParticlePool
 
 @interface HGParticlePool : NSObject
