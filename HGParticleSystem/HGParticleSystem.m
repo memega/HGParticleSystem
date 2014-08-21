@@ -429,7 +429,7 @@ typedef struct
             {
                 NSString *textureSpriteFrameSource = [dictionary valueForKey:HGTextureSpriteFrameSourcePropertyKey];
                 NSString *textureSpriteFrame = [dictionary valueForKey:HGTextureSpriteFramePropertyKey];
-                if (textureSpriteFrameSource && textureSpriteFrame)
+                if (textureSpriteFrameSource.length > 0 && textureSpriteFrame.length > 0)
                 {
 #if __CC_PLATFORM_IOS
                     // should really be using the last component
