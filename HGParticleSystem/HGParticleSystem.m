@@ -413,8 +413,12 @@ typedef struct
                 NSString *textureFile = [dictionary valueForKey:HGTextureFilePropertyKey];
                 if (textureFile)
                 {
+#if __CC_PLATFORM_IOS
+                    // should really be using the last component
+                    textureFile = textureFile.lastPathComponent;
+#endif
                     CCTexture *texture = [[CCTextureCache sharedTextureCache] addImage:textureFile];
-                    
+
                     if (texture)
                     {
                         [self setTexture:texture];
@@ -427,9 +431,12 @@ typedef struct
                 NSString *textureSpriteFrame = [dictionary valueForKey:HGTextureSpriteFramePropertyKey];
                 if (textureSpriteFrameSource && textureSpriteFrame)
                 {
-                    NSURL *url = [NSURL URLWithString:textureSpriteFrameSource];
+#if __CC_PLATFORM_IOS
+                    // should really be using the last component
+                    textureSpriteFrameSource = textureSpriteFrameSource.lastPathComponent;
+#endif
                     
-                    NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:url.path];
+                    NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:textureSpriteFrameSource];
                     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
                     
                     NSString *texturePath = nil;
@@ -442,11 +449,11 @@ typedef struct
                     if( texturePath )
                     {
                         // build texture path relative to plist file
-                        NSString *textureBase = [url.path stringByDeletingLastPathComponent];
+                        NSString *textureBase = [textureSpriteFrameSource stringByDeletingLastPathComponent];
                         texturePath = [textureBase stringByAppendingPathComponent:texturePath];
                     } else {
                         // build texture path by replacing file extension
-                        texturePath = [url.path stringByDeletingPathExtension];
+                        texturePath = [textureSpriteFrameSource stringByDeletingPathExtension];
                         texturePath = [texturePath stringByAppendingPathExtension:@"png"];
                         
                         NSLog(@"HGParticleSystem: Trying to use file '%@' as texture", texturePath);
