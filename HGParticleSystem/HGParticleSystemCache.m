@@ -126,9 +126,8 @@ typedef NS_ENUM(NSInteger, HGParticlePoolItemState) {
     }
 }
 
-- (void)disposePoolItem:(HGParticlePoolItem *)poolItem {
-    NSLog(@"Disposing a pool item on thread %@", [NSThread currentThread]);
-    
+- (void)disposePoolItem:(HGParticlePoolItem *)poolItem
+{
     poolItem.state = HGParticlePoolItemStateIdle;
     
     [poolItem.particleSystem stopSystem];
