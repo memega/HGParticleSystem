@@ -731,7 +731,7 @@ typedef struct
     {
         if (HGPropertyGetOption(_opacityOverLifetime) == HGParticleSystemPropertyOptionRandomConstants)
         {
-            particle->opacityVelocity = HGPropertyGetFloatValue(_opacityOverLifetime, t) / (particle->lifetime?:1.);
+            particle->opacityVelocity = (HGPropertyGetFloatValue(_opacityOverLifetime, t) - particle->startOpacity) / (particle->lifetime?:1.);
         }
         else
         {
