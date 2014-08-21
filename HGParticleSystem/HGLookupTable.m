@@ -270,10 +270,10 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
         }
         ref->_values = scalarValues;
         
-        value = dictionary[@"_min"];
-        [value getValue:&ref->_min];
-        value = dictionary[@"_max"];
-        [value getValue:&ref->_max];
+        number = dictionary[@"_min"];
+        ref->_min = (HGFloat)[number doubleValue];
+        number = dictionary[@"_max"];
+        ref->_max = (HGFloat)[number doubleValue];
     }
     
     return ref;
