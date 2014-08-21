@@ -185,7 +185,7 @@ CFDictionaryRef HGLookupTableCreateDictionaryRepresentation(HGLookupTableRef lut
         HGFloat *scalarValues = lut->_values;
         for (NSUInteger i = 0; i<lut->_size; i++)
         {
-            HGFloat scalarValue = scalarValues[i];
+            HGFloat scalarValue = *(scalarValues + i);
             [values addObject:@(scalarValue)];
         }
         dictionary[@"_values"] = values;
@@ -219,6 +219,7 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
     
     NSDictionary *dictionary = (__bridge NSDictionary*)dict;
     NSValue * value;
+    NSNumber *number;
     
     value = dictionary[@"_size"];
     [value getValue:&ref->_size];
@@ -238,19 +239,17 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
             return NULL;
         }
         
-        HGFloat scalarValue;
         for(NSUInteger i = 0; i<array.count; i++)
         {
-            value = array[i];
-            [value getValue:&scalarValue];
-            scalarValues[i] = scalarValue;
+            number = array[i];
+            scalarValues[i] = (HGFloat)[number doubleValue];
         }
         ref->_values = scalarValues;
         
-        value = dictionary[@"_min"];
-        [value getValue:&ref->_min];
-        value = dictionary[@"_max"];
-        [value getValue:&ref->_max];
+        number = dictionary[@"_min"];
+        ref->_min = (HGFloat)[number doubleValue];
+        number = dictionary[@"_max"];
+        ref->_max = (HGFloat)[number doubleValue];
     }
     else if (ref->_type == _HGLookupTableValueTypeGLKVector4)
     {

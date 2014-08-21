@@ -335,6 +335,11 @@ typedef struct
                 value = @(HGBlendingModeFromString(value));
             }
             
+            if ([propertyKey isEqualToString:@"opacityOverLifetime"])
+            {
+                NSLog(@"");
+            }
+            
             [self setValue:value forKey:propertyKey];
         }];
         
