@@ -49,6 +49,7 @@ FOUNDATION_EXPORT NSString * const HGSizeOverLifetimeModulePropertyKey;
 FOUNDATION_EXPORT NSString * const HGSizeOverLifetimePropertyKey;
 
 FOUNDATION_EXPORT NSString * const HGRotationOverLifetimeModulePropertyKey;
+FOUNDATION_EXPORT NSString * const HGRotationOverLifetimeModePropertyKey;
 FOUNDATION_EXPORT NSString * const HGRotationAngularVelocityPropertyKey;
 FOUNDATION_EXPORT NSString * const HGRotationRandomDirectionPropertyKey;
 
@@ -96,6 +97,11 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemEmitterShapeRectValue;
 
 FOUNDATION_EXPORT NSString * const HGParticleSystemSpeedCurve;
 FOUNDATION_EXPORT NSString * const HGParticleSystemSpeedAcceleration;
+
+#pragma mark - Rotation options
+
+FOUNDATION_EXPORT NSString * const HGParticleSystemRotationVelocity;
+FOUNDATION_EXPORT NSString * const HGParticleSystemRotationFollow;
 
 #pragma mark - Texture Mode options
 
@@ -165,6 +171,17 @@ typedef NS_ENUM(NSInteger, HGParticleSystemSpeedMode) {
 };
 
 FOUNDATION_EXPORT HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string);
+
+#pragma mark - Rotation modes
+
+typedef NS_ENUM(NSInteger, HGParticleSystemRotationMode) {
+    HGParticleSystemRotationModeSpeed = 0,
+    HGParticleSystemRotationModeFollow = 1,
+    
+    HGParticleSystemRotationModeUndefined = NSNotFound,
+};
+
+FOUNDATION_EXPORT HGParticleSystemRotationMode HGParticleSystemRotationModeFromString (NSString *string);
 
 #pragma mark - Texture modes
 

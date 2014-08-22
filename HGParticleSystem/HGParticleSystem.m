@@ -96,6 +96,7 @@ typedef struct
     HGFloat sizeVelocity;
     
     HGFloat rotation;
+    HGFloat startRotation;
     HGFloat angularVelocity;
     
     GLKVector2 speed;
@@ -162,6 +163,7 @@ typedef struct
     HGPropertyRef _opacityOverLifetime; // curve, random
     
     BOOL _rotationOverLifetimeModule;
+    HGParticleSystemRotationMode _rotationOverLifetimeMode;
     HGPropertyRef _rotationAngularVelocity; // constant, gradient
     BOOL _rotationRandomDirection;
     
@@ -254,6 +256,7 @@ typedef struct
                                  HGEmissionRatePropertyKey,
                                  
                                  HGRotationOverLifetimeModulePropertyKey,
+                                 HGRotationOverLifetimeModePropertyKey,
                                  HGRotationAngularVelocityPropertyKey,
                                  HGRotationRandomDirectionPropertyKey,
                                  
@@ -334,10 +337,9 @@ typedef struct
             {
                 value = @(HGBlendingModeFromString(value));
             }
-            
-            if ([propertyKey isEqualToString:@"opacityOverLifetime"])
+            else if ([HGRotationOverLifetimeModePropertyKey isEqualToString:propertyKey])
             {
-                NSLog(@"");
+                value = @(HGParticleSystemRotationModeFromString(value));
             }
             
             [self setValue:value forKey:propertyKey];
@@ -771,21 +773,25 @@ typedef struct
     particle->size = particle->startSize;
     
     particle->rotation = HGPropertyGetFloatValue(_startRotation, t);
+    particle->startRotation = particle->rotation;
     if (_rotationOverLifetimeModule)
     {
-        if (HGPropertyGetOption(_rotationAngularVelocity) == HGParticleSystemPropertyOptionConstant)
+        if (_rotationOverLifetimeMode == HGParticleSystemRotationModeSpeed)
         {
-            particle->angularVelocity = HGPropertyGetFloatValue(_rotationAngularVelocity, t);
-            if (_rotationRandomDirection && ((arc4random() % 2) == 0))
+            if (HGPropertyGetOption(_rotationAngularVelocity) == HGParticleSystemPropertyOptionConstant)
             {
-                particle->angularVelocity *= -1.0;
+                particle->angularVelocity = HGPropertyGetFloatValue(_rotationAngularVelocity, t);
+                if (_rotationRandomDirection && ((arc4random() % 2) == 0))
+                {
+                    particle->angularVelocity *= -1.0;
+                }
             }
-        }
-        if (HGPropertyGetOption(_rotationAngularVelocity) == HGParticleSystemPropertyOptionRandomConstants) {
-            particle->angularVelocity = HGPropertyGetFloatValue(_rotationAngularVelocity, t);
-            if (_rotationRandomDirection && ((arc4random() % 2) == 0))
-            {
-                particle->angularVelocity *= -1.0;
+            if (HGPropertyGetOption(_rotationAngularVelocity) == HGParticleSystemPropertyOptionRandomConstants) {
+                particle->angularVelocity = HGPropertyGetFloatValue(_rotationAngularVelocity, t);
+                if (_rotationRandomDirection && ((arc4random() % 2) == 0))
+                {
+                    particle->angularVelocity *= -1.0;
+                }
             }
         }
     }
@@ -950,10 +956,21 @@ typedef struct
                 p->position = GLKVector2Add( p->position,
                                             GLKVector2MultiplyScalar(p->speed, speedMultiplier * delta));
                 
-                if (_rotationOverLifetimeModule && HGPropertyGetOption(_rotationAngularVelocity) == HGParticleSystemPropertyOptionCurve)
+                if (_rotationOverLifetimeModule)
                 {
-                    HGFloat angularVelocity = HGPropertyGetFloatValue(_rotationAngularVelocity, t);
-                    p->rotation += angularVelocity * delta;
+                    if (_rotationOverLifetimeMode == HGParticleSystemRotationModeSpeed)
+                    {
+                        if(HGPropertyGetOption(_rotationAngularVelocity) == HGParticleSystemPropertyOptionCurve)
+                        {
+                            p->angularVelocity = HGPropertyGetFloatValue(_rotationAngularVelocity, t);
+                        }
+                    }
+                    else if (_rotationOverLifetimeMode == HGParticleSystemRotationModeFollow)
+                    {
+                        // rotation should be dependent on the offset
+                        HGFloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(p->speed.x, p->speed.y));
+                        p->rotation = p->startRotation + newRotation;
+                    }
                 }
                 p->rotation += p->angularVelocity * delta;
                 

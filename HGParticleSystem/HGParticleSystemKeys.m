@@ -43,6 +43,7 @@ NSString * const HGSizeOverLifetimeModulePropertyKey = @"sizeOverLifetimeModule"
 NSString * const HGSizeOverLifetimePropertyKey = @"sizeOverLifetime";
 
 NSString * const HGRotationOverLifetimeModulePropertyKey = @"rotationOverLifetimeModule";
+NSString * const HGRotationOverLifetimeModePropertyKey = @"rotationOverLifetimeMode";
 NSString * const HGRotationAngularVelocityPropertyKey = @"rotationAngularVelocity";
 NSString * const HGRotationRandomDirectionPropertyKey = @"rotationRandomDirection";
 
@@ -90,6 +91,11 @@ NSString * const HGParticleSystemEmitterShapeRectValue = @"HGParticleSystemEmitt
 
 NSString * const HGParticleSystemSpeedCurve = @"HGParticleSystemSpeedCurve";
 NSString * const HGParticleSystemSpeedAcceleration = @"HGParticleSystemSpeedAcceleration";
+
+#pragma mark - Rotation options
+
+NSString * const HGParticleSystemRotationVelocity = @"HGParticleSystemRotationVelocity";
+NSString * const HGParticleSystemRotationFollow = @"HGParticleSystemRotationFollow";
 
 #pragma mark - Texture Mode options
 
@@ -140,6 +146,19 @@ HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string)
         propertiesDictionary = @{
                                  HGParticleSystemSpeedCurve: @(HGParticleSystemSpeedModeCurve),
                                  HGParticleSystemSpeedAcceleration: @(HGParticleSystemSpeedModeAcceleration),
+                                 };
+    });
+    return [propertiesDictionary[string] integerValue];
+}
+
+HGParticleSystemRotationMode HGParticleSystemRotationModeFromString (NSString *string)
+{
+    static NSDictionary *propertiesDictionary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        propertiesDictionary = @{
+                                 HGParticleSystemRotationVelocity: @(HGParticleSystemRotationModeSpeed),
+                                 HGParticleSystemRotationFollow: @(HGParticleSystemRotationModeFollow),
                                  };
     });
     return [propertiesDictionary[string] integerValue];
