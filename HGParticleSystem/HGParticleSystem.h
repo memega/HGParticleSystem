@@ -50,5 +50,7 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidFinishNotification;
 - (void)stopSystem;
 - (void)resetSystem;
 
+@property (nonatomic) CGFloat actionSpeed;
+@property (nonatomic) CGFloat displayedActionSpeed;
 
 @end

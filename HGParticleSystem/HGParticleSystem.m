@@ -115,7 +115,6 @@ typedef struct
 
 @interface HGParticleSystem ()
 {
-    
     HGParticle *_particles;
     NSUInteger _totalParticles;
     NSUInteger _allocatedParticles;
@@ -315,6 +314,8 @@ typedef struct
     self = [super init];
     if (self)
     {
+        self.actionSpeed = 1.;
+        
         // nice!
         NSSet *set = [[self class] propertyKeys];
         [set enumerateObjectsUsingBlock:^(id propertyKey, BOOL *stop) {
@@ -865,6 +866,33 @@ typedef struct
     [super setVisible:visible];
 }
 
+- (void)setActionSpeed:(CGFloat)actionSpeed
+{
+    if (_actionSpeed == actionSpeed)
+        return;
+    
+    _actionSpeed = actionSpeed;
+    
+    [self cascadeActionSpeed];
+}
+
+- (void)cascadeActionSpeed
+{
+    CGFloat parentActionSpeed = 1.;
+    
+    if ([_parent respondsToSelector:@selector(displayedActionSpeed)])
+    {
+        parentActionSpeed = [(id)_parent displayedActionSpeed];
+    }
+    
+    [self updateDisplayedActionSpeed:parentActionSpeed];
+}
+
+- (void)updateDisplayedActionSpeed:(CGFloat)parentActionSpeed
+{
+    _displayedActionSpeed = self.actionSpeed * parentActionSpeed;
+}
+
 - (BOOL)isFull
 {
     return _particleCount == _totalParticles;
@@ -874,6 +902,8 @@ typedef struct
 - (void)update:(CCTime)delta
 {
     HG_PROFILING_BEGIN(@"HGParticleSystem::Update");
+    
+    delta *= _displayedActionSpeed;
     
     HGFloat emissionRate = 0.0;
     if (_emissionModule)
