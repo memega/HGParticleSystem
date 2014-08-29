@@ -998,7 +998,11 @@ typedef struct
                     else if (_rotationOverLifetimeMode == HGParticleSystemRotationModeFollow)
                     {
                         // rotation should be dependent on the offset
+#if __CC_PLATFORM_IOS
+                        HGFloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(- p->speed.x, - p->speed.y));
+#else
                         HGFloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(p->speed.x, p->speed.y));
+#endif
                         p->rotation = p->startRotation + newRotation;
                     }
                 }
