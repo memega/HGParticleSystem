@@ -603,7 +603,11 @@ typedef struct
 
 - (void)initParticle:(HGParticle *)particle
 {
-    HGFloat t = _elapsed / _duration;
+    CCTime elapsed = _elapsed - self.startDelay;
+    if (elapsed < 0)
+        return;
+    
+    HGFloat t = elapsed / _duration;
     
     // lifetime
     particle->elapsed = 0.0;
@@ -840,7 +844,7 @@ typedef struct
 - (void)stopSystem
 {
 	_active = NO;
-	_elapsed = _duration;
+	_elapsed = _duration + self.startDelay;
 	_emitCounter = 0;
 }
 
@@ -848,6 +852,7 @@ typedef struct
 {
 	_active = YES;
 	_elapsed = 0;
+    self.startDelay = 0;
     
 	for(NSUInteger i = 0; i < _particleCount; ++i)
     {
@@ -905,12 +910,21 @@ typedef struct
     
     delta *= _displayedActionSpeed;
     
+    CCTime elapsed = _elapsed - self.startDelay;
+    if (elapsed < 0)
+    {
+        _elapsed += delta;
+
+        return;
+    }
+    
     HGFloat emissionRate = 0.0;
     if (_emissionModule)
     {
-        HGFloat t = _elapsed / _duration;
+        HGFloat t = elapsed / _duration;
         emissionRate = HGPropertyGetFloatValue(_emissionRate, t);
     }
+    
 	if( _active && emissionRate )
     {
 		HGFloat rate = 1.0 / emissionRate;
@@ -927,11 +941,11 @@ typedef struct
         
 		_elapsed += delta;
         
-		if(_duration < _elapsed)
+		if(_duration < elapsed)
         {
             if (_looping)
             {
-                _elapsed = 0.0;
+                _elapsed = self.startDelay;
             }
             else
             {
