@@ -853,6 +853,7 @@ typedef struct
 	_active = YES;
 	_elapsed = 0;
     self.startDelay = 0;
+    self.actionSpeed = 1.;
     
 	for(NSUInteger i = 0; i < _particleCount; ++i)
     {
