@@ -1090,6 +1090,9 @@ typedef struct
                 
 				if( _particleCount == 0)
                 {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidFinishNotification
+                                                                        object:self];
+
                     if ( _autoRemoveOnFinish )
                     {
                         [self removeFromParent];
@@ -1102,17 +1105,6 @@ typedef struct
     }
     
     HG_PROFILING_END(@"HGParticleSystem::Update");
-}
-
-- (void)setParent:(CCNode *)parent
-{
-    [super setParent:parent];
-    
-    if (parent == nil)
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidFinishNotification
-                                                            object:self];
-    }
 }
 
 // pointRect is in Points coordinates.
