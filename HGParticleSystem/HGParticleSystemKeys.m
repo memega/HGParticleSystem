@@ -33,6 +33,8 @@ NSString * const HGEmitterShapeWidthPropertyKey = @"emitterShapeWidth";
 NSString * const HGEmitterShapeHeightPropertyKey = @"emitterShapeHeight";
 NSString * const HGEmitterShapeRandomDirectionPropertyKey = @"emitterShapeRandomDirection";
 
+NSString * const HGEmitterShapeVerticalRatioPropertyKey = @"emitterShapeVerticalRatio";
+
 NSString * const HGSpeedOverLifetimeModulePropertyKey = @"speedOverLifetimeModule";
 NSString * const HGSpeedOverLifetimeModePropertyKey = @"speedOverLifetimeMode";
 NSString * const HGSpeedOverLifetimePropertyKey = @"speedOverLifetime";

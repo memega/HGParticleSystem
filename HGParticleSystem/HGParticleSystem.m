@@ -146,6 +146,8 @@ typedef struct
     BOOL _emitterShapeBoundary;
     BOOL _emitterShapeRandomDirection;
     
+    HGFloat _emitterShapeVerticalRatio;
+    
     BOOL _sizeOverLifetimeModule;
     HGPropertyRef _sizeOverLifetime; // curve, random
     
@@ -277,6 +279,7 @@ typedef struct
                                  HGEmitterShapeWidthPropertyKey,
                                  HGEmitterShapeHeightPropertyKey,
                                  HGEmitterShapeRandomDirectionPropertyKey,
+                                 HGEmitterShapeVerticalRatioPropertyKey,
                                  
                                  HGColorOverLifetimeModulePropertyKey,
                                  HGColorOverLifetimePropertyKey,
@@ -668,6 +671,9 @@ typedef struct
                 {
                     position = GLKVector2MultiplyScalar(direction, CCRANDOM_0_1() * _emitterShapeRadius);
                 }
+                
+                if(_emitterShapeVerticalRatio)
+                    position.y *= _emitterShapeVerticalRatio;
             }
         }
         else if (_emitterShape == HGParticleSystemEmitterShapeSector)
@@ -682,6 +688,9 @@ typedef struct
                 {
                     position = GLKVector2MultiplyScalar(direction, CCRANDOM_0_1() * _emitterShapeRadius);
                 }
+                
+                if(_emitterShapeVerticalRatio)
+                    position.y *= _emitterShapeVerticalRatio;
             }
         }
         else if (_emitterShape == HGParticleSystemEmitterShapeRect)
