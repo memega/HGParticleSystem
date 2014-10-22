@@ -158,6 +158,7 @@ typedef NS_ENUM(NSInteger, HGParticleSystemEmitterShape)
     HGParticleSystemEmitterShapeCircle = 0,
     HGParticleSystemEmitterShapeSector = 1,
     HGParticleSystemEmitterShapeRect = 2,
+    HGParticleSystemEmitterShapeOval = 3,
     
     HGParticleSystemEmitterShapeUndefined = NSNotFound
 };

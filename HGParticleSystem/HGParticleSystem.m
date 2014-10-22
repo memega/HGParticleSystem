@@ -324,7 +324,7 @@ typedef struct
         [set enumerateObjectsUsingBlock:^(id propertyKey, BOOL *stop) {
             id value = [dictionary valueForKey:propertyKey];
             
-            if ([HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
+            if (value == nil && [HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
             {
                 value = @(1.);
             }
@@ -633,6 +633,10 @@ typedef struct
         {
             angle = CCRANDOM_0_1() * M_PI * 2.0;
         }
+        else if (_emitterShape == HGParticleSystemEmitterShapeOval)
+        {
+            angle = CCRANDOM_0_1() * M_PI * 2.0;
+        }
         else if (_emitterShape == HGParticleSystemEmitterShapeSector)
         {
             angle = CC_DEGREES_TO_RADIANS(_emitterShapeDirection + CCRANDOM_MINUS1_1() * _emitterShapeAngle * .5);
@@ -680,6 +684,20 @@ typedef struct
                 {
                     position = GLKVector2MultiplyScalar(direction, CCRANDOM_0_1() * _emitterShapeRadius);
                 }
+            }
+        }
+        else if (_emitterShape == HGParticleSystemEmitterShapeOval)
+        {
+            if (_emitterShapeRadius > 0)
+            {
+                if (_emitterShapeBoundary)
+                {
+                    position = GLKVector2MultiplyScalar(direction, _emitterShapeRadius);
+                }
+                else
+                {
+                    position = GLKVector2MultiplyScalar(direction, CCRANDOM_0_1() * _emitterShapeRadius);
+                }
                 
                 if(_emitterShapeVerticalRatio)
                     position.y *= _emitterShapeVerticalRatio;
@@ -697,9 +715,6 @@ typedef struct
                 {
                     position = GLKVector2MultiplyScalar(direction, CCRANDOM_0_1() * _emitterShapeRadius);
                 }
-                
-                if(_emitterShapeVerticalRatio)
-                    position.y *= _emitterShapeVerticalRatio;
             }
         }
         else if (_emitterShape == HGParticleSystemEmitterShapeRect)

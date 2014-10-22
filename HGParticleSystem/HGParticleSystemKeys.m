@@ -136,6 +136,7 @@ HGParticleSystemEmitterShape HGParticleSystemEmitterShapeFromString (NSString *s
                                  HGParticleSystemEmitterShapeCircleValue: @(HGParticleSystemEmitterShapeCircle),
                                  HGParticleSystemEmitterShapeSectorValue: @(HGParticleSystemEmitterShapeSector),
                                  HGParticleSystemEmitterShapeRectValue: @(HGParticleSystemEmitterShapeRect),
+                                 HGParticleSystemEmitterShapeOvalValue: @(HGParticleSystemEmitterShapeOval),
                                  };
     });
     return [propertiesDictionary[string] integerValue];
