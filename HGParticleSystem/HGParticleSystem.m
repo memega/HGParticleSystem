@@ -323,7 +323,16 @@ typedef struct
         NSSet *set = [[self class] propertyKeys];
         [set enumerateObjectsUsingBlock:^(id propertyKey, BOOL *stop) {
             id value = [dictionary valueForKey:propertyKey];
-            HGMissingValue(value, propertyKey);
+            
+            if ([HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
+            {
+                value = @(1.);
+            }
+            else
+            {
+                HGMissingValue(value, propertyKey);
+            }
+            
             // special cases
             if ([HGSpeedOverLifetimeModePropertyKey isEqualToString:propertyKey])
             {
