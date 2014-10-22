@@ -86,6 +86,7 @@ NSString * const HGPropertyValueOptionRandomGradients = @"HGPropertyValueOptionR
 #pragma mark - Shape options
 
 NSString * const HGParticleSystemEmitterShapeCircleValue = @"HGParticleSystemEmitterShapeCircleValue";
+NSString * const HGParticleSystemEmitterShapeOvalValue = @"HGParticleSystemEmitterShapeOvalValue";
 NSString * const HGParticleSystemEmitterShapeSectorValue = @"HGParticleSystemEmitterShapeSectorValue";
 NSString * const HGParticleSystemEmitterShapeRectValue = @"HGParticleSystemEmitterShapeRectValue";
 
