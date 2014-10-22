@@ -796,6 +796,9 @@ typedef struct
     particle->size = particle->startSize;
     
     particle->rotation = HGPropertyGetFloatValue(_startRotation, t);
+#if !__CC_PLATFORM_IOS
+    particle->rotation += 180.;
+#endif
     particle->startRotation = particle->rotation;
     if (_rotationOverLifetimeModule)
     {
