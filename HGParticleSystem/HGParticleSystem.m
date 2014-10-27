@@ -719,26 +719,40 @@ typedef struct
         }
         else if (_emitterShape == HGParticleSystemEmitterShapeRect)
         {
-            CGPoint directionVector;
-            if (_emitterShapeRandomDirection)
-            {
-                directionVector = ccp(direction.x, direction.y);
-            }
-            else
-            {
-                directionVector = ccpForAngle(CCRANDOM_0_1() * M_PI * 2.0);
-            }
-
-            // find the intersection!
-            CGPoint p = HGPointOnRect(directionVector, _emitterRect);
+            CGPoint p;
+            
             if (_emitterShapeBoundary)
             {
-                position = GLKVector2Make(p.x, p.y);
+                NSUInteger side = (arc4random() % 4);
+                switch (side) {
+                    case 0: // top
+                        p = ccp( CGRectGetMinX(_emitterRect) + CCRANDOM_0_1() * CGRectGetWidth(_emitterRect),
+                                CGRectGetMaxY(_emitterRect));
+                        break;
+                    case 1: // right
+                        p = ccp( CGRectGetMaxX(_emitterRect),
+                                CGRectGetMinY(_emitterRect) + CCRANDOM_0_1() * CGRectGetHeight(_emitterRect));
+                        break;
+                    case 2: // bottom
+                        p = ccp( CGRectGetMinX(_emitterRect) + CCRANDOM_0_1() * CGRectGetWidth(_emitterRect),
+                                CGRectGetMinY(_emitterRect));
+                        break;
+                    case 3: // left
+                        p = ccp( CGRectGetMinX(_emitterRect),
+                                CGRectGetMinY(_emitterRect) + CCRANDOM_0_1() * CGRectGetHeight(_emitterRect));
+                        break;
+                        
+                    default:
+                        break;
+                }
             }
             else
             {
-                position = GLKVector2Make( CCRANDOM_0_1() * p.x, CCRANDOM_0_1() * p.y);
+                p = ccp( CGRectGetMinX(_emitterRect) + CCRANDOM_0_1() * CGRectGetWidth(_emitterRect),
+                        CGRectGetMinY(_emitterRect) + CCRANDOM_0_1() * CGRectGetHeight(_emitterRect));
             }
+            
+            position = GLKVector2Make(p.x, p.y);
         }
     }
     particle->position = position;
