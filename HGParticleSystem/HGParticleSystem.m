@@ -1140,12 +1140,16 @@ typedef struct
                 
 				if( _particleCount == 0)
                 {
+                    if ( _autoRemoveOnFinish )
+                    {
+                        [self removeFromParent];
+                    }
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidFinishNotification
                                                                         object:self];
 
                     if ( _autoRemoveOnFinish )
                     {
-                        [self removeFromParent];
                         return;
                     }
 				}
