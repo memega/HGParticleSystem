@@ -495,7 +495,8 @@ typedef struct
         // default, active
 		_active = YES;
         
-		_autoRemoveOnFinish = NO;
+        // default, remove automatically
+		_autoRemoveOnFinish = YES;
         
         _resetOnVisibilityToggle = YES;
         
