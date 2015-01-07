@@ -10,7 +10,7 @@
 
 #import "HGParticleSystem.h"
 
-#define HG_DEFAULT_POOL_SIZE 2
+#define HG_DEFAULT_POOL_SIZE 16
 
 #pragma mark - HGParticlePool
 
@@ -74,7 +74,7 @@
 {
     if (_availableSystems.count == 0)
     {
-        [self addParticleSystemWithFile:_path];
+        return nil;
     }
     
     id system = [_availableSystems anyObject];
@@ -204,7 +204,7 @@
 		pool = [_pools objectForKey:key];
 	});
     
-    return pool.particleSystem;
+    return [pool particleSystem];
 }
 
 @end
