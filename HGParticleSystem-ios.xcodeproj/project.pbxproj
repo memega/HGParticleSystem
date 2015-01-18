@@ -14,16 +14,16 @@
 		DE61A449199FB01800F78F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE61A447199FB01800F78F8E /* InfoPlist.strings */; };
 		DE61A44B199FB01800F78F8E /* HGParticleSystemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */; };
 		DE61A466199FB12F00F78F8E /* HGParticleSystemCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */; };
-		DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */; };
 		DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A461199FB12F00F78F8E /* HGLookupTable.m */; };
-		DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A462199FB12F00F78F8E /* HGLookupTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A462199FB12F00F78F8E /* HGLookupTable.h */; };
 		DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */; };
-		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; };
 		DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A471199FB2D500F78F8E /* HGTypes.h */; };
 		DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A472199FB2D500F78F8E /* HGTypes.m */; };
-		DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */; };
 		DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */; };
-		DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A436199FB01800F78F8E /* HGParticleSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A436199FB01800F78F8E /* HGParticleSystem.h */; };
 		DE6C99BD19A098000075B6A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BC19A098000075B6A4 /* Foundation.framework */; };
 		DE6C99BF19A0980B0075B6A4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BE19A0980B0075B6A4 /* GLKit.framework */; };
 		DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */; };
@@ -200,11 +200,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
-				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
-				DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */,
 				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
+				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
 				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
+				DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */,
+				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
 				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
 				DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */,
 				DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */,
@@ -412,6 +412,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "HGParticleSystem-ios";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -425,6 +426,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "HGParticleSystem-ios";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
