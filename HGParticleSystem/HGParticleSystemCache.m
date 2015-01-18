@@ -53,10 +53,10 @@
     [item stopSystem];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(particleSystemDidFinish:)
-                                                 name:HGParticleSystemDidFinishNotification
+                                             selector:@selector(particleSystemDidBecomeAvailable:)
+                                                 name:HGParticleSystemDidBecomeAvailableNotification
                                                object:item];
-
+    
     [_availableSystems addObject:item];
 }
 
@@ -84,7 +84,7 @@
     return system;
 }
 
-- (void)particleSystemDidFinish:(NSNotification *)notification
+- (void)particleSystemDidBecomeAvailable:(NSNotification *)notification
 {
     id system = notification.object;
     if ([_busySystems containsObject:system])

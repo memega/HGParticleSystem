@@ -20,7 +20,13 @@
 
 #pragma mark - Notification
 
+// sent when a non-looped particle system finishes
 FOUNDATION_EXPORT NSString * const HGParticleSystemDidFinishNotification;
+// sent when parent property becomes nil.
+// note that cache would mark this system as available and it should not be reused again.
+FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotification;
+
+#pragma mark - HGParticleSystem
 
 @interface HGParticleSystem : CCNode
 

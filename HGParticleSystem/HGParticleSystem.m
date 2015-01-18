@@ -30,7 +30,14 @@
 #import "HGAssert.h"
 #import "HGTypes.h"
 
-static inline CGPoint HGPointOnRect(const CGPoint normalizedVectorFromCenter, const CGRect rect)
+#pragma mark - Constants
+
+NSString * const HGParticleSystemDidFinishNotification = @"HGParticleSystemDidFinishNotification";
+NSString * const HGParticleSystemDidBecomeAvailableNotification = @"HGParticleSystemDidBecomeAvailableNotification";
+
+__unused
+FOUNDATION_STATIC_INLINE
+CGPoint HGPointOnRect(const CGPoint normalizedVectorFromCenter, const CGRect rect)
 {
     if (CGRectGetWidth(rect) == 0. || CGRectGetHeight(rect) == 0.)
         return CGPointZero;
@@ -70,8 +77,6 @@ static inline CGPoint HGPointOnRect(const CGPoint normalizedVectorFromCenter, co
 #define HG_PROFILING_BEGIN(string)
 #define HG_PROFILING_END(string)
 #endif
-
-NSString * const HGParticleSystemDidFinishNotification = @"HGParticleSystemDidFinishNotification";
 
 #pragma mark - Particle
 
@@ -612,7 +617,20 @@ typedef struct
     return [super valueForUndefinedKey:key];
 }
 
-#pragma mark - CCParticleSystem Copy-Paste
+- (void)setParent:(CCNode *)parent
+{
+    id oldParent = self.parent;
+    
+    [super setParent:parent];
+    
+    if (oldParent && parent == nil)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidBecomeAvailableNotification
+                                                            object:self];
+    }
+}
+
+#pragma mark -
 
 - (void)initParticle:(HGParticle *)particle
 {
