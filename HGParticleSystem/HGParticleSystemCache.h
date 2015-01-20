@@ -25,6 +25,8 @@
 - (void)addParticleSystemFromFile:(NSString*)name;
 
 - (HGParticleSystem *)particleSystemForKey:(NSString *)key;
+- (HGParticleSystem *)particleSystemForKey:(NSString *)key increaseCapacityIfNeeded:(BOOL)increaseCapacityIfNeeded;
+
 - (void)removeParticleSystemForKey:(NSString *)key;
 
 @end

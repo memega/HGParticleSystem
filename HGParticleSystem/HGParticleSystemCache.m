@@ -10,7 +10,7 @@
 
 #import "HGParticleSystem.h"
 
-#define HG_DEFAULT_POOL_SIZE 16
+static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 
 #pragma mark - HGParticlePool
 
@@ -23,7 +23,7 @@
 }
 
 - (instancetype)initWithFile:(NSString*)path capacity:(NSUInteger)capacity;
-- (HGParticleSystem *)particleSystem;
+- (HGParticleSystem *)getAvailableParticleSystemAndIncreaseCapacity:(BOOL)increaseCapacity;
 
 @end
 
@@ -70,11 +70,18 @@
 
 #pragma mark MSParticlePool - Getting particles
 
-- (HGParticleSystem*)particleSystem
+- (HGParticleSystem*)getAvailableParticleSystemAndIncreaseCapacity:(BOOL)increaseCapacity
 {
     if (_availableSystems.count == 0)
     {
-        return nil;
+        if (increaseCapacity)
+        {
+            [self addParticleSystemWithFile:_path];
+        }
+        else
+        {
+            return nil;
+        }
     }
     
     id system = [_availableSystems anyObject];
@@ -153,7 +160,8 @@
 
 - (void)addParticleSystemFromFile:(NSString *)name
 {
-    [self addParticleSystemFromFile:name capacity:HG_DEFAULT_POOL_SIZE];
+    [self addParticleSystemFromFile:name
+                           capacity:HGParticleSystemCacheDefaultCapacity];
 }
 
 - (void)addParticleSystemFromFile:(NSString *)name capacity:(NSUInteger)capacity
@@ -198,13 +206,18 @@
 
 - (HGParticleSystem *)particleSystemForKey:(NSString *)key
 {
+    return [self particleSystemForKey:key increaseCapacityIfNeeded:NO];
+}
+
+- (HGParticleSystem *)particleSystemForKey:(NSString *)key increaseCapacityIfNeeded:(BOOL)increaseCapacityIfNeeded
+{
 	__block HGParticlePool *pool = nil;
     
 	dispatch_sync(_dictQueue, ^{
 		pool = [_pools objectForKey:key];
 	});
     
-    return [pool particleSystem];
+    return [pool getAvailableParticleSystemAndIncreaseCapacity:increaseCapacityIfNeeded];
 }
 
 @end
