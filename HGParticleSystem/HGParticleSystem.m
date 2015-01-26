@@ -929,6 +929,12 @@ typedef struct
 		HGParticle *p = &_particles[i];
 		p->elapsed = p->lifetime;
 	}
+    
+    // force update to remove particles
+    BOOL previousVisible = self.visible;
+    self.visible = YES;
+    [self update:0];
+    self.visible = previousVisible;
 }
 
 -(void)setVisible:(BOOL)visible
