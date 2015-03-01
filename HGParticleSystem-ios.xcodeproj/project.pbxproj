@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DE61A438199FB01800F78F8E /* HGParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A437199FB01800F78F8E /* HGParticleSystem.m */; };
-		DE61A43F199FB01800F78F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A43E199FB01800F78F8E /* XCTest.framework */; };
-		DE61A440199FB01800F78F8E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A42D199FB01800F78F8E /* Cocoa.framework */; };
-		DE61A443199FB01800F78F8E /* libHGParticleSystem-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */; };
-		DE61A449199FB01800F78F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE61A447199FB01800F78F8E /* InfoPlist.strings */; };
-		DE61A44B199FB01800F78F8E /* HGParticleSystemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */; };
 		DE61A466199FB12F00F78F8E /* HGParticleSystemCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */; };
 		DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */; };
 		DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A461199FB12F00F78F8E /* HGLookupTable.m */; };
@@ -31,16 +26,6 @@
 		DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A475199FB3CA00F78F8E /* HGAssert.h */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		DE61A441199FB01800F78F8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DE61A422199FB01800F78F8E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE61A429199FB01800F78F8E;
-			remoteInfo = HGParticleSystem;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libHGParticleSystem-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE61A42D199FB01800F78F8E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -50,7 +35,6 @@
 		DE61A435199FB01800F78F8E /* HGParticleSystem-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HGParticleSystem-ios-Prefix.pch"; sourceTree = "<group>"; };
 		DE61A436199FB01800F78F8E /* HGParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGParticleSystem.h; sourceTree = "<group>"; };
 		DE61A437199FB01800F78F8E /* HGParticleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystem.m; sourceTree = "<group>"; };
-		DE61A43D199FB01800F78F8E /* HGParticleSystem-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HGParticleSystem-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE61A43E199FB01800F78F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DE61A446199FB01800F78F8E /* HGParticleSystem-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HGParticleSystem-iosTests-Info.plist"; sourceTree = "<group>"; };
 		DE61A448199FB01800F78F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -82,16 +66,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE61A43A199FB01800F78F8E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE61A440199FB01800F78F8E /* Cocoa.framework in Frameworks */,
-				DE61A443199FB01800F78F8E /* libHGParticleSystem-ios.a in Frameworks */,
-				DE61A43F199FB01800F78F8E /* XCTest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -109,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */,
-				DE61A43D199FB01800F78F8E /* HGParticleSystem-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,24 +204,6 @@
 			productReference = DE61A42A199FB01800F78F8E /* libHGParticleSystem-ios.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		DE61A43C199FB01800F78F8E /* HGParticleSystem-iosTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DE61A451199FB01800F78F8E /* Build configuration list for PBXNativeTarget "HGParticleSystem-iosTests" */;
-			buildPhases = (
-				DE61A439199FB01800F78F8E /* Sources */,
-				DE61A43A199FB01800F78F8E /* Frameworks */,
-				DE61A43B199FB01800F78F8E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DE61A442199FB01800F78F8E /* PBXTargetDependency */,
-			);
-			name = "HGParticleSystem-iosTests";
-			productName = HGParticleSystemTests;
-			productReference = DE61A43D199FB01800F78F8E /* HGParticleSystem-iosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -271,21 +226,9 @@
 			projectRoot = "";
 			targets = (
 				DE61A429199FB01800F78F8E /* HGParticleSystem-ios */,
-				DE61A43C199FB01800F78F8E /* HGParticleSystem-iosTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		DE61A43B199FB01800F78F8E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE61A449199FB01800F78F8E /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DE61A426199FB01800F78F8E /* Sources */ = {
@@ -302,23 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE61A439199FB01800F78F8E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE61A44B199FB01800F78F8E /* HGParticleSystemTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DE61A442199FB01800F78F8E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DE61A429199FB01800F78F8E /* HGParticleSystem-ios */;
-			targetProxy = DE61A441199FB01800F78F8E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DE61A447199FB01800F78F8E /* InfoPlist.strings */ = {
@@ -332,6 +259,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DE28D0991AA32FE9006BF8B9 /* Release AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = iphoneos;
+			};
+			name = "Release AppStore";
+		};
+		DE28D09A1AA32FE9006BF8B9 /* Release AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-ios-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"../Cocos2D/**",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "HGParticleSystem-ios";
+				SKIP_INSTALL = YES;
+			};
+			name = "Release AppStore";
+		};
 		DE61A44C199FB01800F78F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -348,6 +323,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -364,6 +340,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -386,6 +363,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -397,6 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = iphoneos;
 			};
@@ -430,42 +409,6 @@
 			};
 			name = Release;
 		};
-		DE61A452199FB01800F78F8E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "HGParticleSystemTests/HGParticleSystem-iosTests-Info.plist";
-				PRODUCT_NAME = "HGParticleSystem-iosTests";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		DE61A453199FB01800F78F8E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HGParticleSystem/HGParticleSystem-Prefix.pch";
-				INFOPLIST_FILE = "HGParticleSystemTests/HGParticleSystem-iosTests-Info.plist";
-				PRODUCT_NAME = "HGParticleSystem-iosTests";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -474,6 +417,7 @@
 			buildConfigurations = (
 				DE61A44C199FB01800F78F8E /* Debug */,
 				DE61A44D199FB01800F78F8E /* Release */,
+				DE28D0991AA32FE9006BF8B9 /* Release AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -483,15 +427,7 @@
 			buildConfigurations = (
 				DE61A44F199FB01800F78F8E /* Debug */,
 				DE61A450199FB01800F78F8E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DE61A451199FB01800F78F8E /* Build configuration list for PBXNativeTarget "HGParticleSystem-iosTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DE61A452199FB01800F78F8E /* Debug */,
-				DE61A453199FB01800F78F8E /* Release */,
+				DE28D09A1AA32FE9006BF8B9 /* Release AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

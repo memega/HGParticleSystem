@@ -10,29 +10,41 @@
 	<string>HGParticleSystem</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>AEC9FDF3-A534-48F1-B861-600D6916AB4C</key>
+		<key>4CD8371742C7F2A8F95C4A01103DD39488EEA25A</key>
+		<string>ssh://neobia.com/srv/git/hungryGirls.git</string>
+		<key>C84111E3F47CB783653B51C74D4211C174D25FE0</key>
 		<string>ssh://neobia.com/srv/git/HGParticleSystem.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>HGParticleSystem.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AEC9FDF3-A534-48F1-B861-600D6916AB4C</key>
+		<key>4CD8371742C7F2A8F95C4A01103DD39488EEA25A</key>
+		<string>../..</string>
+		<key>C84111E3F47CB783653B51C74D4211C174D25FE0</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://neobia.com/srv/git/HGParticleSystem.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>AEC9FDF3-A534-48F1-B861-600D6916AB4C</string>
+	<string>C84111E3F47CB783653B51C74D4211C174D25FE0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>AEC9FDF3-A534-48F1-B861-600D6916AB4C</string>
+			<string>4CD8371742C7F2A8F95C4A01103DD39488EEA25A</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C84111E3F47CB783653B51C74D4211C174D25FE0</string>
 			<key>IDESourceControlWCCName</key>
 			<string>HGParticleSystem</string>
 		</dict>
