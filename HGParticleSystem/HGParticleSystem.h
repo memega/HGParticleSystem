@@ -18,6 +18,7 @@
 
 #define HG_DEBUG_PROFILING 0
 
+#import "HGParticleSystemKeys.h"
 #import "HGParticleSystemProperty.h"
 
 #pragma mark - Notification
