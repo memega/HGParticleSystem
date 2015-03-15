@@ -18,6 +18,8 @@
 
 #define HG_DEBUG_PROFILING 0
 
+#import "HGParticleSystemProperty.h"
+
 #pragma mark - Notification
 
 // sent when a non-looped particle system finishes

@@ -543,11 +543,11 @@ typedef struct
     if (_opacityOverLifetime) HGPropertyRelease(_opacityOverLifetime);
 }
 
-- (void)setProperty:(id)property forKey:(NSString *)propertyKey
+- (void)setProperty:(HGPropertyRef)property forKey:(NSString *)propertyKey
 {
     // validate that property key is actually of a property type
     HGAssert([[[self class] propertyRefKeys] containsObject:propertyKey], @"Key %@ is not of a HGPropertyRef type.", propertyKey);
-    [self setValue:property forKey:propertyKey];
+    [super setValue:CFBridgingRelease(HGPropertyCreateDictionaryRepresentation(property)) forKey:propertyKey];
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key
