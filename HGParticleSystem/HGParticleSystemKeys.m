@@ -124,6 +124,99 @@ NSString * const HGBlendModeGlConstantAlpha = @"GL_CONSTANT_ALPHA";
 NSString * const HGBlendModeGlOneMinusConstantAlpha = @"GL_ONE_MINUS_CONSTANT_ALPHA";
 NSString * const HGBlendModeGlSrcAlphaSaturate = @"GL_SRC_ALPHA_SATURATE";
 
+#pragma mark - Property Options
+
+FOUNDATION_EXPORT NSDictionary * _HGPropertyOptions()
+{
+    static NSDictionary *propertyOptions = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        propertyOptions =
+        @{
+          HGLifetimePropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartSizePropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartSpeedPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartRotationPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartColorPropertyKey: @[
+                  HGPropertyValueOptionColor,
+                  HGPropertyValueOptionColorRandomRGB,
+                  HGPropertyValueOptionColorRandomHSV,
+                  HGPropertyValueOptionGradient,
+                  HGPropertyValueOptionRandomColors
+                  ],
+          HGStartOpacityPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGEmissionRatePropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve
+                  ],
+          HGSpeedOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionCurve
+                  ],
+          HGSpeedOverLifetimeRadialAccelerationPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGSpeedOverLifetimeTangentialAccelerationPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGSizeOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGRotationAngularVelocityPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGSpinningOverLifetimeAngularVelocityPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGColorOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionGradient,
+                  HGPropertyValueOptionColorRandomHSV,
+                  HGPropertyValueOptionColorRandomRGB,
+                  ],
+          HGOpacityOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants,
+                  ],
+          };
+    });
+    return propertyOptions;
+}
+
+NSArray *HGParticleSystemPropertyOptionsForPropertyKey(NSString *propertyKey)
+{
+    NSDictionary *propertyOptions = _HGPropertyOptions();
+    if ([propertyOptions objectForKey:propertyKey])
+        return [propertyOptions objectForKey:propertyKey];
+    
+    return nil;
+}
+
 
 #pragma mark - Value Options
 

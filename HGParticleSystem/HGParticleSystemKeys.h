@@ -151,6 +151,9 @@ typedef NS_ENUM(NSInteger, HGParticleSystemPropertyOption)
     HGParticleSystemPropertyOptionUndefined = NSNotFound
 };
 
+// returns strings
+FOUNDATION_EXPORT NSArray *HGParticleSystemPropertyOptionsForPropertyKey(NSString *propertyKey);
+
 #pragma mark - Emitter shapes
 
 typedef NS_ENUM(NSInteger, HGParticleSystemEmitterShape)
