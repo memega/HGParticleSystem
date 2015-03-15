@@ -19,6 +19,8 @@ typedef const struct _HGPropertyRef * HGPropertyRef;
 
 // parses the (human-readable) value stored in a .hgps file
 FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithDictionary(const CFDictionaryRef dictionary);
+FOUNDATION_EXPORT HGParticleSystemPropertyOption HGParticleSystemPropertyOptionFromString (NSString *string);
+
 FOUNDATION_EXPORT void HGPropertyRelease(HGPropertyRef property);
 FOUNDATION_EXPORT HGFloat HGPropertyGetFloatValue(HGPropertyRef property, const HGFloat t);
 FOUNDATION_EXPORT GLKVector3 HGPropertyGetGLKVector3Value(HGPropertyRef property, const HGFloat t);

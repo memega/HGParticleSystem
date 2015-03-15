@@ -547,6 +547,12 @@ typedef struct
 {
     // validate that property key is actually of a property type
     HGAssert([[[self class] propertyRefKeys] containsObject:propertyKey], @"Key %@ is not of a HGPropertyRef type.", propertyKey);
+    
+    // validate the given property option (it should be acceptable for this property key)
+    HGAssert([HGParticleSystemPropertyOptionsForPropertyKey(propertyKey) indexOfObjectPassingTest:^BOOL(NSString *properyOptionString, NSUInteger idx, BOOL *stop) {
+        return HGPropertyGetOption(property) == HGParticleSystemPropertyOptionFromString(properyOptionString);
+    }] != NSNotFound, @"HGPropertyRef value option is invalid for property %@", propertyKey);
+    
     [super setValue:CFBridgingRelease(HGPropertyCreateDictionaryRepresentation(property)) forKey:propertyKey];
 }
 

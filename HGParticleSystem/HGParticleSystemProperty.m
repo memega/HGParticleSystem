@@ -52,7 +52,7 @@ static HGColor *HGColorMakeWithDictionary(NSDictionary *dictionary)
                            alpha:alphaComponent];
 }
 
-static HGParticleSystemPropertyOption HGParticleSystemPropertyOptionFromString (NSString *string)
+HGParticleSystemPropertyOption HGParticleSystemPropertyOptionFromString (NSString *string)
 {
     static NSDictionary *propertiesDictionary = nil;
     static dispatch_once_t onceToken;
