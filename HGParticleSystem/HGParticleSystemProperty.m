@@ -10,7 +10,6 @@
 
 // Data objects
 #import "HGParticleSystemKeys.h"
-#import "HGLookupTable.h"
 
 // Helpers
 #import "HGAssert.h"
@@ -71,7 +70,11 @@ static HGParticleSystemPropertyOption HGParticleSystemPropertyOptionFromString (
 //                                 HGPropertyValueOptionRandomGradients: @(HGParticleSystemPropertyOptionRandomGradients),
                                  };
     });
-    return [propertiesDictionary[string] integerValue];
+    id value = propertiesDictionary[string];
+    if (value)
+        return [value integerValue];
+    
+    return HGParticleSystemPropertyOptionUndefined;
 }
 
 #pragma mark - _HGPropertyRef NSNumber helpers
@@ -114,6 +117,105 @@ struct _HGPropertyRef
     HGLookupTableRef _gradientLUT;
 };
 
+// private helper
+struct _HGPropertyRef * _HGPropertyMake(HGParticleSystemPropertyOption option)
+{
+    NSCAssert(option != HGParticleSystemPropertyOptionUndefined, @"HGPropertyRef: invalid option");
+    
+    struct _HGPropertyRef *ref = calloc(1, sizeof(struct _HGPropertyRef));
+    if (ref == NULL) return NULL; // memory problem
+    
+    ref->_option = option;
+    
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithConstant(const HGFloat constant)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionConstant);
+    if (ref) {
+        ref->_constant1 = constant;
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithRandomConstants(const HGFloat constant1, const HGFloat constant2)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionRandomConstants);
+    if (ref) {
+        ref->_constant1 = constant1;
+        ref->_constant2 = constant2;
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithCurve(const HGLookupTableRef lut)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionCurve);
+    if (ref) {
+        CFDictionaryRef dictionary = HGLookupTableCreateDictionaryRepresentation(lut);
+        ref->_curveLUT = HGLookupTableMakeWithDictionaryRepresentation(dictionary);
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithColor(HGColor *color)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionColor);
+    if (ref) {
+        ref->_color1Vector = HGGLKVector3MakeWithColor(color);
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithRandomColor(HGColor *color1, HGColor *color2)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionRandomColors);
+    if (ref) {
+        ref->_color1Vector = HGGLKVector3MakeWithColor(color1);
+        ref->_color2Vector = HGGLKVector3MakeWithColor(color2);
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithColorRandomRGB(const HGFloat r1, const HGFloat r2, const HGFloat g1, const HGFloat g2, const HGFloat b1, const HGFloat b2)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionColorRandomRGB);
+    if (ref) {
+        ref->_constant1 = r1;
+        ref->_constant2 = r2;
+        ref->_constant3 = g1;
+        ref->_constant4 = g2;
+        ref->_constant5 = b1;
+        ref->_constant6 = b2;
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithColorRandomHSV(const HGFloat h1, const HGFloat h2, const HGFloat s1, const HGFloat s2, const HGFloat v1, const HGFloat v2)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionColorRandomHSV);
+    if (ref) {
+        ref->_constant1 = h1;
+        ref->_constant2 = h2;
+        ref->_constant3 = s1;
+        ref->_constant4 = s2;
+        ref->_constant5 = v1;
+        ref->_constant6 = v2;
+    }
+    return ref;
+}
+
+HGPropertyRef HGPropertyMakeWithGradient(const HGLookupTableRef lut)
+{
+    struct _HGPropertyRef *ref = _HGPropertyMake(HGParticleSystemPropertyOptionGradient);
+    if (ref) {
+        CFDictionaryRef dictionary = HGLookupTableCreateDictionaryRepresentation(lut);
+        ref->_curveLUT = HGLookupTableMakeWithDictionaryRepresentation(dictionary);
+    }
+    return ref;
+}
+
 HGPropertyRef HGPropertyMakeWithDictionary(const CFDictionaryRef dictionary)
 {
     NSCAssert(dictionary, @"HGPropertyRef: Empty dictionary");
@@ -146,7 +248,7 @@ HGPropertyRef HGPropertyMakeWithDictionary(const CFDictionaryRef dictionary)
     HGAssert(value, @"HGParticleSystemProperty: missing <value>.");
     
     ref->_option = HGParticleSystemPropertyOptionFromString(option);
-    HGAssert(ref->_option != NSNotFound, @"HGParticleSystemProperty: unsupported <option> value: %@", option);
+    HGAssert(ref->_option != HGParticleSystemPropertyOptionUndefined, @"HGParticleSystemProperty: unsupported <option> value: %@", option);
     
     // helper block
     HGFloat (^HGFloatFromId)(id) = ^HGFloat(id obj) {

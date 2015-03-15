@@ -61,4 +61,6 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotificatio
 @property (nonatomic) CGFloat actionSpeed;
 @property (nonatomic) CGFloat displayedActionSpeed;
 
+- (void)setProperty:(HGPropertyRef)property forKey:(NSString *)propertyKey;
+
 @end
