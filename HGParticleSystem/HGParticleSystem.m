@@ -122,7 +122,6 @@ typedef struct
 {
     HGParticle *_particles;
     NSUInteger _totalParticles;
-    NSUInteger _allocatedParticles;
     
     NSUInteger _maxParticles;
     NSTimeInterval _duration;
@@ -147,7 +146,7 @@ typedef struct
     HGFloat _emitterShapeDirection;
     HGFloat _emitterShapeWidth;
     HGFloat _emitterShapeHeight;
-    CGRect _emitterRect; // small optimization, pre-calculated
+    CGRect _emitterRect; // minor optimization, pre-calculated
     BOOL _emitterShapeBoundary;
     BOOL _emitterShapeRandomDirection;
     
@@ -204,20 +203,6 @@ typedef struct
     // Movment type: free or grouped.
 	CCParticleSystemPositionType	_particlePositionType;
 }
-
-//@property (nonatomic) NSTimeInterval duration;
-//@property (nonatomic) NSUInteger maxParticles;
-//@property (nonatomic) BOOL looping;
-//@property (nonatomic) HGPropertyRef lifetime; // constant, curve, random
-//@property (nonatomic) HGPropertyRef startSize; // constant, curve, random
-//@property (nonatomic) HGPropertyRef startSpeed; // constant, curve, random
-//@property (nonatomic) HGPropertyRef startRotation; // constant, curve, random
-//@property (nonatomic) HGPropertyRef startColor; // constant color, gradient
-//
-//@property (nonatomic) GLKVector2 gravity;
-//
-//@property (nonatomic) BOOL emissionModule;
-//@property (nonatomic) HGFloat emissionRate;
 
 @end
 
@@ -325,12 +310,16 @@ typedef struct
         self.actionSpeed = 1.;
         
         // nice!
+        __block NSInteger maxParticles = 0;
         NSSet *set = [[self class] propertyKeys];
         [set enumerateObjectsUsingBlock:^(id propertyKey, BOOL *stop) {
             id value = [dictionary valueForKey:propertyKey];
             
+            BOOL shouldSkipSetValueForKey = NO;
+            
             if (value == nil && [HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
             {
+                // special case for emitter shape ratio
                 value = @(1.);
             }
             else
@@ -359,9 +348,18 @@ typedef struct
             {
                 value = @(HGParticleSystemRotationModeFromString(value));
             }
+            else if ([HGMaxParticlesPropertyKey isEqualToString:propertyKey])
+            {
+                shouldSkipSetValueForKey = YES;
+                maxParticles = [value integerValue];
+            }
             
-            [self setValue:value forKey:propertyKey];
+            if (!shouldSkipSetValueForKey)
+                [self setValue:value forKey:propertyKey];
         }];
+        
+        if (maxParticles < 1)
+            return nil;
         
         // tiny optimization
         if (_emitterShape == HGParticleSystemEmitterShapeRect)
@@ -370,15 +368,16 @@ typedef struct
                                       _emitterShapeWidth, _emitterShapeHeight);
         }
         
+        _maxParticles = (NSUInteger)maxParticles;
+        
         // allocate
-        _totalParticles = _maxParticles;
-        _particles = calloc(_totalParticles, sizeof(HGParticle));
+        _particles = calloc(_maxParticles, sizeof(HGParticle));
         if (!_particles)
         {
             CCLOG(@"Particle system: not enough memory");
             return nil;
         }
-        _allocatedParticles = _maxParticles;
+        _totalParticles = _maxParticles;
         
         if (_blendModule)
         {
@@ -558,6 +557,12 @@ typedef struct
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
+    if ([key isEqualToString:HGMaxParticlesPropertyKey])
+    {
+        NSLog(@"Max particles count modification is not supported.");
+        return;
+    }
+    
     id transformedValue = value;
     if ([[[self class] propertyRefKeys] containsObject:key])
     {
@@ -581,7 +586,7 @@ typedef struct
 {
     // neither KVC nor NSValue do not support struct pointers, nor GLKVector2 struct
     // so we need to intercept calls and set ivars manually
-    if ([self.class.propertyRefKeys containsObject:key])
+    if ([[[self class] propertyRefKeys] containsObject:key])
     {
         NSString *s = [@"_" stringByAppendingString:key];
         Ivar ivar = class_getInstanceVariable(self.class, s.UTF8String);

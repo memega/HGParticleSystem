@@ -86,6 +86,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DEAD3B801AB697FD00E160C8 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				DEFA990119A0A4FE00CF4E9C /* HGParticleSystemKeys.h */,
+				DEFA990219A0A4FE00CF4E9C /* HGParticleSystemKeys.m */,
+				DEFA990519A0A4FE00CF4E9C /* HGTypes.h */,
+				DEFA990619A0A4FE00CF4E9C /* HGTypes.m */,
+				DEFA990319A0A4FE00CF4E9C /* HGParticleSystemProperty.h */,
+				DEFA990419A0A4FE00CF4E9C /* HGParticleSystemProperty.m */,
+				DEFA98FA19A0A4FE00CF4E9C /* HGLookupTable.h */,
+				DEFA98FB19A0A4FE00CF4E9C /* HGLookupTable.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		DEFA98A019A0A48200CF4E9C = {
 			isa = PBXGroup;
 			children = (
@@ -129,16 +144,9 @@
 			children = (
 				DE51B12719A3287A00AD0EC4 /* HGParticleSystemCache.h */,
 				DE51B12819A3287A00AD0EC4 /* HGParticleSystemCache.m */,
-				DEFA990119A0A4FE00CF4E9C /* HGParticleSystemKeys.h */,
-				DEFA990219A0A4FE00CF4E9C /* HGParticleSystemKeys.m */,
 				DEFA98FF19A0A4FE00CF4E9C /* HGParticleSystem.h */,
 				DEFA990019A0A4FE00CF4E9C /* HGParticleSystem.m */,
-				DEFA990519A0A4FE00CF4E9C /* HGTypes.h */,
-				DEFA990619A0A4FE00CF4E9C /* HGTypes.m */,
-				DEFA98FA19A0A4FE00CF4E9C /* HGLookupTable.h */,
-				DEFA98FB19A0A4FE00CF4E9C /* HGLookupTable.m */,
-				DEFA990319A0A4FE00CF4E9C /* HGParticleSystemProperty.h */,
-				DEFA990419A0A4FE00CF4E9C /* HGParticleSystemProperty.m */,
+				DEAD3B801AB697FD00E160C8 /* Support */,
 				DEFA993119A0B25700CF4E9C /* Helpers */,
 				DEFA992E19A0AD4200CF4E9C /* Supporting Files */,
 			);
