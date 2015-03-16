@@ -114,16 +114,9 @@
 			children = (
 				DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */,
 				DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */,
-				DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */,
-				DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */,
 				DE61A436199FB01800F78F8E /* HGParticleSystem.h */,
 				DE61A437199FB01800F78F8E /* HGParticleSystem.m */,
-				DE61A471199FB2D500F78F8E /* HGTypes.h */,
-				DE61A472199FB2D500F78F8E /* HGTypes.m */,
-				DE61A462199FB12F00F78F8E /* HGLookupTable.h */,
-				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
-				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
-				DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */,
+				DEAD3B8B1AB69AC800E160C8 /* Support */,
 				DE61A482199FB7C900F78F8E /* Helpers */,
 				DE61A434199FB01800F78F8E /* Supporting Files */,
 			);
@@ -164,6 +157,21 @@
 				DE61A475199FB3CA00F78F8E /* HGAssert.h */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		DEAD3B8B1AB69AC800E160C8 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */,
+				DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */,
+				DE61A471199FB2D500F78F8E /* HGTypes.h */,
+				DE61A472199FB2D500F78F8E /* HGTypes.m */,
+				DE61A462199FB12F00F78F8E /* HGLookupTable.h */,
+				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
+				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
+				DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
