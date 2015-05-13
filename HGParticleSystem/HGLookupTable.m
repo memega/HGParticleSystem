@@ -13,6 +13,11 @@
 //    order = L-1;
 //    LUT_resolution = 1 + (int) (400 * log(order)/log(4));
 
+FOUNDATION_STATIC_INLINE GLfloat GLfloatLerp(GLfloat a, GLfloat b, GLfloat ratio)
+{
+    return (b - a) * ratio + a;
+}
+
 #pragma mark - LUT
 
 typedef NS_ENUM(uint8_t, _HGLookupTableValueType)
@@ -24,31 +29,29 @@ typedef NS_ENUM(uint8_t, _HGLookupTableValueType)
 struct _HGLookupTableRef
 {
     _HGLookupTableValueType _type;
+    
     size_t _size;
-    HGFloat _min;
-    HGFloat _max;
-    void * _values; // either HGFloat or GLKVector4 depending on _type
+    GLfloat _min;
+    GLfloat _max;
+    void * _values; // either GLfloat or GLKVector4 depending on _type
 };
 
-HGLookupTableRef HGLookupTableMakeWithFloat(const HGFloat *values, const size_t size, const HGFloat min, const HGFloat max)
+HGLookupTableRef HGLookupTableMakeWithFloat(const GLfloat *values, const size_t size, const GLfloat min, const GLfloat max)
 {
-    struct _HGLookupTableRef *ref = calloc(1, sizeof(struct _HGLookupTableRef));
-    if (ref == NULL)
-    {
-        return NULL;
-    }
-    
     NSCAssert(size > 0, @"HGLookupTableRef initializer: zero size.");
     NSCAssert(values, @"HGLookupTableRef initializer: NULL array.");
-
-    ref->_values = calloc(size, sizeof(HGFloat));
+    
+    struct _HGLookupTableRef *ref = calloc(1, sizeof(struct _HGLookupTableRef));
+    if (ref == NULL) return NULL;
+    
+    ref->_values = calloc(size, sizeof(GLfloat));
     if (ref->_values == NULL)
     {
         free(ref);
         return NULL;
     }
     
-    memcpy(ref->_values, values, size * sizeof(HGFloat));
+    memcpy(ref->_values, values, size * sizeof(GLfloat));
     
     ref->_size = size;
     ref->_min = min;
@@ -61,11 +64,11 @@ HGLookupTableRef HGLookupTableMakeWithFloat(const HGFloat *values, const size_t 
 
 HGLookupTableRef HGLookupTableMakeWithGLKVector4(const GLKVector4 *values, const size_t size)
 {
-    struct _HGLookupTableRef *ref = calloc(1, sizeof(struct _HGLookupTableRef));
-    if (ref == NULL) return NULL;
-    
     NSCAssert(size > 0, @"HGLookupTableRef initializer: zero size.");
     NSCAssert(values, @"HGLookupTableRef initializer: NULL array.");
+    
+    struct _HGLookupTableRef *ref = calloc(1, sizeof(struct _HGLookupTableRef));
+    if (ref == NULL) return NULL;
     
     ref->_values = calloc(size, sizeof(GLKVector4));
     if (ref->_values == NULL)
@@ -85,19 +88,20 @@ HGLookupTableRef HGLookupTableMakeWithGLKVector4(const GLKVector4 *values, const
 
 void HGLookupTableRelease(HGLookupTableRef lut)
 {
-    if (lut)
+    struct _HGLookupTableRef *p = (struct _HGLookupTableRef *)lut;
+    if (p)
     {
-        if (lut->_values) free(lut->_values);
-        free((struct _HGLookupTableRef *)lut);
+        if (p->_values) free(p->_values);
+        free(p);
     }
 }
 
-HGFloat HGLookupTableGetCGFloatValue(HGLookupTableRef lut, HGFloat t)
+GLfloat HGLookupTableGetCGFloatValue(HGLookupTableRef lut, GLfloat t)
 {
     NSCAssert(lut, @"HGLookupTableRef: NULL LUT");
-    NSCAssert(lut->_type == _HGLookupTableValueTypeFloat, @"HGLookupTableRef: LUT provided does not contain float values.");
+    NSCAssert(lut->_type == _HGLookupTableValueTypeFloat, @"HGLookupTableRef: LUT does not contain float values.");
     
-    HGFloat *values = lut->_values;
+    GLfloat *values = lut->_values;
     
     if (lut->_size == 1)
     {
@@ -106,38 +110,38 @@ HGFloat HGLookupTableGetCGFloatValue(HGLookupTableRef lut, HGFloat t)
     
     if (t <= 0.0)
     {
-        return HGFloatLerp(lut->_min, lut->_max, values[0]);
+        return GLfloatLerp(lut->_min, lut->_max, values[0]);
     }
     if (t >= 1.0)
     {
-        return HGFloatLerp(lut->_min, lut->_max, values[lut->_size - 1]);
+        return GLfloatLerp(lut->_min, lut->_max, values[lut->_size - 1]);
     }
     
     if (lut->_size == 2)
     {
-        return HGFloatLerp(lut->_min, lut->_max, HGFloatLerp(values[0], values[1], t));
+        return GLfloatLerp(lut->_min, lut->_max, GLfloatLerp(values[0], values[1], t));
     }
     
-    HGFloat floatIndex = t * (lut->_size - 1);
+    GLfloat floatIndex = t * (lut->_size - 1);
     NSUInteger index = (NSUInteger)floatIndex;
-    HGFloat v1 = values[index];
+    GLfloat v1 = values[index];
     if (floatIndex - index == 0.)
         return v1;
     
-    HGFloat v2 = values[index + 1];
-    return HGFloatLerp(lut->_min, lut->_max, HGFloatLerp(v1, v2, t * lut->_size - index));
+    GLfloat v2 = values[index + 1];
+    return GLfloatLerp(lut->_min, lut->_max, GLfloatLerp(v1, v2, t * lut->_size - index));
 }
 
-GLKVector3 HGLookupTableGetGLKVector3Value(HGLookupTableRef lut, const HGFloat t)
+GLKVector3 HGLookupTableGetGLKVector3Value(HGLookupTableRef lut, const GLfloat t)
 {
     GLKVector4 value = HGLookupTableGetGLKVector4Value(lut, t);
     return GLKVector3Make(value.x, value.y, value.z);
 }
 
-GLKVector4 HGLookupTableGetGLKVector4Value(HGLookupTableRef lut, HGFloat t)
+GLKVector4 HGLookupTableGetGLKVector4Value(HGLookupTableRef lut, GLfloat t)
 {
     NSCAssert(lut, @"HGLookupTableRef: NULL LUT");
-    NSCAssert(lut->_type == _HGLookupTableValueTypeGLKVector4, @"HGLookupTableRef: LUT provided does not contain GLKVector4 values.");
+    NSCAssert(lut->_type == _HGLookupTableValueTypeGLKVector4, @"HGLookupTableRef: LUT does not contain GLKVector4 values.");
 
     GLKVector4 *values = lut->_values;
 
@@ -160,7 +164,7 @@ GLKVector4 HGLookupTableGetGLKVector4Value(HGLookupTableRef lut, HGFloat t)
         return GLKVector4Lerp(values[0], values[lut->_size - 1], t);
     }
     
-    HGFloat floatIndex = t * (lut->_size - 1);
+    GLfloat floatIndex = t * (lut->_size - 1);
     NSUInteger index = (NSUInteger)floatIndex;
     GLKVector4 v1 = values[index];
     if (floatIndex - index == 0.)
@@ -170,7 +174,7 @@ GLKVector4 HGLookupTableGetGLKVector4Value(HGLookupTableRef lut, HGFloat t)
     return GLKVector4Lerp(v1, v2, t * lut->_size - index);
 }
 
-CFDictionaryRef HGLookupTableCreateDictionaryRepresentation(HGLookupTableRef lut)
+CFDictionaryRef _HGLookupTableCreateDictionaryRepresentation(HGLookupTableRef lut)
 {
     NSMutableDictionary *dictionary = NSMutableDictionary.dictionary;
     
@@ -182,10 +186,10 @@ CFDictionaryRef HGLookupTableCreateDictionaryRepresentation(HGLookupTableRef lut
     NSMutableArray *values = NSMutableArray.array;
     if (lut->_type == _HGLookupTableValueTypeFloat)
     {
-        HGFloat *scalarValues = lut->_values;
+        GLfloat *scalarValues = lut->_values;
         for (NSUInteger i = 0; i<lut->_size; i++)
         {
-            HGFloat scalarValue = *(scalarValues + i);
+            GLfloat scalarValue = *(scalarValues + i);
             [values addObject:@(scalarValue)];
         }
         dictionary[@"_values"] = values;
@@ -209,13 +213,10 @@ CFDictionaryRef HGLookupTableCreateDictionaryRepresentation(HGLookupTableRef lut
     return (__bridge_retained CFDictionaryRef)dictionary;
 }
 
-HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef dict)
+HGLookupTableRef _HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef dict)
 {
     struct _HGLookupTableRef *ref = calloc(1, sizeof(struct _HGLookupTableRef));
-    if (ref == NULL)
-    {
-        return NULL;
-    }
+    if (ref == NULL) return NULL;
     
     NSDictionary *dictionary = (__bridge NSDictionary*)dict;
     NSValue * value;
@@ -232,7 +233,7 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
     NSArray *array = dictionary[@"_values"];
     if (ref->_type == _HGLookupTableValueTypeFloat)
     {
-        HGFloat *scalarValues = calloc(ref->_size, sizeof(HGFloat));
+        GLfloat *scalarValues = calloc(ref->_size, sizeof(GLfloat));
         if (scalarValues == NULL)
         {
             free(ref);
@@ -242,14 +243,14 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
         for(NSUInteger i = 0; i<array.count; i++)
         {
             number = array[i];
-            scalarValues[i] = (HGFloat)[number doubleValue];
+            scalarValues[i] = (GLfloat)[number floatValue];
         }
         ref->_values = scalarValues;
         
         number = dictionary[@"_min"];
-        ref->_min = (HGFloat)[number doubleValue];
+        ref->_min = (GLfloat)[number floatValue];
         number = dictionary[@"_max"];
-        ref->_max = (HGFloat)[number doubleValue];
+        ref->_max = (GLfloat)[number floatValue];
     }
     else if (ref->_type == _HGLookupTableValueTypeGLKVector4)
     {
@@ -271,9 +272,9 @@ HGLookupTableRef HGLookupTableMakeWithDictionaryRepresentation(CFDictionaryRef d
         ref->_values = scalarValues;
         
         number = dictionary[@"_min"];
-        ref->_min = (HGFloat)[number doubleValue];
+        ref->_min = (GLfloat)[number floatValue];
         number = dictionary[@"_max"];
-        ref->_max = (HGFloat)[number doubleValue];
+        ref->_max = (GLfloat)[number floatValue];
     }
     
     return ref;

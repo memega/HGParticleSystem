@@ -14,16 +14,14 @@
 		DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A462199FB12F00F78F8E /* HGLookupTable.h */; };
 		DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */; };
 		DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */; };
-		DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A471199FB2D500F78F8E /* HGTypes.h */; };
-		DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A472199FB2D500F78F8E /* HGTypes.m */; };
-		DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */; };
-		DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */; };
 		DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A436199FB01800F78F8E /* HGParticleSystem.h */; };
 		DE6C99BD19A098000075B6A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BC19A098000075B6A4 /* Foundation.framework */; };
 		DE6C99BF19A0980B0075B6A4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6C99BE19A0980B0075B6A4 /* GLKit.framework */; };
+		DEC393AE1B0244AB006FCD49 /* HGParticleSystem_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = DEC393AD1B0244AB006FCD49 /* HGParticleSystem_Private.h */; };
+		DEF3C7771B0316E7008115C2 /* HGParticleSystemProperty_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF3C7761B0316E7008115C2 /* HGParticleSystemProperty_Private.h */; };
+		DEF3C7791B0316EB008115C2 /* HGLookupTable_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF3C7781B0316EB008115C2 /* HGLookupTable_Private.h */; };
 		DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */; };
 		DEFA992A19A0A57F00CF4E9C /* HGCocos2D.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */; };
-		DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = DE61A475199FB3CA00F78F8E /* HGAssert.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,22 +34,17 @@
 		DE61A436199FB01800F78F8E /* HGParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGParticleSystem.h; sourceTree = "<group>"; };
 		DE61A437199FB01800F78F8E /* HGParticleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystem.m; sourceTree = "<group>"; };
 		DE61A43E199FB01800F78F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DE61A446199FB01800F78F8E /* HGParticleSystem-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HGParticleSystem-iosTests-Info.plist"; sourceTree = "<group>"; };
-		DE61A448199FB01800F78F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemTests.m; sourceTree = "<group>"; };
 		DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemCache.m; sourceTree = "<group>"; };
 		DE61A460199FB12F00F78F8E /* HGParticleSystemCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemCache.h; sourceTree = "<group>"; };
 		DE61A461199FB12F00F78F8E /* HGLookupTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGLookupTable.m; sourceTree = "<group>"; };
 		DE61A462199FB12F00F78F8E /* HGLookupTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGLookupTable.h; sourceTree = "<group>"; };
 		DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemProperty.m; sourceTree = "<group>"; };
 		DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemProperty.h; sourceTree = "<group>"; };
-		DE61A471199FB2D500F78F8E /* HGTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGTypes.h; sourceTree = "<group>"; };
-		DE61A472199FB2D500F78F8E /* HGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGTypes.m; sourceTree = "<group>"; };
-		DE61A475199FB3CA00F78F8E /* HGAssert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGAssert.h; sourceTree = "<group>"; };
-		DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemKeys.h; sourceTree = "<group>"; };
-		DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGParticleSystemKeys.m; sourceTree = "<group>"; };
 		DE6C99BC19A098000075B6A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		DE6C99BE19A0980B0075B6A4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		DEC393AD1B0244AB006FCD49 /* HGParticleSystem_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystem_Private.h; sourceTree = "<group>"; };
+		DEF3C7761B0316E7008115C2 /* HGParticleSystemProperty_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemProperty_Private.h; sourceTree = "<group>"; };
+		DEF3C7781B0316EB008115C2 /* HGLookupTable_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGLookupTable_Private.h; sourceTree = "<group>"; };
 		DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGCocos2D.h; sourceTree = "<group>"; };
 		DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGCocos2D.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				DE61A433199FB01800F78F8E /* HGParticleSystem */,
-				DE61A444199FB01800F78F8E /* HGParticleSystemTests */,
 				DE61A42C199FB01800F78F8E /* Frameworks */,
 				DE61A42B199FB01800F78F8E /* Products */,
 			);
@@ -116,7 +108,10 @@
 				DE61A45F199FB12F00F78F8E /* HGParticleSystemCache.m */,
 				DE61A436199FB01800F78F8E /* HGParticleSystem.h */,
 				DE61A437199FB01800F78F8E /* HGParticleSystem.m */,
-				DEAD3B8B1AB69AC800E160C8 /* Support */,
+				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
+				DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */,
+				DE61A462199FB12F00F78F8E /* HGLookupTable.h */,
+				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
 				DE61A482199FB7C900F78F8E /* Helpers */,
 				DE61A434199FB01800F78F8E /* Supporting Files */,
 			);
@@ -131,47 +126,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DE61A444199FB01800F78F8E /* HGParticleSystemTests */ = {
-			isa = PBXGroup;
-			children = (
-				DE61A44A199FB01800F78F8E /* HGParticleSystemTests.m */,
-				DE61A445199FB01800F78F8E /* Supporting Files */,
-			);
-			path = HGParticleSystemTests;
-			sourceTree = "<group>";
-		};
-		DE61A445199FB01800F78F8E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DE61A446199FB01800F78F8E /* HGParticleSystem-iosTests-Info.plist */,
-				DE61A447199FB01800F78F8E /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		DE61A482199FB7C900F78F8E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				DEC393AD1B0244AB006FCD49 /* HGParticleSystem_Private.h */,
+				DEF3C7761B0316E7008115C2 /* HGParticleSystemProperty_Private.h */,
+				DEF3C7781B0316EB008115C2 /* HGLookupTable_Private.h */,
 				DEFA992719A0A57F00CF4E9C /* HGCocos2D.h */,
 				DEFA992819A0A57F00CF4E9C /* HGCocos2D.m */,
-				DE61A475199FB3CA00F78F8E /* HGAssert.h */,
 			);
 			name = Helpers;
-			sourceTree = "<group>";
-		};
-		DEAD3B8B1AB69AC800E160C8 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				DE61A49D199FC05800F78F8E /* HGParticleSystemKeys.h */,
-				DE61A49E199FC05800F78F8E /* HGParticleSystemKeys.m */,
-				DE61A471199FB2D500F78F8E /* HGTypes.h */,
-				DE61A472199FB2D500F78F8E /* HGTypes.m */,
-				DE61A462199FB12F00F78F8E /* HGLookupTable.h */,
-				DE61A461199FB12F00F78F8E /* HGLookupTable.m */,
-				DE61A465199FB12F00F78F8E /* HGParticleSystemProperty.h */,
-				DE61A464199FB12F00F78F8E /* HGParticleSystemProperty.m */,
-			);
-			name = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,12 +146,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE61A46C199FB12F00F78F8E /* HGParticleSystemProperty.h in Headers */,
-				DE61A49F199FC05800F78F8E /* HGParticleSystemKeys.h in Headers */,
+				DEF3C7791B0316EB008115C2 /* HGLookupTable_Private.h in Headers */,
 				DE61A469199FB12F00F78F8E /* HGLookupTable.h in Headers */,
+				DEC393AE1B0244AB006FCD49 /* HGParticleSystem_Private.h in Headers */,
+				DEF3C7771B0316E7008115C2 /* HGParticleSystemProperty_Private.h in Headers */,
 				DE61A467199FB12F00F78F8E /* HGParticleSystemCache.h in Headers */,
 				DE61A4A1199FC15000F78F8E /* HGParticleSystem.h in Headers */,
-				DEFA993619A0B3F200CF4E9C /* HGAssert.h in Headers */,
-				DE61A473199FB2D500F78F8E /* HGTypes.h in Headers */,
 				DEFA992919A0A57F00CF4E9C /* HGCocos2D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,9 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE61A474199FB2D500F78F8E /* HGTypes.m in Sources */,
 				DEFA992A19A0A57F00CF4E9C /* HGCocos2D.m in Sources */,
-				DE61A4A0199FC05800F78F8E /* HGParticleSystemKeys.m in Sources */,
 				DE61A468199FB12F00F78F8E /* HGLookupTable.m in Sources */,
 				DE61A438199FB01800F78F8E /* HGParticleSystem.m in Sources */,
 				DE61A46B199FB12F00F78F8E /* HGParticleSystemProperty.m in Sources */,
@@ -254,17 +216,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		DE61A447199FB01800F78F8E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DE61A448199FB01800F78F8E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DE28D0991AA32FE9006BF8B9 /* Release AppStore */ = {

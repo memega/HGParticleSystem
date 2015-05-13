@@ -12,9 +12,9 @@
 
 static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 
-#pragma mark - HGParticlePool
+#pragma mark - _HGParticlePool
 
-@interface HGParticlePool : NSObject
+@interface _HGParticlePool : NSObject
 {
     NSString *_path;
     NSMutableSet *_busySystems;
@@ -27,11 +27,12 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 
 @end
 
-@implementation HGParticlePool
+@implementation _HGParticlePool
 
-#pragma mark MSParticlePool - Init & dealloc
+#pragma mark Init & dealloc
 
-- (instancetype)initWithFile:(NSString*)path capacity:(NSUInteger)capacity {
+- (instancetype)initWithFile:(NSString*)path capacity:(NSUInteger)capacity
+{
     self = [super init];
     if (self)
     {
@@ -60,7 +61,8 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
     [_availableSystems addObject:item];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     //FIXME: release all PS
@@ -129,9 +131,10 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 
 -(id) init
 {
-    if( (self=[super init]) ) {
+    self = [super init];
+    if(self)
+    {
         _pools = [NSMutableDictionary dictionaryWithCapacity:10];
-        
 		_dictQueue = dispatch_queue_create("com.neobia.particlecachedict", NULL);
     }
     return self;
@@ -168,7 +171,7 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 {
     NSString *path = [name stringByStandardizingPath];
     
-    __block HGParticlePool *pool = nil;
+    __block _HGParticlePool *pool = nil;
     
 	// remove possible -HD suffix to prevent caching the same image twice (issue #1040)
 #ifdef __CC_PLATFORM_IOS
@@ -179,16 +182,20 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 		pool = [_pools objectForKey: path];
 	});
     
-	if( ! pool ) {
+	if (!pool)
+    {
         NSString *fullPath = [[CCFileUtils sharedFileUtils] fullPathFromRelativePath:path];
         
-        pool = [[HGParticlePool alloc] initWithFile:fullPath capacity:capacity];
+        pool = [[_HGParticlePool alloc] initWithFile:fullPath capacity:capacity];
         
-        if( pool ){
+        if (pool)
+        {
             dispatch_sync(_dictQueue, ^{
                 [_pools setObject: pool forKey:path];
             });
-        }else{
+        }
+        else
+        {
             NSLog(@"HGParticleCache: Couldn't add particles: %@", path);
         }
     }
@@ -196,8 +203,7 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 
 - (void)removeParticleSystemForKey:(NSString *)key
 {
-	if( ! key )
-		return;
+	if (!key) return;
     
 	dispatch_sync(_dictQueue, ^{
 		[_pools removeObjectForKey:key];
@@ -211,7 +217,7 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
 
 - (HGParticleSystem *)particleSystemForKey:(NSString *)key increaseCapacityIfNeeded:(BOOL)increaseCapacityIfNeeded
 {
-	__block HGParticlePool *pool = nil;
+	__block _HGParticlePool *pool = nil;
     
 	dispatch_sync(_dictQueue, ^{
 		pool = [_pools objectForKey:key];

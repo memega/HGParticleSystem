@@ -23,51 +23,29 @@
 #endif
 
 // data values
-#import "HGParticleSystemKeys.h"
+#import "HGParticleSystem_Private.h"
 #import "HGParticleSystemProperty.h"
+#import "HGParticleSystemProperty_Private.h"
 
 // helpers
-#import "HGAssert.h"
-#import "HGTypes.h"
+#ifndef HGAssert
+#if NS_BLOCK_ASSERTIONS
+#define HGAssert(expression, ...)
+#else
+#define HGAssert(expression, ...) \
+    do { \
+        if(!(expression)) { \
+            NSLog(@"Assertion failure: %s in %s on line %s:%d. %@", #expression, __func__, __FILE__, __LINE__, [NSString stringWithFormat: @"" __VA_ARGS__]); \
+            abort(); \
+        } \
+    } while(0)
+#endif
+#endif // ifndef HGAssert
+#define HGMissingValue(value, key) HGAssert((value), @"HGParticleSystem: Dictionary is missing value for %@", key);
 
-#pragma mark - Constants
+#pragma mark - Debugging
 
-NSString * const HGParticleSystemDidFinishNotification = @"HGParticleSystemDidFinishNotification";
-NSString * const HGParticleSystemDidBecomeAvailableNotification = @"HGParticleSystemDidBecomeAvailableNotification";
-
-__unused
-FOUNDATION_STATIC_INLINE
-CGPoint HGPointOnRect(const CGPoint normalizedVectorFromCenter, const CGRect rect)
-{
-    if (CGRectGetWidth(rect) == 0. || CGRectGetHeight(rect) == 0.)
-        return CGPointZero;
-    
-    CGFloat t = INFINITY, tmp;
-    if (normalizedVectorFromCenter.x)
-    {
-        // left edge
-        tmp = CGRectGetMinX(rect) / normalizedVectorFromCenter.x;
-        if (tmp > 0.f) t = MIN(t, tmp);
-        
-        // right edge
-        tmp = CGRectGetMaxX(rect) / normalizedVectorFromCenter.x;
-        if (tmp > 0.f) t = MIN(t, tmp);
-    }
-    if (normalizedVectorFromCenter.y)
-    {
-        // top edge
-        tmp = CGRectGetMaxY(rect) / normalizedVectorFromCenter.y;
-        if (tmp > 0.f) t = MIN(t, tmp);
-        
-        // bottom edge
-        tmp = CGRectGetMinY(rect) / normalizedVectorFromCenter.y;
-        if (tmp > 0.f) t = MIN(t, tmp);
-    }
-    
-    if (t == INFINITY) return CGPointZero; // should never happen actually
-
-    return ccpMult(normalizedVectorFromCenter, t);
-}
+#define HG_DEBUG_PROFILING 0
 
 #if HG_DEBUG_PROFILING && defined(__has_include) && __has_include("CCProfiling.h")
 #import "CCProfiling.h"
@@ -78,12 +56,313 @@ CGPoint HGPointOnRect(const CGPoint normalizedVectorFromCenter, const CGRect rec
 #define HG_PROFILING_END(string)
 #endif
 
-#pragma mark - Particle
+#pragma mark - Notifications
+
+NSString * const HGParticleSystemDidFinishNotification = @"HGParticleSystemDidFinishNotification";
+NSString * const HGParticleSystemDidBecomeAvailableNotification = @"HGParticleSystemDidBecomeAvailableNotification";
+
+#pragma mark - Property Keys
+
+NSString * const HGDurationPropertyKey = @"duration";
+NSString * const HGLoopingPropertyKey = @"looping";
+NSString * const HGLifetimePropertyKey = @"lifetime";
+NSString * const HGStartSizePropertyKey = @"startSize";
+NSString * const HGStartSpeedPropertyKey = @"startSpeed";
+NSString * const HGGravityPropertyKey = @"gravity";
+NSString * const HGStartRotationPropertyKey = @"startRotation";
+NSString * const HGStartColorPropertyKey = @"startColor";
+NSString * const HGStartOpacityPropertyKey = @"startOpacity";
+NSString * const HGMaxParticlesPropertyKey = @"maxParticles";
+NSString * const HGEmissionModulePropertyKey = @"emissionModule";
+NSString * const HGEmissionRatePropertyKey = @"emissionRate";
+
+NSString * const HGEmitterShapeModulePropertyKey = @"shapeModule";
+NSString * const HGEmitterShapePropertyKey = @"emitterShape";
+NSString * const HGEmitterShapeRadiusPropertyKey = @"emitterShapeRadius";
+NSString * const HGEmitterShapeAnglePropertyKey = @"emitterShapeAngle";
+NSString * const HGEmitterShapeDirectionPropertyKey = @"emitterShapeDirection";
+NSString * const HGEmitterShapeBoundaryPropertyKey = @"emitterShapeBoundary";
+NSString * const HGEmitterShapeWidthPropertyKey = @"emitterShapeWidth";
+NSString * const HGEmitterShapeHeightPropertyKey = @"emitterShapeHeight";
+NSString * const HGEmitterShapeRandomDirectionPropertyKey = @"emitterShapeRandomDirection";
+
+NSString * const HGEmitterShapeVerticalRatioPropertyKey = @"emitterShapeVerticalRatio";
+
+NSString * const HGSpeedOverLifetimeModulePropertyKey = @"speedOverLifetimeModule";
+NSString * const HGSpeedOverLifetimeModePropertyKey = @"speedOverLifetimeMode";
+NSString * const HGSpeedOverLifetimePropertyKey = @"speedOverLifetime";
+NSString * const HGSpeedOverLifetimeRadialAccelerationPropertyKey = @"speedOverLifetimeRadialAcceleration";
+NSString * const HGSpeedOverLifetimeTangentialAccelerationPropertyKey = @"speedOverLifetimeTangentialAcceleration";
+
+NSString * const HGSizeOverLifetimeModulePropertyKey = @"sizeOverLifetimeModule";
+NSString * const HGSizeOverLifetimePropertyKey = @"sizeOverLifetime";
+
+NSString * const HGRotationOverLifetimeModulePropertyKey = @"rotationOverLifetimeModule";
+NSString * const HGRotationOverLifetimeModePropertyKey = @"rotationOverLifetimeMode";
+NSString * const HGRotationAngularVelocityPropertyKey = @"rotationAngularVelocity";
+NSString * const HGRotationRandomDirectionPropertyKey = @"rotationRandomDirection";
+
+NSString * const HGSpinningOverLifetimeModulePropertyKey = @"spinningOverLifetimeModule";
+NSString * const HGSpinningOverLifetimeAngularVelocityPropertyKey = @"spinningOverLifetimeAngularVelocity";
+
+NSString * const HGColorOverLifetimeModulePropertyKey = @"colorOverLifetimeModule";
+NSString * const HGColorOverLifetimePropertyKey = @"colorOverLifetime";
+
+NSString * const HGOpacityOverLifetimeModulePropertyKey = @"opacityOverLifetimeModule";
+NSString * const HGOpacityOverLifetimePropertyKey = @"opacityOverLifetime";
+
+NSString * const HGBlendModulePropertyKey = @"blendModule";
+NSString * const HGBlendingSrcPropertyKey = @"blendingSrc";
+NSString * const HGBlendingDstPropertyKey = @"blendingDst";
+
+NSString * const _HGTexturePropertyKey = @"texture";
+NSString * const _HGTextureModulePropertyKey = @"textureModule";
+NSString * const _HGTextureModePropertyKey = @"textureMode";
+NSString * const _HGTextureFilePropertyKey = @"textureFile";
+NSString * const _HGTextureSpriteFrameSourcePropertyKey = @"textureSpriteFrameSource";
+NSString * const _HGTextureSpriteFramePropertyKey = @"textureSpriteFrame";
+
+#pragma mark - Shape options
+
+NSString * const _HGParticleSystemEmitterShapeCircleValue = @"HGParticleSystemEmitterShapeCircleValue";
+NSString * const _HGParticleSystemEmitterShapeOvalValue = @"HGParticleSystemEmitterShapeOvalValue";
+NSString * const _HGParticleSystemEmitterShapeSectorValue = @"HGParticleSystemEmitterShapeSectorValue";
+NSString * const _HGParticleSystemEmitterShapeRectValue = @"HGParticleSystemEmitterShapeRectValue";
+
+#pragma mark - Speed acceleration options
+
+NSString * const _HGParticleSystemSpeedCurve = @"HGParticleSystemSpeedCurve";
+NSString * const _HGParticleSystemSpeedAcceleration = @"HGParticleSystemSpeedAcceleration";
+
+#pragma mark - Rotation options
+
+NSString * const _HGParticleSystemRotationVelocity = @"HGParticleSystemRotationVelocity";
+NSString * const _HGParticleSystemRotationFollow = @"HGParticleSystemRotationFollow";
+
+#pragma mark - Texture Mode options
+
+NSString * const _HGTextureModeEmbedded = @"HGTextureModeEmbedded";
+NSString * const _HGTextureModeFile = @"HGTextureModeFile";
+NSString * const _HGTextureModeSpriteFrame = @"HGTextureModeSpriteFrame";
+
+#pragma mark - GL Blending Modes
+
+NSString * const _HGBlendModeGlZero = @"GL_ZERO";
+NSString * const _HGBlendModeGlOne = @"GL_ONE";
+NSString * const _HGBlendModeGlSrcColor = @"GL_SRC_COLOR";
+NSString * const _HGBlendModeGlOneMinusSrcColor = @"GL_ONE_MINUS_SRC_COLOR";
+NSString * const _HGBlendModeGlDstColor = @"GL_DST_COLOR";
+NSString * const _HGBlendModeGlOneMinusDstColor = @"GL_ONE_MINUS_DST_COLOR";
+NSString * const _HGBlendModeGlSrcAlpha = @"GL_SRC_ALPHA";
+NSString * const _HGBlendModeGlOneMinusSrcAlpha = @"GL_ONE_MINUS_SRC_ALPHA";
+NSString * const _HGBlendModeGlDstAlpha = @"GL_DST_ALPHA";
+NSString * const _HGBlendModeGlOneMinusDstAlpha = @"GL_ONE_MINUS_DST_ALPHA";
+NSString * const _HGBlendModeGlConstantColor = @"GL_CONSTANT_COLOR";
+NSString * const _HGBlendModeGlOneMinusConstantColor = @"GL_ONE_MINUS_CONSTANT_COLOR";
+NSString * const _HGBlendModeGlConstantAlpha = @"GL_CONSTANT_ALPHA";
+NSString * const _HGBlendModeGlOneMinusConstantAlpha = @"GL_ONE_MINUS_CONSTANT_ALPHA";
+NSString * const _HGBlendModeGlSrcAlphaSaturate = @"GL_SRC_ALPHA_SATURATE";
+
+#pragma mark - Property Options
+
+FOUNDATION_EXPORT NSDictionary * _HGPropertyOptions()
+{
+    static NSDictionary *propertyOptions = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        propertyOptions =
+        @{
+          HGLifetimePropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartSizePropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartSpeedPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartRotationPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGStartColorPropertyKey: @[
+                  HGPropertyValueOptionColor,
+                  HGPropertyValueOptionColorRandomRGB,
+                  HGPropertyValueOptionColorRandomHSV,
+                  HGPropertyValueOptionGradient,
+                  HGPropertyValueOptionRandomColors
+                  ],
+          HGStartOpacityPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGEmissionRatePropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve
+                  ],
+          HGSpeedOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionCurve
+                  ],
+          HGSpeedOverLifetimeRadialAccelerationPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGSpeedOverLifetimeTangentialAccelerationPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGSizeOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGRotationAngularVelocityPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGSpinningOverLifetimeAngularVelocityPropertyKey: @[
+                  HGPropertyValueOptionConstant,
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants
+                  ],
+          HGColorOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionGradient,
+                  HGPropertyValueOptionColorRandomHSV,
+                  HGPropertyValueOptionColorRandomRGB,
+                  ],
+          HGOpacityOverLifetimePropertyKey: @[
+                  HGPropertyValueOptionCurve,
+                  HGPropertyValueOptionRandomConstants,
+                  ],
+          };
+    });
+    return propertyOptions;
+}
+
+NSArray *HGParticleSystemPropertyOptionsForPropertyKey(NSString *propertyKey)
+{
+    NSDictionary *propertyOptions = _HGPropertyOptions();
+    if ([propertyOptions objectForKey:propertyKey])
+        return [propertyOptions objectForKey:propertyKey];
+    
+    return nil;
+}
+
+
+#pragma mark - Value Options
+
+HGParticleSystemEmitterShape HGParticleSystemEmitterShapeFromString (NSString *string)
+{
+    static NSDictionary *propertiesDictionary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        propertiesDictionary = @{
+                                 _HGParticleSystemEmitterShapeCircleValue: @(HGParticleSystemEmitterShapeCircle),
+                                 _HGParticleSystemEmitterShapeSectorValue: @(HGParticleSystemEmitterShapeSector),
+                                 _HGParticleSystemEmitterShapeRectValue: @(HGParticleSystemEmitterShapeRect),
+                                 _HGParticleSystemEmitterShapeOvalValue: @(HGParticleSystemEmitterShapeOval),
+                                 };
+    });
+    return [propertiesDictionary[string] integerValue];
+}
+
+HGParticleSystemSpeedMode HGParticleSystemSpeedModeFromString (NSString *string)
+{
+    static NSDictionary *propertiesDictionary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        propertiesDictionary = @{
+                                 _HGParticleSystemSpeedCurve: @(HGParticleSystemSpeedModeCurve),
+                                 _HGParticleSystemSpeedAcceleration: @(HGParticleSystemSpeedModeAcceleration),
+                                 };
+    });
+    return [propertiesDictionary[string] integerValue];
+}
+
+HGParticleSystemRotationMode HGParticleSystemRotationModeFromString (NSString *string)
+{
+    static NSDictionary *propertiesDictionary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        propertiesDictionary = @{
+                                 _HGParticleSystemRotationVelocity: @(HGParticleSystemRotationModeSpeed),
+                                 _HGParticleSystemRotationFollow: @(HGParticleSystemRotationModeFollow),
+                                 };
+    });
+    return [propertiesDictionary[string] integerValue];
+}
+
+_HGParticleSystemTextureMode _HGParticleSystemTextureModeFromString (NSString *string)
+{
+    static NSDictionary *textureModes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        textureModes = @{
+                         _HGTextureModeEmbedded: @(_HGParticleSystemTextureModeEmbedded),
+                         _HGTextureModeFile: @(_HGParticleSystemTextureModeFile),
+                         _HGTextureModeSpriteFrame: @(_HGParticleSystemTextureModeSpriteFrame),
+                         };
+    });
+    return [textureModes[string] integerValue];
+}
+
+static NSDictionary *blendModeByKey = nil;
+void _HGInitializeBlendingModesDictionaryIfNeeded()
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        blendModeByKey = @{
+                           _HGBlendModeGlZero: @(GL_ZERO),
+                           _HGBlendModeGlOne: @(GL_ONE),
+                           _HGBlendModeGlSrcColor: @(GL_SRC_COLOR),
+                           _HGBlendModeGlOneMinusSrcColor: @(GL_ONE_MINUS_SRC_COLOR),
+                           _HGBlendModeGlDstColor: @(GL_DST_COLOR),
+                           _HGBlendModeGlOneMinusDstColor: @(GL_ONE_MINUS_DST_COLOR),
+                           _HGBlendModeGlSrcAlpha: @(GL_SRC_ALPHA),
+                           _HGBlendModeGlOneMinusSrcAlpha: @(GL_ONE_MINUS_SRC_ALPHA),
+                           _HGBlendModeGlDstAlpha: @(GL_DST_ALPHA),
+                           _HGBlendModeGlOneMinusDstAlpha: @(GL_ONE_MINUS_DST_ALPHA),
+                           _HGBlendModeGlConstantColor: @(GL_CONSTANT_COLOR),
+                           _HGBlendModeGlOneMinusConstantColor: @(GL_ONE_MINUS_CONSTANT_COLOR),
+                           _HGBlendModeGlConstantAlpha: @(GL_CONSTANT_ALPHA),
+                           _HGBlendModeGlOneMinusConstantAlpha: @(GL_ONE_MINUS_CONSTANT_ALPHA),
+                           _HGBlendModeGlSrcAlphaSaturate: @(GL_SRC_ALPHA_SATURATE),
+                           };
+    });
+}
+
+GLuint _HGBlendingModeFromString (NSString *string)
+{
+    _HGInitializeBlendingModesDictionaryIfNeeded();
+    
+    return [blendModeByKey[string] unsignedIntValue];
+}
+
+NSString *_HGStringFromBlendingMode (GLuint blendingMode)
+{
+    _HGInitializeBlendingModesDictionaryIfNeeded();
+    
+    NSArray *allKeys = [blendModeByKey allKeysForObject:@(blendingMode)];
+    if (allKeys.count > 0)
+        return allKeys.firstObject;
+    
+    return nil;
+}
+
+#pragma mark - Particle Struct
 
 typedef struct
 {
-    HGFloat elapsed;
-    HGFloat lifetime;
+    GLfloat elapsed;
+    GLfloat lifetime;
     
     GLKVector2 position;
     GLKVector2 startPosition;
@@ -92,27 +371,27 @@ typedef struct
     GLKVector3 startColor;
     GLKVector3 colorVelocity;
     
-    HGFloat opacity;
-    HGFloat startOpacity;
-    HGFloat opacityVelocity;
+    GLfloat opacity;
+    GLfloat startOpacity;
+    GLfloat opacityVelocity;
     
-    HGFloat size;
-    HGFloat startSize;
-    HGFloat sizeVelocity;
+    GLfloat size;
+    GLfloat startSize;
+    GLfloat sizeVelocity;
     
-    HGFloat rotation;
-    HGFloat startRotation;
-    HGFloat angularVelocity;
+    GLfloat rotation;
+    GLfloat startRotation;
+    GLfloat angularVelocity;
     
     GLKVector2 speed;
     GLKVector2 startSpeed;
     
-    HGFloat radialAcceleration;
-    HGFloat tangentialAcceleration;
+    GLfloat radialAcceleration;
+    GLfloat tangentialAcceleration;
     
     GLKVector3 spinningAxis;
-    HGFloat spinningAngle;
-    HGFloat spinningVelocity;
+    GLfloat spinningAngle;
+    GLfloat spinningVelocity;
     
 } HGParticle;
 
@@ -141,16 +420,16 @@ typedef struct
     
     BOOL _shapeModule;
     HGParticleSystemEmitterShape _emitterShape;
-    HGFloat _emitterShapeRadius;
-    HGFloat _emitterShapeAngle;
-    HGFloat _emitterShapeDirection;
-    HGFloat _emitterShapeWidth;
-    HGFloat _emitterShapeHeight;
+    GLfloat _emitterShapeRadius;
+    GLfloat _emitterShapeAngle;
+    GLfloat _emitterShapeDirection;
+    GLfloat _emitterShapeWidth;
+    GLfloat _emitterShapeHeight;
     CGRect _emitterRect; // minor optimization, pre-calculated
     BOOL _emitterShapeBoundary;
     BOOL _emitterShapeRandomDirection;
     
-    HGFloat _emitterShapeVerticalRatio;
+    GLfloat _emitterShapeVerticalRatio;
     
     BOOL _sizeOverLifetimeModule;
     HGPropertyRef _sizeOverLifetime; // curve, random
@@ -203,6 +482,9 @@ typedef struct
     // Movment type: free or grouped.
 	CCParticleSystemPositionType	_particlePositionType;
 }
+
+// cascaded action speed support
+@property (nonatomic) CGFloat displayedActionSpeed;
 
 @end
 
@@ -290,9 +572,9 @@ typedef struct
     return nil;
 }
 
--(instancetype) initWithFile:(NSString *)plistFile
+-(instancetype) initWithFile:(NSString *)filename
 {
-	NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:plistFile];
+	NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:filename];
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
     
 	HGAssert(dict, @"HGParticleSystem: file not found");
@@ -319,7 +601,7 @@ typedef struct
             
             if (value == nil && [HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
             {
-                // special case for emitter shape ratio
+                // a special case for emitter shape ratio
                 value = @(1.);
             }
             else
@@ -338,11 +620,11 @@ typedef struct
             }
             else if ([HGBlendingSrcPropertyKey isEqualToString:propertyKey])
             {
-                value = @(HGBlendingModeFromString(value));
+                value = @(_HGBlendingModeFromString(value));
             }
             else if ([HGBlendingDstPropertyKey isEqualToString:propertyKey])
             {
-                value = @(HGBlendingModeFromString(value));
+                value = @(_HGBlendingModeFromString(value));
             }
             else if ([HGRotationOverLifetimeModePropertyKey isEqualToString:propertyKey])
             {
@@ -361,7 +643,7 @@ typedef struct
         if (maxParticles < 1)
             return nil;
         
-        // tiny optimization
+        // minor optimization
         if (_emitterShape == HGParticleSystemEmitterShapeRect)
         {
             _emitterRect = CGRectMake(- _emitterShapeWidth * .5f, - _emitterShapeHeight * .5f,
@@ -370,7 +652,7 @@ typedef struct
         
         _maxParticles = (NSUInteger)maxParticles;
         
-        // allocate
+        // allocate particles
         _particles = calloc(_maxParticles, sizeof(HGParticle));
         if (!_particles)
         {
@@ -391,16 +673,13 @@ typedef struct
             self.blendMode = [CCBlendMode premultipliedAlphaMode]; // default blend function
         }
         
-        //
-        // FIXME: use Cocos2d cache or create own
-        //
-        BOOL textureModule = [[dictionary valueForKey:HGTextureModulePropertyKey] boolValue];
+        BOOL textureModule = [[dictionary valueForKey:_HGTextureModulePropertyKey] boolValue];
         if (textureModule)
         {
-            HGParticleSystemTextureMode textureMode = HGParticleSystemTextureModeFromString([dictionary valueForKey:HGTextureModePropertyKey]);
-            if (textureMode == HGParticleSystemTextureModeEmbedded)
+            _HGParticleSystemTextureMode textureMode = _HGParticleSystemTextureModeFromString([dictionary valueForKey:_HGTextureModePropertyKey]);
+            if (textureMode == _HGParticleSystemTextureModeEmbedded)
             {
-                id texture = [dictionary valueForKey:HGTexturePropertyKey];
+                id texture = [dictionary valueForKey:_HGTexturePropertyKey];
                 if (texture)
                 {
                     NSString *base64String = texture[@"base64"];
@@ -420,20 +699,20 @@ typedef struct
                                                                          hints:nil];
         #endif
                             CCTexture *texture = [[CCTexture alloc] initWithCGImage:CGImage
-                                                                       contentScale:CCDirector.sharedDirector.contentScaleFactor];
+                                                                       contentScale:[[CCDirector sharedDirector] contentScaleFactor]];
                             
                             [self setTexture:texture];
                         }
                     }
                 }
             }
-            else if (textureMode == HGParticleSystemTextureModeFile)
+            else if (textureMode == _HGParticleSystemTextureModeFile)
             {
-                NSString *textureFile = [dictionary valueForKey:HGTextureFilePropertyKey];
+                NSString *textureFile = [dictionary valueForKey:_HGTextureFilePropertyKey];
                 if (textureFile)
                 {
 #if __CC_PLATFORM_IOS
-                    // should really be using the last component
+                    // should really be using only the last component
                     textureFile = textureFile.lastPathComponent;
 #endif
                     CCTexture *texture = [[CCTextureCache sharedTextureCache] addImage:textureFile];
@@ -444,33 +723,36 @@ typedef struct
                     }
                 }
             }
-            else if (textureMode == HGParticleSystemTextureModeSpriteFrame)
+            else if (textureMode == _HGParticleSystemTextureModeSpriteFrame)
             {
-                NSString *textureSpriteFrameSource = [dictionary valueForKey:HGTextureSpriteFrameSourcePropertyKey];
-                NSString *textureSpriteFrame = [dictionary valueForKey:HGTextureSpriteFramePropertyKey];
+                NSString *textureSpriteFrameSource = [dictionary valueForKey:_HGTextureSpriteFrameSourcePropertyKey];
+                NSString *textureSpriteFrame = [dictionary valueForKey:_HGTextureSpriteFramePropertyKey];
                 if (textureSpriteFrameSource.length > 0 && textureSpriteFrame.length > 0)
                 {
 #if __CC_PLATFORM_IOS
                     // should really be using the last component
                     textureSpriteFrameSource = textureSpriteFrameSource.lastPathComponent;
 #endif
-                    
+                    // attempt to get the texture
                     NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:textureSpriteFrameSource];
                     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+                    HGAssert(dict, @"HGParticleSystem: missing the sprite atlas %@", textureSpriteFrameSource);
                     
                     NSString *texturePath = nil;
                     NSDictionary *metadataDict = [dict objectForKey:@"metadata"];
-                    if( metadataDict )
+                    if (metadataDict)
                         // try to read  texture file name from meta data
                         texturePath = [metadataDict objectForKey:@"textureFileName"];
                     
                     
-                    if( texturePath )
+                    if (texturePath)
                     {
                         // build texture path relative to plist file
                         NSString *textureBase = [textureSpriteFrameSource stringByDeletingLastPathComponent];
                         texturePath = [textureBase stringByAppendingPathComponent:texturePath];
-                    } else {
+                    }
+                    else
+                    {
                         // build texture path by replacing file extension
                         texturePath = [textureSpriteFrameSource stringByDeletingPathExtension];
                         texturePath = [texturePath stringByAppendingPathExtension:@"png"];
@@ -549,17 +831,18 @@ typedef struct
     
     // validate the given property option (it should be acceptable for this property key)
     HGAssert([HGParticleSystemPropertyOptionsForPropertyKey(propertyKey) indexOfObjectPassingTest:^BOOL(NSString *properyOptionString, NSUInteger idx, BOOL *stop) {
-        return HGPropertyGetOption(property) == HGParticleSystemPropertyOptionFromString(properyOptionString);
+        return HGPropertyGetOption(property) == _HGParticleSystemPropertyOptionFromString(properyOptionString);
     }] != NSNotFound, @"HGPropertyRef value option is invalid for property %@", propertyKey);
     
-    [super setValue:CFBridgingRelease(HGPropertyCreateDictionaryRepresentation(property)) forKey:propertyKey];
+    [super setValue:CFBridgingRelease(_HGPropertyCreateDictionaryRepresentation(property)) forKey:propertyKey];
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
+    // a special case
     if ([key isEqualToString:HGMaxParticlesPropertyKey])
     {
-        NSLog(@"Max particles count modification is not supported.");
+        NSLog(@"HGParticleSystem: Max particles property modification is not supported.");
         return;
     }
     
@@ -568,8 +851,8 @@ typedef struct
     {
         // there is a special case for HGPropertyRef initialization
         HGAssert([value isKindOfClass:NSDictionary.class], @"Cannot set HGPropertyRef value for key %@: %@", key, value);
-        HGPropertyRef property = HGPropertyMakeWithDictionary((__bridge CFDictionaryRef)(value));
-        transformedValue = CFBridgingRelease(HGPropertyCreateDictionaryRepresentation(property));
+        HGPropertyRef property = _HGPropertyMakeWithDictionary((__bridge CFDictionaryRef)(value));
+        transformedValue = CFBridgingRelease(_HGPropertyCreateDictionaryRepresentation(property));
     }
     else if ([key isEqualToString:HGGravityPropertyKey])
     {
@@ -594,7 +877,7 @@ typedef struct
         // FIXME: check for NULL
         //
         HGPropertyRef * ivarPtr = (HGPropertyRef *)( (uint8_t *)(__bridge void *)self + ivar_getOffset(ivar) );
-        *ivarPtr = HGPropertyMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(value));
+        *ivarPtr = _HGPropertyMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(value));
     }
     else if ([key isEqualToString:HGGravityPropertyKey])
     {
@@ -630,7 +913,7 @@ typedef struct
         
         HGPropertyRef * ivarPtr = (HGPropertyRef *)( (uint8_t *)(__bridge void *)self + ivar_getOffset(ivar) );
         
-        return (__bridge id)HGPropertyCreateDictionaryRepresentation(* ivarPtr);
+        return (__bridge id)_HGPropertyCreateDictionaryRepresentation(* ivarPtr);
     }
     return [super valueForUndefinedKey:key];
 }
@@ -648,7 +931,7 @@ typedef struct
     }
 }
 
-#pragma mark -
+#pragma mark - Particle initializer
 
 - (void)initParticle:(HGParticle *)particle
 {
@@ -656,14 +939,14 @@ typedef struct
     if (elapsed < 0)
         return;
     
-    HGFloat t = elapsed / _duration;
+    GLfloat t = elapsed / _duration;
     
     // lifetime
     particle->elapsed = 0.0;
     particle->lifetime = HGPropertyGetFloatValue(_lifetime, t);
     
     // direction
-    HGFloat angle = 0.0;
+    GLfloat angle = 0.0;
     if (_shapeModule)
     {
         if (_emitterShape == HGParticleSystemEmitterShapeCircle)
@@ -706,7 +989,7 @@ typedef struct
     particle->speed = particle->startSpeed;
     
     // position
-    GLKVector2 position = HGGLKVector2Zero;
+    GLKVector2 position = (GLKVector2){0.f, 0.f};
     if (_shapeModule)
     {
         if (_emitterShape == HGParticleSystemEmitterShapeCircle)
@@ -814,12 +1097,12 @@ typedef struct
         }
         else
         {
-            particle->colorVelocity = HGGLKVector3Zero;
+            particle->colorVelocity = (GLKVector3){0.f, 0.f, 0.f};
         }
     }
     else
     {
-        particle->colorVelocity = HGGLKVector3Zero;
+        particle->colorVelocity = (GLKVector3){0.f, 0.f, 0.f};
     }
     particle->color = particle->startColor;
 
@@ -861,6 +1144,7 @@ typedef struct
     }
     particle->size = particle->startSize;
     
+    // rotation
     particle->rotation = HGPropertyGetFloatValue(_startRotation, t);
 #if !__CC_PLATFORM_IOS
     particle->rotation += 180.;
@@ -912,14 +1196,13 @@ typedef struct
 
 - (NSInteger)priority
 {
-    // update after action in run!
+    // update only after any CCAction in run!
 	return 1;
 }
 
 - (BOOL)addParticle
 {
-	if( [self isFull] )
-		return NO;
+	if ([self isFull]) return NO;
     
     HGParticle * particle = &_particles[_particleCount];
     [self initParticle:particle];
@@ -945,17 +1228,16 @@ typedef struct
 	for(NSUInteger i = 0; i < _particleCount; ++i)
     {
 		HGParticle *p = &_particles[i];
-		p->elapsed = p->lifetime;
-        
-        
+		p->elapsed = p->lifetime; // forces to reset the particle on the next update:
 	}
+    
     _particleCount = 0;
     _emitCounter = 0;
 }
 
 -(void)setVisible:(BOOL)visible
 {
-    if(self.visible == NO && visible ==  YES && _resetOnVisibilityToggle)
+    if(!self.visible && visible && _resetOnVisibilityToggle)
     {
         [self resetSystem];
     }
@@ -1010,22 +1292,22 @@ typedef struct
         return;
     }
     
-    HGFloat emissionRate = 0.0;
+    GLfloat emissionRate = 0.0;
     if (_emissionModule)
     {
-        HGFloat t = elapsed / _duration;
+        GLfloat t = elapsed / _duration;
         emissionRate = HGPropertyGetFloatValue(_emissionRate, t);
     }
     
 	if( _active && emissionRate )
     {
-		HGFloat rate = 1.0 / emissionRate;
+		GLfloat rate = 1.0 / emissionRate;
 		
 		//issue #1201, prevent bursts of particles, due to too high emitCounter
 		if (_particleCount < _maxParticles)
 			_emitCounter += delta;
 		
-		while( _particleCount < _maxParticles && _emitCounter > rate )
+		while (_particleCount < _maxParticles && _emitCounter > rate)
         {
 			[self addParticle];
 			_emitCounter -= rate;
@@ -1033,7 +1315,7 @@ typedef struct
         
 		_elapsed += delta;
         
-		if(_duration < elapsed)
+		if (_duration < elapsed)
         {
             if (_looping)
             {
@@ -1048,6 +1330,7 @@ typedef struct
     
     if (_visible)
     {
+        // update particles
         for (NSUInteger i = 0; i < _particleCount;)
         {
             HGParticle *p = &_particles[i];
@@ -1057,10 +1340,10 @@ typedef struct
             
             if( p->elapsed < p->lifetime )
             {
-                HGFloat t = p->elapsed / p->lifetime;
+                GLfloat t = p->elapsed / p->lifetime;
                 
                 GLKVector2 forces = _gravity;
-                HGFloat speedMultiplier = 1.0;
+                GLfloat speedMultiplier = 1.0;
                 
                 if (_speedOverLifetimeModule)
                 {
@@ -1071,7 +1354,7 @@ typedef struct
                     else if (_speedOverLifetimeMode == HGParticleSystemSpeedModeAcceleration)
                     {
                         // forces
-                        GLKVector2 radial = HGGLKVector2Zero;
+                        GLKVector2 radial = (GLKVector2){0.f, 0.f};
                         if (p->position.x || p->position.y)
                         {
                             radial = GLKVector2Normalize(p->position);
@@ -1105,9 +1388,9 @@ typedef struct
                     {
                         // rotation should be dependent on the offset
 #if __CC_PLATFORM_IOS
-                        HGFloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(- p->speed.x, - p->speed.y));
+                        GLfloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(- p->speed.x, - p->speed.y));
 #else
-                        HGFloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(p->speed.x, p->speed.y));
+                        GLfloat newRotation = CC_RADIANS_TO_DEGREES(atan2f(p->speed.x, p->speed.y));
 #endif
                         p->rotation = p->startRotation + newRotation;
                     }
@@ -1174,14 +1457,14 @@ typedef struct
             }
             else
             {
-                if( i != _particleCount-1 )
+                if (i != _particleCount-1)
 					_particles[i] = _particles[_particleCount-1];
                 
 				_particleCount--;
                 
-				if( _particleCount == 0)
+				if (_particleCount == 0)
                 {
-                    if ( _autoRemoveOnFinish )
+                    if (_autoRemoveOnFinish)
                     {
                         [self removeFromParent];
                     }
@@ -1189,7 +1472,7 @@ typedef struct
                     [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidFinishNotification
                                                                         object:self];
 
-                    if ( _autoRemoveOnFinish )
+                    if (_autoRemoveOnFinish)
                     {
                         return;
                     }
@@ -1203,7 +1486,7 @@ typedef struct
 }
 
 // pointRect is in Points coordinates.
--(void) initTexCoordsWithRect:(CGRect)pointRect
+- (void)initTexCoordsWithRect:(CGRect)pointRect
 {
     // convert to Tex coords
     
@@ -1242,24 +1525,23 @@ typedef struct
 	}
 }
 
--(void) setTexture:(CCTexture *)texture withRect:(CGRect)rect
+- (void)setTexture:(CCTexture *)texture withRect:(CGRect)rect
 {
 	[super setTexture:texture];
 	[self initTexCoordsWithRect:rect];
 }
 
--(void) setTexture:(CCTexture *)texture
+- (void)setTexture:(CCTexture *)texture
 {
-	CGSize s = [texture contentSize];
-	[self setTexture:texture withRect:CGRectMake(0,0, s.width, s.height)];
+    [self setTexture:texture withRect:(CGRect){CGPointZero, [texture contentSize]}];
 }
 
--(void) setSpriteFrame:(CCSpriteFrame *)spriteFrame
+- (void)setSpriteFrame:(CCSpriteFrame *)spriteFrame
 {
-	HGAssert( CGPointEqualToPoint( spriteFrame.offset , CGPointZero ), @"QuadParticle only supports SpriteFrames with no offsets");
+	HGAssert( CGPointEqualToPoint( spriteFrame.offset , CGPointZero ), @"HGParticleSystem only supports SpriteFrames with no offsets");
     
 	// update texture before updating texture rect
-    [self setTexture: spriteFrame.texture withRect:spriteFrame.rect];
+    [self setTexture:spriteFrame.texture withRect:spriteFrame.rect];
 }
 
 static inline void OutputParticle(CCRenderBuffer buffer, NSUInteger index, HGParticle * p, GLKVector2 pos, const GLKMatrix4 *transform, GLKVector2 *texCoord1)
@@ -1274,7 +1556,6 @@ static inline void OutputParticle(CCRenderBuffer buffer, NSUInteger index, HGPar
     
     //#warning TODO Can do some extra optimization to the vertex transform math.
     //#warning TODO Can pass the particle life and maybe another param using TexCoord2?
-    
 	float hs = 0.5f*p->size;
 
     if (p->spinningAngle)
@@ -1295,7 +1576,7 @@ static inline void OutputParticle(CCRenderBuffer buffer, NSUInteger index, HGPar
 		CCRenderBufferSetVertex(buffer, 4*i + 3, (CCVertex){v[3], texCoord1[3], zero, color});
 
     }
-	else if( p->rotation )
+	else if(p->rotation)
     {
 		float r = -CC_DEGREES_TO_RADIANS(p->rotation);
 		float hscr = hs * cosf(r);
@@ -1313,7 +1594,9 @@ static inline void OutputParticle(CCRenderBuffer buffer, NSUInteger index, HGPar
 		CCRenderBufferSetVertex(buffer, 4*i + 3, (CCVertex){GLKMatrix4MultiplyVector4(*transform,
                                                                                       GLKVector4Make(-hscr -  hssr + pos.x, -hssr +  hscr + pos.y, 0.0f, 1.0f)),
             texCoord1[3], zero, color});
-	} else {
+	}
+    else
+    {
 		CCRenderBufferSetVertex(buffer, 4*i + 0, (CCVertex){GLKMatrix4MultiplyVector4(*transform, GLKVector4Make(pos.x - hs, pos.y - hs, 0.0f, 1.0f)), texCoord1[0], zero, color});
 		CCRenderBufferSetVertex(buffer, 4*i + 1, (CCVertex){GLKMatrix4MultiplyVector4(*transform, GLKVector4Make(pos.x + hs, pos.y - hs, 0.0f, 1.0f)), texCoord1[1], zero, color});
 		CCRenderBufferSetVertex(buffer, 4*i + 2, (CCVertex){GLKMatrix4MultiplyVector4(*transform, GLKVector4Make(pos.x + hs, pos.y + hs, 0.0f, 1.0f)), texCoord1[2], zero, color});
