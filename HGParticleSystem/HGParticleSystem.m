@@ -568,8 +568,7 @@ typedef struct
 
 - (instancetype)init
 {
-    HGAssert(NO, @"HGParticleSystem: Use the designated initializer -initWithDictionary:");
-    return nil;
+    return [self initWithMaxParticles:256]; // default
 }
 
 -(instancetype) initWithFile:(NSString *)filename
@@ -586,11 +585,18 @@ typedef struct
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     HGAssert(dictionary, @"HGParticleSystem: empty dictionary.");
-    self = [super init];
+    id maxParticlesValue = [dictionary valueForKey:HGMaxParticlesPropertyKey];
+    if (maxParticlesValue == nil)
+    {
+        HGMissingValue(maxParticlesValue, HGMaxParticlesPropertyKey);
+    }
+    NSInteger maxParticles = [maxParticlesValue integerValue];
+    if (maxParticles < 1)
+        return nil;
+
+    self = [self initWithMaxParticles:maxParticles];
     if (self)
     {
-        self.actionSpeed = 1.;
-        
         // nice!
         __block NSInteger maxParticles = 0;
         NSSet *set = [[self class] propertyKeys];
@@ -640,26 +646,12 @@ typedef struct
                 [self setValue:value forKey:propertyKey];
         }];
         
-        if (maxParticles < 1)
-            return nil;
-        
         // minor optimization
         if (_emitterShape == HGParticleSystemEmitterShapeRect)
         {
             _emitterRect = CGRectMake(- _emitterShapeWidth * .5f, - _emitterShapeHeight * .5f,
                                       _emitterShapeWidth, _emitterShapeHeight);
         }
-        
-        _maxParticles = (NSUInteger)maxParticles;
-        
-        // allocate particles
-        _particles = calloc(_maxParticles, sizeof(HGParticle));
-        if (!_particles)
-        {
-            CCLOG(@"Particle system: not enough memory");
-            return nil;
-        }
-        _totalParticles = _maxParticles;
         
         if (_blendModule)
         {
@@ -774,23 +766,46 @@ typedef struct
                 }
             }
         }
+    }
+    return self;
+}
+
+- (instancetype)initWithMaxParticles:(NSUInteger)maxParticles
+{
+    HGAssert(maxParticles > 0, @"Cannot initialize an empty particle system.");
+    self = [super init];
+    if (self)
+    {
+        self.actionSpeed = 1.;
+        
+        _maxParticles = (NSUInteger)maxParticles;
+        
+        // allocate particles
+        _particles = calloc(_maxParticles, sizeof(HGParticle));
+        if (!_particles)
+        {
+            CCLOG(@"Particle system: not enough memory");
+            return nil;
+        }
+        _totalParticles = _maxParticles;
+        
         //
         // CCParticleSystem Copy-Paste
         //
         
         // default, active
-		_active = YES;
+        _active = YES;
         
         // default, remove automatically
-		_autoRemoveOnFinish = YES;
+        _autoRemoveOnFinish = YES;
         
         _resetOnVisibilityToggle = YES;
         
-		//for batchNode
-		_transformSystemDirty = NO;
+        //for batchNode
+        _transformSystemDirty = NO;
         
         // default movement type;
-		_particlePositionType = CCParticleSystemPositionTypeGrouped;
+        _particlePositionType = CCParticleSystemPositionTypeGrouped;
         
         self.shader = [CCShader positionTextureColorShader];
     }
@@ -822,6 +837,22 @@ typedef struct
     if (_speedOverLifetimeTangentialAcceleration) HGPropertyRelease(_speedOverLifetimeTangentialAcceleration);
     if (_colorOverLifetime) HGPropertyRelease(_colorOverLifetime);
     if (_opacityOverLifetime) HGPropertyRelease(_opacityOverLifetime);
+}
+
+#pragma mark - Property setting
+
+- (void)setPropertyWithConstant:(const CGFloat)constant forKey:(NSString *)propertyKey
+{
+    HGPropertyRef property = HGPropertyMakeWithConstant(constant);
+    [self setProperty:property forKey:propertyKey];
+    HGPropertyRelease(property);
+}
+
+- (void)setPropertyWithConstant1:(const CGFloat)constant1 constant2:(const CGFloat)constant2 forKey:(NSString *)propertyKey
+{
+    HGPropertyRef property = HGPropertyMakeWithRandomConstants(constant1, constant2);
+    [self setProperty:property forKey:propertyKey];
+    HGPropertyRelease(property);
 }
 
 - (void)setProperty:(HGPropertyRef)property forKey:(NSString *)propertyKey

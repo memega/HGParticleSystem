@@ -302,20 +302,20 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotificatio
 @interface HGParticleSystem : CCNode
 
 /**
- *  Designated initializer.
+ *  Designated initializer. Creates an empty particle system with given capacity.
  *
- *  @param dictionary A dictionary containing a particle system description created in the HGParticleSystemEditor.
+ *  @param maxParticles Maximum number of particles.
  *
- *  @return New instance of the particle system node
+ *  @return New instance of the particle system node.
  */
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithMaxParticles:(NSUInteger)maxParticles;
 
 /**
  *  Convenience initializer. Loads a particle system description created in the HGParticleSystemEditor, if file exists.
  *
  *  @param filename File name
  *
- *  @return New instance of the particle system node
+ *  @return New instance of the particle system node.
  */
 - (instancetype)initWithFile:(NSString *)filename;
 
@@ -376,5 +376,10 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotificatio
  *  @see HGParticleSystemProperty.h
  */
 - (void)setProperty:(HGPropertyRef)property forKey:(NSString *)propertyKey;
+
+#pragma mark - Convenience setters
+
+- (void)setPropertyWithConstant:(const CGFloat)constant forKey:(NSString *)propertyKey;
+- (void)setPropertyWithConstant1:(const CGFloat)constant1 constant2:(const CGFloat)constant2 forKey:(NSString *)propertyKey;
 
 @end
