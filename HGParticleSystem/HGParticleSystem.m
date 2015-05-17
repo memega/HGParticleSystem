@@ -881,7 +881,7 @@ typedef struct
 
 #pragma mark - Property setting
 
-- (void)setPropertyWithColor:(UIColor *const)color forKey:(NSString *)propertyKey
+- (void)setPropertyWithColor:(HGColor *const)color forKey:(NSString *)propertyKey
 {
     HGPropertyRef property = HGPropertyMakeWithColor(color);
     [self setProperty:property forKey:propertyKey];
