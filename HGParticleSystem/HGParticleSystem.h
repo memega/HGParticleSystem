@@ -319,7 +319,16 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotificatio
  */
 - (instancetype)initWithFile:(NSString *)filename;
 
-/** 
+/**
+ *  Convenience initializer. Creates a new instance with a dictionary created in the Particle System Editor.
+ *
+ *  @param dictionary A dictionary containing a particle system description created in the HGParticleSystemEditor.
+ *
+ *  @return New instance of the particle system node
+ */
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+/**
  * Returns YES if particle system is active.
  */
 @property (nonatomic, readonly) BOOL active;

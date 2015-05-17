@@ -165,7 +165,35 @@ NSString * const _HGBlendModeGlSrcAlphaSaturate = @"GL_SRC_ALPHA_SATURATE";
 
 #pragma mark - Property Options
 
-FOUNDATION_EXPORT NSDictionary * _HGPropertyOptions()
+static NSDictionary * _HGParticleSystemDefaultDictionary()
+{
+    static NSDictionary *defaultDictionary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        defaultDictionary = @{
+                              HGMaxParticlesPropertyKey: @256,
+                              HGLoopingPropertyKey: @YES,
+                              HGLifetimePropertyKey: @5.0,
+                              HGStartSizePropertyKey: @16.0,
+                              HGStartSpeedPropertyKey: @50.0,
+                              HGStartRotationPropertyKey: @0.0,
+//                              HGStartColorPropertyKey: @{
+//                                      @"valueClass": @"UIColor",
+//                                      @"redComponent": @0.,
+//                                      @"greenComponent": @0.,
+//                                      @"blueComponent": @0.,
+//                                      @"alphaComponent": @1.,
+//                                      },
+                              HGStartOpacityPropertyKey: @1.0,
+                              HGGravityPropertyKey: @[@0.0, @0.0],
+                              HGEmissionModulePropertyKey: @YES,
+                              HGEmissionRatePropertyKey: @4.,
+                              };
+    });
+    return defaultDictionary;
+}
+
+static NSDictionary * _HGPropertyOptions()
 {
     static NSDictionary *propertyOptions = nil;
     static dispatch_once_t onceToken;
@@ -568,7 +596,7 @@ typedef struct
 
 - (instancetype)init
 {
-    return [self initWithMaxParticles:256]; // default
+    return [self initWithDictionary:_HGParticleSystemDefaultDictionary()];
 }
 
 -(instancetype) initWithFile:(NSString *)filename
@@ -597,175 +625,7 @@ typedef struct
     self = [self initWithMaxParticles:maxParticles];
     if (self)
     {
-        // nice!
-        __block NSInteger maxParticles = 0;
-        NSSet *set = [[self class] propertyKeys];
-        [set enumerateObjectsUsingBlock:^(id propertyKey, BOOL *stop) {
-            id value = [dictionary valueForKey:propertyKey];
-            
-            BOOL shouldSkipSetValueForKey = NO;
-            
-            if (value == nil && [HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
-            {
-                // a special case for emitter shape ratio
-                value = @(1.);
-            }
-            else
-            {
-                HGMissingValue(value, propertyKey);
-            }
-            
-            // special cases
-            if ([HGSpeedOverLifetimeModePropertyKey isEqualToString:propertyKey])
-            {
-                value = @(HGParticleSystemSpeedModeFromString(value));
-            }
-            else if ([HGEmitterShapePropertyKey isEqualToString:propertyKey])
-            {
-                value = @(HGParticleSystemEmitterShapeFromString(value));
-            }
-            else if ([HGBlendingSrcPropertyKey isEqualToString:propertyKey])
-            {
-                value = @(_HGBlendingModeFromString(value));
-            }
-            else if ([HGBlendingDstPropertyKey isEqualToString:propertyKey])
-            {
-                value = @(_HGBlendingModeFromString(value));
-            }
-            else if ([HGRotationOverLifetimeModePropertyKey isEqualToString:propertyKey])
-            {
-                value = @(HGParticleSystemRotationModeFromString(value));
-            }
-            else if ([HGMaxParticlesPropertyKey isEqualToString:propertyKey])
-            {
-                shouldSkipSetValueForKey = YES;
-                maxParticles = [value integerValue];
-            }
-            
-            if (!shouldSkipSetValueForKey)
-                [self setValue:value forKey:propertyKey];
-        }];
-        
-        // minor optimization
-        if (_emitterShape == HGParticleSystemEmitterShapeRect)
-        {
-            _emitterRect = CGRectMake(- _emitterShapeWidth * .5f, - _emitterShapeHeight * .5f,
-                                      _emitterShapeWidth, _emitterShapeHeight);
-        }
-        
-        if (_blendModule)
-        {
-            self.blendMode = [CCBlendMode blendModeWithOptions:@{
-                                                                 CCBlendFuncSrcColor: @(_blendingSrc),
-                                                                 CCBlendFuncDstColor: @(_blendingDst),
-                                                                 }];
-        }
-        else
-        {
-            self.blendMode = [CCBlendMode premultipliedAlphaMode]; // default blend function
-        }
-        
-        BOOL textureModule = [[dictionary valueForKey:_HGTextureModulePropertyKey] boolValue];
-        if (textureModule)
-        {
-            _HGParticleSystemTextureMode textureMode = _HGParticleSystemTextureModeFromString([dictionary valueForKey:_HGTextureModePropertyKey]);
-            if (textureMode == _HGParticleSystemTextureModeEmbedded)
-            {
-                id texture = [dictionary valueForKey:_HGTexturePropertyKey];
-                if (texture)
-                {
-                    NSString *base64String = texture[@"base64"];
-                    if (base64String)
-                    {
-                        NSData *data = [[NSData alloc] initWithBase64EncodedString:base64String
-                                                                           options:0];
-                        if (data)
-                        {
-        #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-                            UIImage *image = [[UIImage alloc] initWithData:data];
-                            CGImageRef CGImage = [image CGImage];
-        #elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
-                            NSImage *image = [[NSImage alloc] initWithData:data];
-                            CGImageRef CGImage = [image CGImageForProposedRect:NULL
-                                                                       context:NULL
-                                                                         hints:nil];
-        #endif
-                            CCTexture *texture = [[CCTexture alloc] initWithCGImage:CGImage
-                                                                       contentScale:[[CCDirector sharedDirector] contentScaleFactor]];
-                            
-                            [self setTexture:texture];
-                        }
-                    }
-                }
-            }
-            else if (textureMode == _HGParticleSystemTextureModeFile)
-            {
-                NSString *textureFile = [dictionary valueForKey:_HGTextureFilePropertyKey];
-                if (textureFile)
-                {
-#if __CC_PLATFORM_IOS
-                    // should really be using only the last component
-                    textureFile = textureFile.lastPathComponent;
-#endif
-                    CCTexture *texture = [[CCTextureCache sharedTextureCache] addImage:textureFile];
-
-                    if (texture)
-                    {
-                        [self setTexture:texture];
-                    }
-                }
-            }
-            else if (textureMode == _HGParticleSystemTextureModeSpriteFrame)
-            {
-                NSString *textureSpriteFrameSource = [dictionary valueForKey:_HGTextureSpriteFrameSourcePropertyKey];
-                NSString *textureSpriteFrame = [dictionary valueForKey:_HGTextureSpriteFramePropertyKey];
-                if (textureSpriteFrameSource.length > 0 && textureSpriteFrame.length > 0)
-                {
-#if __CC_PLATFORM_IOS
-                    // should really be using the last component
-                    textureSpriteFrameSource = textureSpriteFrameSource.lastPathComponent;
-#endif
-                    // attempt to get the texture
-                    NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:textureSpriteFrameSource];
-                    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-                    HGAssert(dict, @"HGParticleSystem: missing the sprite atlas %@", textureSpriteFrameSource);
-                    
-                    NSString *texturePath = nil;
-                    NSDictionary *metadataDict = [dict objectForKey:@"metadata"];
-                    if (metadataDict)
-                        // try to read  texture file name from meta data
-                        texturePath = [metadataDict objectForKey:@"textureFileName"];
-                    
-                    
-                    if (texturePath)
-                    {
-                        // build texture path relative to plist file
-                        NSString *textureBase = [textureSpriteFrameSource stringByDeletingLastPathComponent];
-                        texturePath = [textureBase stringByAppendingPathComponent:texturePath];
-                    }
-                    else
-                    {
-                        // build texture path by replacing file extension
-                        texturePath = [textureSpriteFrameSource stringByDeletingPathExtension];
-                        texturePath = [texturePath stringByAppendingPathExtension:@"png"];
-                        
-                        NSLog(@"HGParticleSystem: Trying to use file '%@' as texture", texturePath);
-                    }
-
-                    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:path textureFilename:texturePath];
-                    
-                    CCSpriteFrame *spriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:textureSpriteFrame];
-                    if (spriteFrame)
-                    {
-                        [self setSpriteFrame:spriteFrame];
-                    }
-                    else
-                    {
-                        NSLog(@"HGParticleSystem: Missing sprite frame %@", textureSpriteFrame);
-                    }
-                }
-            }
-        }
+        [self parseDictionary:dictionary];
     }
     return self;
 }
@@ -789,6 +649,8 @@ typedef struct
         }
         _totalParticles = _maxParticles;
         
+        [self parseDictionary:_HGParticleSystemDefaultDictionary()];
+        
         //
         // CCParticleSystem Copy-Paste
         //
@@ -810,6 +672,179 @@ typedef struct
         self.shader = [CCShader positionTextureColorShader];
     }
     return self;
+}
+
+- (void)parseDictionary:(NSDictionary *)dictionary
+{
+    // nice!
+    __block NSInteger maxParticles = 0;
+    NSSet *set = [[self class] propertyKeys];
+    [set enumerateObjectsUsingBlock:^(id propertyKey, BOOL *stop) {
+        id value = [dictionary valueForKey:propertyKey];
+        
+        BOOL shouldSkipSetValueForKey = NO;
+        
+        if (value == nil && [HGEmitterShapeVerticalRatioPropertyKey isEqualToString:propertyKey])
+        {
+            // a special case for emitter shape ratio
+            value = @(1.);
+        }
+        else
+        {
+            HGMissingValue(value, propertyKey);
+        }
+        
+        // special cases
+        if ([HGSpeedOverLifetimeModePropertyKey isEqualToString:propertyKey])
+        {
+            value = @(HGParticleSystemSpeedModeFromString(value));
+        }
+        else if ([HGEmitterShapePropertyKey isEqualToString:propertyKey])
+        {
+            value = @(HGParticleSystemEmitterShapeFromString(value));
+        }
+        else if ([HGBlendingSrcPropertyKey isEqualToString:propertyKey])
+        {
+            value = @(_HGBlendingModeFromString(value));
+        }
+        else if ([HGBlendingDstPropertyKey isEqualToString:propertyKey])
+        {
+            value = @(_HGBlendingModeFromString(value));
+        }
+        else if ([HGRotationOverLifetimeModePropertyKey isEqualToString:propertyKey])
+        {
+            value = @(HGParticleSystemRotationModeFromString(value));
+        }
+        else if ([HGMaxParticlesPropertyKey isEqualToString:propertyKey])
+        {
+            shouldSkipSetValueForKey = YES;
+            maxParticles = [value integerValue];
+        }
+        
+        if (!shouldSkipSetValueForKey)
+            [self setValue:value forKey:propertyKey];
+    }];
+    
+    // minor optimization
+    if (_emitterShape == HGParticleSystemEmitterShapeRect)
+    {
+        _emitterRect = CGRectMake(- _emitterShapeWidth * .5f, - _emitterShapeHeight * .5f,
+                                  _emitterShapeWidth, _emitterShapeHeight);
+    }
+    
+    if (_blendModule)
+    {
+        self.blendMode = [CCBlendMode blendModeWithOptions:@{
+                                                             CCBlendFuncSrcColor: @(_blendingSrc),
+                                                             CCBlendFuncDstColor: @(_blendingDst),
+                                                             }];
+    }
+    else
+    {
+        self.blendMode = [CCBlendMode premultipliedAlphaMode]; // default blend function
+    }
+    
+    BOOL textureModule = [[dictionary valueForKey:_HGTextureModulePropertyKey] boolValue];
+    if (textureModule)
+    {
+        _HGParticleSystemTextureMode textureMode = _HGParticleSystemTextureModeFromString([dictionary valueForKey:_HGTextureModePropertyKey]);
+        if (textureMode == _HGParticleSystemTextureModeEmbedded)
+        {
+            id texture = [dictionary valueForKey:_HGTexturePropertyKey];
+            if (texture)
+            {
+                NSString *base64String = texture[@"base64"];
+                if (base64String)
+                {
+                    NSData *data = [[NSData alloc] initWithBase64EncodedString:base64String
+                                                                       options:0];
+                    if (data)
+                    {
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+                        UIImage *image = [[UIImage alloc] initWithData:data];
+                        CGImageRef CGImage = [image CGImage];
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+                        NSImage *image = [[NSImage alloc] initWithData:data];
+                        CGImageRef CGImage = [image CGImageForProposedRect:NULL
+                                                                   context:NULL
+                                                                     hints:nil];
+#endif
+                        CCTexture *texture = [[CCTexture alloc] initWithCGImage:CGImage
+                                                                   contentScale:[[CCDirector sharedDirector] contentScaleFactor]];
+                        
+                        [self setTexture:texture];
+                    }
+                }
+            }
+        }
+        else if (textureMode == _HGParticleSystemTextureModeFile)
+        {
+            NSString *textureFile = [dictionary valueForKey:_HGTextureFilePropertyKey];
+            if (textureFile)
+            {
+#if __CC_PLATFORM_IOS
+                // should really be using only the last component
+                textureFile = textureFile.lastPathComponent;
+#endif
+                CCTexture *texture = [[CCTextureCache sharedTextureCache] addImage:textureFile];
+                
+                if (texture)
+                {
+                    [self setTexture:texture];
+                }
+            }
+        }
+        else if (textureMode == _HGParticleSystemTextureModeSpriteFrame)
+        {
+            NSString *textureSpriteFrameSource = [dictionary valueForKey:_HGTextureSpriteFrameSourcePropertyKey];
+            NSString *textureSpriteFrame = [dictionary valueForKey:_HGTextureSpriteFramePropertyKey];
+            if (textureSpriteFrameSource.length > 0 && textureSpriteFrame.length > 0)
+            {
+#if __CC_PLATFORM_IOS
+                // should really be using the last component
+                textureSpriteFrameSource = textureSpriteFrameSource.lastPathComponent;
+#endif
+                // attempt to get the texture
+                NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:textureSpriteFrameSource];
+                NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+                HGAssert(dict, @"HGParticleSystem: missing the sprite atlas %@", textureSpriteFrameSource);
+                
+                NSString *texturePath = nil;
+                NSDictionary *metadataDict = [dict objectForKey:@"metadata"];
+                if (metadataDict)
+                    // try to read  texture file name from meta data
+                    texturePath = [metadataDict objectForKey:@"textureFileName"];
+                
+                
+                if (texturePath)
+                {
+                    // build texture path relative to plist file
+                    NSString *textureBase = [textureSpriteFrameSource stringByDeletingLastPathComponent];
+                    texturePath = [textureBase stringByAppendingPathComponent:texturePath];
+                }
+                else
+                {
+                    // build texture path by replacing file extension
+                    texturePath = [textureSpriteFrameSource stringByDeletingPathExtension];
+                    texturePath = [texturePath stringByAppendingPathExtension:@"png"];
+                    
+                    NSLog(@"HGParticleSystem: Trying to use file '%@' as texture", texturePath);
+                }
+                
+                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:path textureFilename:texturePath];
+                
+                CCSpriteFrame *spriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:textureSpriteFrame];
+                if (spriteFrame)
+                {
+                    [self setSpriteFrame:spriteFrame];
+                }
+                else
+                {
+                    NSLog(@"HGParticleSystem: Missing sprite frame %@", textureSpriteFrame);
+                }
+            }
+        }
+    }
 }
 
 - (void)dealloc
