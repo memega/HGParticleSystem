@@ -173,21 +173,27 @@ static NSDictionary * _HGParticleSystemDefaultDictionary()
         defaultDictionary = @{
                               HGMaxParticlesPropertyKey: @256,
                               HGLoopingPropertyKey: @YES,
-                              HGLifetimePropertyKey: @5.0,
-                              HGStartSizePropertyKey: @16.0,
-                              HGStartSpeedPropertyKey: @50.0,
-                              HGStartRotationPropertyKey: @0.0,
-//                              HGStartColorPropertyKey: @{
-//                                      @"valueClass": @"UIColor",
-//                                      @"redComponent": @0.,
-//                                      @"greenComponent": @0.,
-//                                      @"blueComponent": @0.,
-//                                      @"alphaComponent": @1.,
-//                                      },
-                              HGStartOpacityPropertyKey: @1.0,
+                              HGLifetimePropertyKey: @{ @"option": HGPropertyValueOptionConstant, @"value": @5.0 },
+                              HGStartSizePropertyKey: @{ @"option": HGPropertyValueOptionConstant, @"value": @16.0 },
+                              HGStartSpeedPropertyKey: @{ @"option": HGPropertyValueOptionConstant, @"value": @50.0 },
+                              HGStartRotationPropertyKey:  @{ @"option": HGPropertyValueOptionConstant, @"value": @0.0 },
+                              HGStartColorPropertyKey: @{
+                                      @"option": HGPropertyValueOptionColor,
+                                      @"value": @{
+                                              @"valueClass": @"NSColor",
+                                              @"redComponent": @1.,
+                                              @"greenComponent": @1.,
+                                              @"blueComponent": @1.,
+                                              @"alphaComponent": @1.,
+                                              },
+                                      },
+                              HGStartOpacityPropertyKey:  @{ @"option": HGPropertyValueOptionConstant, @"value": @1.0 },
                               HGGravityPropertyKey: @[@0.0, @0.0],
                               HGEmissionModulePropertyKey: @YES,
-                              HGEmissionRatePropertyKey: @4.,
+                              HGEmissionRatePropertyKey: @{
+                                      @"option": HGPropertyValueOptionConstant,
+                                      @"value": @4.
+                                      }
                               };
     });
     return defaultDictionary;
@@ -596,7 +602,7 @@ typedef struct
 
 - (instancetype)init
 {
-    return [self initWithDictionary:_HGParticleSystemDefaultDictionary()];
+    return [self initWithMaxParticles:256];
 }
 
 -(instancetype) initWithFile:(NSString *)filename
@@ -608,7 +614,6 @@ typedef struct
 	
 	return [self initWithDictionary:dict];
 }
-
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -691,7 +696,7 @@ typedef struct
         }
         else
         {
-            HGMissingValue(value, propertyKey);
+//            HGMissingValue(value, propertyKey);
         }
         
         // special cases
@@ -721,7 +726,7 @@ typedef struct
             maxParticles = [value integerValue];
         }
         
-        if (!shouldSkipSetValueForKey)
+        if (!shouldSkipSetValueForKey && value)
             [self setValue:value forKey:propertyKey];
     }];
     
@@ -875,6 +880,13 @@ typedef struct
 }
 
 #pragma mark - Property setting
+
+- (void)setPropertyWithColor:(UIColor *const)color forKey:(NSString *)propertyKey
+{
+    HGPropertyRef property = HGPropertyMakeWithColor(color);
+    [self setProperty:property forKey:propertyKey];
+    HGPropertyRelease(property);
+}
 
 - (void)setPropertyWithConstant:(const CGFloat)constant forKey:(NSString *)propertyKey
 {
@@ -1530,16 +1542,12 @@ typedef struct
                 
 				if (_particleCount == 0)
                 {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidFinishNotification
+                                                                        object:self];
+                    
                     if (_autoRemoveOnFinish)
                     {
                         [self removeFromParent];
-                    }
-
-                    [[NSNotificationCenter defaultCenter] postNotificationName:HGParticleSystemDidFinishNotification
-                                                                        object:self];
-
-                    if (_autoRemoveOnFinish)
-                    {
                         return;
                     }
 				}

@@ -390,5 +390,6 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotificatio
 
 - (void)setPropertyWithConstant:(const CGFloat)constant forKey:(NSString *)propertyKey;
 - (void)setPropertyWithConstant1:(const CGFloat)constant1 constant2:(const CGFloat)constant2 forKey:(NSString *)propertyKey;
+- (void)setPropertyWithColor:(UIColor * const)color forKey:(NSString *)propertyKey;
 
 @end
