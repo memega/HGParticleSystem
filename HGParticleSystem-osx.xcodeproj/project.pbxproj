@@ -10,11 +10,11 @@
 		DE51B12919A3287A00AD0EC4 /* HGParticleSystemCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE51B12719A3287A00AD0EC4 /* HGParticleSystemCache.h */; };
 		DE51B12A19A3287A00AD0EC4 /* HGParticleSystemCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE51B12819A3287A00AD0EC4 /* HGParticleSystemCache.m */; };
 		DEFA98AD19A0A48200CF4E9C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFA98AC19A0A48200CF4E9C /* Cocoa.framework */; };
-		DEFA991A19A0A4FE00CF4E9C /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98FA19A0A4FE00CF4E9C /* HGLookupTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEFA991A19A0A4FE00CF4E9C /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98FA19A0A4FE00CF4E9C /* HGLookupTable.h */; };
 		DEFA991B19A0A4FE00CF4E9C /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA98FB19A0A4FE00CF4E9C /* HGLookupTable.m */; };
-		DEFA991F19A0A4FE00CF4E9C /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98FF19A0A4FE00CF4E9C /* HGParticleSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEFA991F19A0A4FE00CF4E9C /* HGParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98FF19A0A4FE00CF4E9C /* HGParticleSystem.h */; };
 		DEFA992019A0A4FE00CF4E9C /* HGParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA990019A0A4FE00CF4E9C /* HGParticleSystem.m */; };
-		DEFA992319A0A4FE00CF4E9C /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA990319A0A4FE00CF4E9C /* HGParticleSystemProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEFA992319A0A4FE00CF4E9C /* HGParticleSystemProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA990319A0A4FE00CF4E9C /* HGParticleSystemProperty.h */; };
 		DEFA992419A0A4FE00CF4E9C /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA990419A0A4FE00CF4E9C /* HGParticleSystemProperty.m */; };
 		DEFA993419A0B28E00CF4E9C /* HGCocos2D.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA993219A0B28E00CF4E9C /* HGCocos2D.h */; };
 		DEFA993519A0B28E00CF4E9C /* HGCocos2D.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA993319A0B28E00CF4E9C /* HGCocos2D.m */; };
@@ -286,6 +286,7 @@
 					"../Cocos2D/**",
 				);
 				PRODUCT_NAME = "HGParticleSystem-osx";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -299,6 +300,7 @@
 					"../Cocos2D/**",
 				);
 				PRODUCT_NAME = "HGParticleSystem-osx";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
