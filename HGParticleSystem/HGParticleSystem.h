@@ -13,7 +13,8 @@
     #if __has_include("cocos2d.h")
         #import "cocos2d.h"
     #else
-        #import "HGCocos2D.h"
+        #define _HGParticleSystemNoCocos
+        #error Please add a Header Search Path to cocos2d in project Build Settings.
     #endif
 #else
     #import "cocos2d.h"
