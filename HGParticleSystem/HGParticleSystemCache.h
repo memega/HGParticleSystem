@@ -16,7 +16,7 @@
 #import "cocos2d.h"
 #endif
 
-#import "HGParticleSystem.h"
+@class HGParticleSystem;
 
 /**
  *  A container that stores pre-populated HGParticleSystem instances for further reuse.

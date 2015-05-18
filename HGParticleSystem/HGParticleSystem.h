@@ -389,8 +389,29 @@ FOUNDATION_EXPORT NSString * const HGParticleSystemDidBecomeAvailableNotificatio
 
 #pragma mark - Convenience setters
 
+/**
+ *  Assigns a constant value to a dynamic property at runtime. Note that the property with specified key must accept constant values; see key descriptions for more details.
+ *
+ *  @param constant    Constant value to assign.
+ *  @param propertyKey Property key.
+ */
 - (void)setPropertyWithConstant:(const CGFloat)constant forKey:(NSString *)propertyKey;
+
+/**
+ *  Specifies that a dynamic property should have a random float value distributed evenly between two constants. Note that the property with specified key must accept random constant values; see key descriptions for more details.
+ *
+ *  @param constant1    The first constant value of the random values range.
+ *  @param constant2    The second constant value of the random values range.
+ *  @param propertyKey  Property key.
+ */
 - (void)setPropertyWithConstant1:(const CGFloat)constant1 constant2:(const CGFloat)constant2 forKey:(NSString *)propertyKey;
+
+/**
+ *  Assigns a constant color value to a dynamic property at runtime. Note that the property with specified key must accept color values; see key descriptions for more details.
+ *
+ *  @param color       UIColor or NSColor object, depending on the platform.
+ *  @param propertyKey Property key.
+ */
 - (void)setPropertyWithColor:(HGColor * const)color forKey:(NSString *)propertyKey;
 
 @end

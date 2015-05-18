@@ -184,9 +184,7 @@ static NSUInteger const HGParticleSystemCacheDefaultCapacity = 16;
     
 	if (!pool)
     {
-        NSString *fullPath = [[CCFileUtils sharedFileUtils] fullPathFromRelativePath:path];
-        
-        pool = [[_HGParticlePool alloc] initWithFile:fullPath capacity:capacity];
+        pool = [[_HGParticlePool alloc] initWithFile:path capacity:capacity];
         
         if (pool)
         {
