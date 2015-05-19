@@ -18,7 +18,7 @@
 typedef const struct _HGLookupTableRef * HGLookupTableRef;
 
 /**
- *  Creates a lookup table object for a single float value function. Provided values are expected to be a normalized representation of function over x range [0.0…1.0]. First value in the array is interpreted as f(0.0), and last value in the array is interpreted as f(1.0). Output values extracted with HGLookupTableGetCGFloatValue will be linearly interpolated into range [min…max]. An array consisting of a single value signifies a constant function y=const.
+ *  Creates a lookup table object for a single float value function f(x). Provided values are expected to be a normalized representation of function over x range [0.0…1.0], with values in range [0.0…1.0]. The first value in the array is interpreted as f(0.0), and the last value in the array is interpreted as f(1.0). Output values extracted with HGLookupTableGetCGFloatValue will be linearly interpolated into range [min…max]. An array consisting of a single value represents a constant function y=const.
  *
  *  @discussion For example, creating a HGLookupTableRef object with values {0.0, 1.0}, min 0.0 and max 1.0 would yield a simple linear function y=x.
  *
@@ -31,7 +31,7 @@ typedef const struct _HGLookupTableRef * HGLookupTableRef;
  */
 FOUNDATION_EXPORT HGLookupTableRef HGLookupTableMakeWithFloat(const GLfloat *values, const size_t size, const GLfloat min, const GLfloat max);
 /**
- *  Creates a lookup table object for a vector function. First value in the array is interpreted as f(0.0), and last value in the array is interpreted as f(1.0). An array consisting of a single value signifies a constant function y={const,const,const}.
+ *  Creates a lookup table object for a vector function. First value in the array is interpreted as f(0.0), and last value in the array is interpreted as f(1.0). An array consisting of a single value represents a constant function y={const,const,const}.
  *
  *  @param values An array of vector function values evenly distributed for x in range [0.0…1.0]. The original array is copied and can be freed. This value must not be NULL.
  *  @param size   Number of values in the array. This value must be greater than 0.

@@ -23,7 +23,7 @@
 #endif
 
 /**
- *  An opaque type that represents a dynamic property object. An HGPropertyRef object stores a value (or values in case of color properties) which vary over time for easier access.
+ *  An opaque type that represents a dynamic property object. An HGPropertyRef object stores a value which may vary over time.
  */
 typedef const struct _HGPropertyRef * HGPropertyRef;
 
@@ -74,6 +74,7 @@ FOUNDATION_EXPORT NSString * const HGPropertyValueOptionConstant;
 FOUNDATION_EXPORT NSString * const HGPropertyValueOptionCurve;
 FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomConstants;
 FOUNDATION_EXPORT NSString * const HGPropertyValueOptionRandomCurve;
+
 // set of color dynamics options
 FOUNDATION_EXPORT NSString * const HGPropertyValueOptionColor;
 FOUNDATION_EXPORT NSString * const HGPropertyValueOptionColorRandomRGB;
@@ -100,7 +101,7 @@ FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithConstant(const GLfloat constan
  */
 FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithRandomConstants(const GLfloat constant1, const GLfloat constant2);
 /**
- *  Creates a property object with values distributed along the given curve.
+ *  Creates a property object with values distributed along the given curve over time.
  *
  *  @param curveLUT The curve lookup table to store. See HGLookupTableRef for more details.
  *
@@ -142,7 +143,7 @@ FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithColorRandomRGB(const GLfloat r
  */
 FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithColorRandomHSV(const GLfloat h1, const GLfloat h2, const GLfloat s1, const GLfloat s2, const GLfloat v1, const GLfloat v2);
 /**
- *  Creates a property object with color values distributed along a color gradient.
+ *  Creates a property object with color values distributed along a color gradient over time.
  *
  *  @param gradientLUT The gradient lookup table to store. See HGLookupTableRef for more details.
  *
@@ -167,19 +168,19 @@ FOUNDATION_EXPORT HGPropertyRef HGPropertyMakeWithRandomColor(HGColor *color1, H
 FOUNDATION_EXPORT void HGPropertyRelease(HGPropertyRef property);
 
 /**
- *  Calculates a float value of an HGPropertyRef object for given t value, with t ranging from 0.0 to 1.0. Use this function in order to determine a single float value for certain moment in time.
+ *  Calculates a float value of an HGPropertyRef object for given t value, with t in range [0.0…1.0]. Use this function in order to determine a single float value for specific moment in time.
  *
  *  @param property A HGPropertyRef object. This value must not be NULL, and it must be created with one of the dynamics options available for float values: HGParticleSystemPropertyOptionConstant, HGParticleSystemPropertyOptionCurve, or HGParticleSystemPropertyOptionRandomConstants.
- *  @param t        t value, indicating property time. Must be in range from 0.0 to 1.0.
+ *  @param t        t value, indicating property time. Must be in range [0.0…1.0].
  *
  *  @return The HGPropertyRef object's float value corresponding to the given t.
  */
 FOUNDATION_EXPORT GLfloat HGPropertyGetFloatValue(HGPropertyRef property, const GLfloat t);
 /**
- *  Calculates a GLKVector3 value of an HGPropertyRef object for given t value, with t ranging from 0.0 to 1.0. Use this function in order to determine color values for certain moment in time.
+ *  Calculates a GLKVector3 value of an HGPropertyRef object for given t value, with t in range [0.0…1.0]. Use this function in order to determine color values for certain moment in time.
  *
  *  @param property A HGPropertyRef object. This value must not be NULL, and it must be created with one of the dynamics options available for color values: HGParticleSystemPropertyOptionColor, HGParticleSystemPropertyOptionColorRandomRGB, HGParticleSystemPropertyOptionColorRandomHSV, or HGParticleSystemPropertyOptionGradient.
- *  @param t        t value, indicating property time. Must be in range from 0.0 to 1.0.
+ *  @param t        t value, indicating property time. Must be in range [0.0…1.0].
  *
  *  @return The HGPropertyRef object's vector value corresponding to the given t.
  */
