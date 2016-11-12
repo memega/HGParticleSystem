@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C84111E3F47CB783653B51C74D4211C174D25FE0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C84111E3F47CB783653B51C74D4211C174D25FE0" : 0,
+    "3E466EC4ED012FDDCA218025DB10BDFB4511D9D1" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "25C773F8-8E81-4A61-AE1A-AB3F8D939F41",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C84111E3F47CB783653B51C74D4211C174D25FE0" : "HGParticleSystem\/",
+    "3E466EC4ED012FDDCA218025DB10BDFB4511D9D1" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "HGParticleSystem",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "HGParticleSystem.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/neobia.com\/srv\/git\/hungryGirls.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3E466EC4ED012FDDCA218025DB10BDFB4511D9D1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/neobia.com\/srv\/git\/HGParticleSystem.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C84111E3F47CB783653B51C74D4211C174D25FE0"
+    }
+  ]
+}

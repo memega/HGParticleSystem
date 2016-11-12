@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		DE51B12919A3287A00AD0EC4 /* HGParticleSystemCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE51B12719A3287A00AD0EC4 /* HGParticleSystemCache.h */; };
 		DE51B12A19A3287A00AD0EC4 /* HGParticleSystemCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE51B12819A3287A00AD0EC4 /* HGParticleSystemCache.m */; };
+		DEDABE111DD7D830006DE8C2 /* HGParticleSystemCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE51B12819A3287A00AD0EC4 /* HGParticleSystemCache.m */; };
+		DEDABE121DD7D830006DE8C2 /* HGParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA990019A0A4FE00CF4E9C /* HGParticleSystem.m */; };
+		DEDABE131DD7D830006DE8C2 /* HGParticleSystemProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA990419A0A4FE00CF4E9C /* HGParticleSystemProperty.m */; };
+		DEDABE141DD7D830006DE8C2 /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA98FB19A0A4FE00CF4E9C /* HGLookupTable.m */; };
+		DEDABE151DD7D830006DE8C2 /* HGCocos2D.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA993319A0B28E00CF4E9C /* HGCocos2D.m */; };
+		DEE486551DD7D8D800A06F0D /* ParticleSystem-osx.h in Headers */ = {isa = PBXBuildFile; fileRef = DEDABE171DD7D89D006DE8C2 /* ParticleSystem-osx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEFA98AD19A0A48200CF4E9C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFA98AC19A0A48200CF4E9C /* Cocoa.framework */; };
 		DEFA991A19A0A4FE00CF4E9C /* HGLookupTable.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFA98FA19A0A4FE00CF4E9C /* HGLookupTable.h */; };
 		DEFA991B19A0A4FE00CF4E9C /* HGLookupTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFA98FB19A0A4FE00CF4E9C /* HGLookupTable.m */; };
@@ -26,6 +32,9 @@
 		DEC393AC1B0241B2006FCD49 /* HGParticleSystem_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGParticleSystem_Private.h; sourceTree = "<group>"; };
 		DEC393B11B02463B006FCD49 /* HGParticleSystemProperty_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGParticleSystemProperty_Private.h; sourceTree = "<group>"; };
 		DEC393B21B0252A3006FCD49 /* HGLookupTable_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HGLookupTable_Private.h; sourceTree = "<group>"; };
+		DEDABE091DD7D80F006DE8C2 /* ParticleSystem-osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "ParticleSystem-osx.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEDABE161DD7D89D006DE8C2 /* Info-osx.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-osx.plist"; sourceTree = "<group>"; };
+		DEDABE171DD7D89D006DE8C2 /* ParticleSystem-osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParticleSystem-osx.h"; sourceTree = "<group>"; };
 		DEFA98A919A0A48200CF4E9C /* libHGParticleSystem-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libHGParticleSystem-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEFA98AC19A0A48200CF4E9C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DEFA98AF19A0A48200CF4E9C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,6 +53,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DEDABE051DD7D80F006DE8C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEFA98A619A0A48200CF4E9C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -68,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				DEFA98A919A0A48200CF4E9C /* libHGParticleSystem-osx.a */,
+				DEDABE091DD7D80F006DE8C2 /* ParticleSystem-osx.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,6 +129,8 @@
 		DEFA992E19A0AD4200CF4E9C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DEDABE161DD7D89D006DE8C2 /* Info-osx.plist */,
+				DEDABE171DD7D89D006DE8C2 /* ParticleSystem-osx.h */,
 				DEFA992D19A0AD3500CF4E9C /* HGParticleSystem-osx-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -132,6 +151,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		DEDABE061DD7D80F006DE8C2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEE486551DD7D8D800A06F0D /* ParticleSystem-osx.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEFA98A719A0A48200CF4E9C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -147,6 +174,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		DEDABE081DD7D80F006DE8C2 /* ParticleSystem-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEDABE101DD7D80F006DE8C2 /* Build configuration list for PBXNativeTarget "ParticleSystem-osx" */;
+			buildPhases = (
+				DEDABE041DD7D80F006DE8C2 /* Sources */,
+				DEDABE051DD7D80F006DE8C2 /* Frameworks */,
+				DEDABE061DD7D80F006DE8C2 /* Headers */,
+				DEDABE071DD7D80F006DE8C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ParticleSystem-osx";
+			productName = "ParticleSystem-osx";
+			productReference = DEDABE091DD7D80F006DE8C2 /* ParticleSystem-osx.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		DEFA98A819A0A48200CF4E9C /* HGParticleSystem-osx */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEFA98CD19A0A48200CF4E9C /* Build configuration list for PBXNativeTarget "HGParticleSystem-osx" */;
@@ -172,6 +217,13 @@
 			attributes = {
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Yuriy Panfyorov";
+				TargetAttributes = {
+					DEDABE081DD7D80F006DE8C2 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = WF8U6VC74R;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = DEFA98A419A0A48200CF4E9C /* Build configuration list for PBXProject "HGParticleSystem-osx" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -186,11 +238,34 @@
 			projectRoot = "";
 			targets = (
 				DEFA98A819A0A48200CF4E9C /* HGParticleSystem-osx */,
+				DEDABE081DD7D80F006DE8C2 /* ParticleSystem-osx */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		DEDABE071DD7D80F006DE8C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		DEDABE041DD7D80F006DE8C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEDABE151DD7D830006DE8C2 /* HGCocos2D.m in Sources */,
+				DEDABE111DD7D830006DE8C2 /* HGParticleSystemCache.m in Sources */,
+				DEDABE131DD7D830006DE8C2 /* HGParticleSystemProperty.m in Sources */,
+				DEDABE121DD7D830006DE8C2 /* HGParticleSystem.m in Sources */,
+				DEDABE141DD7D830006DE8C2 /* HGLookupTable.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEFA98A519A0A48200CF4E9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +281,81 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		DEDABE0E1DD7D80F006DE8C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = WF8U6VC74R;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"../Cocos2D/**",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/HGParticleSystem/Info-osx.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.neobia.ParticleSystem-osx";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DEDABE0F1DD7D80F006DE8C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = WF8U6VC74R;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"../Cocos2D/**",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/HGParticleSystem/Info-osx.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.neobia.ParticleSystem-osx";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		DEFA98CB19A0A48200CF4E9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -307,6 +457,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DEDABE101DD7D80F006DE8C2 /* Build configuration list for PBXNativeTarget "ParticleSystem-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEDABE0E1DD7D80F006DE8C2 /* Debug */,
+				DEDABE0F1DD7D80F006DE8C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DEFA98A419A0A48200CF4E9C /* Build configuration list for PBXProject "HGParticleSystem-osx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
